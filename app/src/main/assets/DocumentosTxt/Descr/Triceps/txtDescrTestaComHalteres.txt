@@ -1,0 +1,1 @@
+﻿Deitado sobre um plano horizontal, com um haltere em cada mão, braços verticais. Inspirar e flexionar os cotovelos, controlando o movimento. Retornar à posição inicial e expirar no final do esforço.

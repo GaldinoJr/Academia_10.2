@@ -1,0 +1,1 @@
+﻿Sentado no aparelho, com as pernas afastadas sobre as almofadas, aproximar as coxas e retornar a posição inicial, controlando o movimento.

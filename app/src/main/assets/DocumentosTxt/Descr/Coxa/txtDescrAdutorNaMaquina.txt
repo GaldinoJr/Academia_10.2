@@ -1,0 +1,1 @@
+﻿Em pé, apoiado sobre uma perna, com a outra sobre o apoio, mãos apoiadas sobre no suporte. Aproximar as coxas e retornar a posição inicial, controlando o movimento.
