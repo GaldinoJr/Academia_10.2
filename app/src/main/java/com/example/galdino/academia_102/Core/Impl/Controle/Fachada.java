@@ -5,13 +5,22 @@ import com.example.galdino.academia_102.Core.Aplicacao.Resultado;
 import com.example.galdino.academia_102.Core.IDAO;
 import com.example.galdino.academia_102.Core.IFachada;
 import com.example.galdino.academia_102.Core.IStrategy;
+import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQL;
+import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLConfiguracao;
+import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLMusculo;
+import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLMusculoExercicio;
+import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLTreinoExercicio;
 import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLexercicio;
-import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLgrupo;
+import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLGrupoMuscular;
 import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLtreino;
+import com.example.galdino.academia_102.Dominio.Configuracao;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Exercicio;
 import com.example.galdino.academia_102.Dominio.GrupoMuscular;
+import com.example.galdino.academia_102.Dominio.Musculo;
+import com.example.galdino.academia_102.Dominio.MusculoExercicio;
 import com.example.galdino.academia_102.Dominio.Treino;
+import com.example.galdino.academia_102.Dominio.TreinoExercicio;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,23 +65,34 @@ public class Fachada  implements IFachada {
         {
             /***************ADD AS CLASSES DAO CORRESPONDENTES AS CLASSES CONCRETAS ******/
             if(session.getNameInstanceClass() != null) {
-//                if (session.getNameInstanceClass() == Residencia.class.getName()) {
-//                    ResidenciaSqlDAO residenciaSqlDAO = new ResidenciaSqlDAO(session.getContext());
-//                    daos.put(Residencia.class.getName(), residenciaSqlDAO);
-//                }
+                if (session.getNameInstanceClass() == Configuracao.class.getName()) {
+                    SQLConfiguracao sqlConfiguracao = new SQLConfiguracao(session.getContext());
+                    daos.put(Configuracao.class.getName(), sqlConfiguracao);
+                }
                 if (session.getNameInstanceClass() == Exercicio.class.getName()) {
                     SQLexercicio sqlExercicio = new SQLexercicio(session.getContext());
                     daos.put(Exercicio.class.getName(), sqlExercicio);
                 }
                 if (session.getNameInstanceClass() == GrupoMuscular.class.getName()) {
-                    SQLgrupo sqlGrupo = new SQLgrupo(session.getContext());
+                    SQLGrupoMuscular sqlGrupo = new SQLGrupoMuscular(session.getContext());
                     daos.put(GrupoMuscular.class.getName(), sqlGrupo);
                 }
                 if (session.getNameInstanceClass() == Treino.class.getName()) {
                     SQLtreino sqlTreino = new SQLtreino(session.getContext());
                     daos.put(Treino.class.getName(), sqlTreino);
                 }
-                // ADD AS CLASSES DAO CORRESPONDENTES AS CLASSES CONCRETAS ******
+                if (session.getNameInstanceClass() == Musculo.class.getName()) {
+                    SQLMusculo sqlMusculo = new SQLMusculo(session.getContext());
+                    daos.put(Musculo.class.getName(), sqlMusculo);
+                }
+                if (session.getNameInstanceClass() == MusculoExercicio.class.getName()) {
+                    SQLMusculoExercicio sqlMusculoExercicio = new SQLMusculoExercicio(session.getContext());
+                    daos.put(MusculoExercicio.class.getName(), sqlMusculoExercicio);
+                }
+                if (session.getNameInstanceClass() == TreinoExercicio.class.getName()) {
+                    SQLTreinoExercicio sqltreinoExercicio = new SQLTreinoExercicio(session.getContext());
+                    daos.put(TreinoExercicio.class.getName(), sqltreinoExercicio);
+                }
             }
         }
 

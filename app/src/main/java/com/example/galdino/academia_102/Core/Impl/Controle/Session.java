@@ -13,7 +13,7 @@ public class Session {
     private static Session session;
     private static Context context; //Para dizer na FACHADA se á uma requisição interna ou externa
     //    private Residencia residencia;
-//    private ConfiguracaoSistema configuracaoSistema;
+//    private Configuracao configuracaoSistema;
     private Intent servico;
     private String nameInstanceClass;
 
@@ -46,7 +46,7 @@ public class Session {
 //        return residencia;
 //    }
 //
-//    public ConfiguracaoSistema getConfiguracaoSistema() {
+//    public Configuracao getConfiguracaoSistema() {
 //        return configuracaoSistema;
 //    }
 //
@@ -69,7 +69,7 @@ public class Session {
         this.context = context;
     }
 //
-//    public void setConfiguracaoSistema(ConfiguracaoSistema configuracaoSistema) {
+//    public void setConfiguracaoSistema(Configuracao configuracaoSistema) {
 //        this.configuracaoSistema = configuracaoSistema;
 //    }
 }

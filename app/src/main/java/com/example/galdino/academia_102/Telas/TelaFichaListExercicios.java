@@ -9,8 +9,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.galdino.academia_102.Controler.Controler;
+import com.example.galdino.academia_102.Dominio.EntidadeDominio;
+import com.example.galdino.academia_102.Dominio.Exercicio;
+import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
+
+import java.util.List;
 
 public class TelaFichaListExercicios extends AppCompatActivity implements View.OnClickListener {
     private Button btnAddEx;
@@ -32,7 +38,22 @@ public class TelaFichaListExercicios extends AppCompatActivity implements View.O
         nmTreino = dados.getStringExtra("nomeTreino");
         //
         lblNmTreino.setText(nmTreino);
+        // Teste Banco de daddos
+        List<EntidadeDominio> listEntDom;
+        Exercicio exercicio = new Exercicio();
+        listEntDom = exercicio.operar(this, true, Controler.DF_CONSULTAR,exercicio);
+        if(listEntDom != null) {
+            exercicio = (Exercicio) listEntDom.get(0);
 
+            GrupoMuscular grupoMuscular = new GrupoMuscular();
+            grupoMuscular.setID(String.valueOf(exercicio.getIdGrupo()));
+            listEntDom = grupoMuscular.operar(this, true, Controler.DF_CONSULTAR, grupoMuscular);
+            if(listEntDom != null) {
+                grupoMuscular = (GrupoMuscular) listEntDom.get(0);
+                Toast.makeText(this, "Exercicio: " + exercicio.getNome() + " ID: " + exercicio.getID() +
+                        " Grupo: " + grupoMuscular.getNome() + " ID: " + grupoMuscular.getID(), Toast.LENGTH_LONG);
+            }
+        }
     }
 
     @Override

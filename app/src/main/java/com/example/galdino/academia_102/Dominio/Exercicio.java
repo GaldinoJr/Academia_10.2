@@ -5,19 +5,13 @@ import com.example.galdino.academia_102.R;
 
 public class Exercicio extends EntidadeDominio {
 	private String nome;
-	private String idGrupo;
-	
-	public String getIdGrupo() {
-		return idGrupo;
-	}
-
-	public void setIdGrupo(String idGrupo) {
-		this.idGrupo = idGrupo;
-	}
-
+	private String descricao;
+	private String nomeLogico;
+	private int idGrupo;
 	private int idImage;
 	private String[] vetExercicios;
 	private Integer[] VetImgId;
+
 	private Integer[] imgIdAbdomen = {
 			R.drawable.abdominal_giro_com_pernas_elevadas,
 			R.drawable.abdominal_rotacao_de_tronco_com_barra_reta,
@@ -214,24 +208,50 @@ public class Exercicio extends EntidadeDominio {
 	private String[] vetExPanturrilha = {"Pant sentado com barra"};
 	private String[] vetExGluteo = {"Mesa flexora", "Elevacao De Quadril", "Abducao de quaril deitado", "Step up com barra",
 			"Extensao de quadril no banco com pernas esticadas", "Extensao de quadril na polia baixa"};
-	
+
+	// gets
 	public String getNome() {
 		return nome;
 	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public int getIdImage() {
 		return idImage;
 	}
+	public String getDescricao() {
+		return descricao;
+	}
+	public String getNomeLogico() {
+		return nomeLogico;
+	}
+	public Integer[] getVetId()
+	{
+		return VetImgId;
+	}
+	public String[] getVetCorrespondente()
+	{
+		return vetExercicios;
+	}
+	public int getIdGrupo() {
+		return idGrupo;
+	}
 
+	// sets
 	public void setIdImage(int idImage) {
 		this.idImage = idImage;
 	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	public void setNomeLogico(String nomeLogico) {
+		this.nomeLogico = nomeLogico;
+	}
+	public void setIdGrupo(int idGrupo) {
+		this.idGrupo = idGrupo;
+	}
 
-	
+
 	private  String[] orderAlfabeticamenteVetor(String[] vetor)
 	{
 		int nTamanho,
@@ -245,13 +265,13 @@ public class Exercicio extends EntidadeDominio {
 			flgHouveTroca = false;
 			for(i = 0; i < nTamanho; i++)
 			{
-				comp = vetor[i].compareTo(vetor[i+1]); // compara o indice atual com o pr�ximo indice
-				if(comp > 0) // Indice atual � maior que o pr�ximo indice?
-				{ // Sim, ent�o troca
+				comp = vetor[i].compareTo(vetor[i+1]); // compara o indice atual com o próximo indice
+				if(comp > 0) // Indice atual é maior que o próximo indice?
+				{ // Sim, então troca
 					sAux = vetor[i];
 					vetor[i] = vetor[i+1];
 					vetor[i+1] = sAux;
-					i = -1; // recom�a do zero
+					i = -1; // recomeça do zero
 					flgHouveTroca = true; // indica que houve troca
 				}
 			}
@@ -270,28 +290,19 @@ public class Exercicio extends EntidadeDominio {
 		
 		for(i = 0; i < nQtdeRegistros; i++) // Passa por todos os registros do vetor
 		{
-			comp = vetor[i].compareTo(vetor[i+1]); // compara o indice atual com o pr�ximo indice
-			if(comp > 0) // Indice atual � maior que o pr�ximo indice?
-			{ // Sim, ent�o troca
+			comp = vetor[i].compareTo(vetor[i+1]); // compara o indice atual com o próximo indice
+			if(comp > 0) // Indice atual é maior que o próximo indice?
+			{ // Sim, então troca
 				sAux = vetor[i];
 				vetor[i] = vetor[i+1];
 				vetor[i+1] = sAux;
-				i = -1; // recom�a do zero
+				i = -1; // recomça do zero
 			}
 		}
 		return vetor;
 	}
 	*/
 
-	public Integer[] getVetId()
-	{
-		return VetImgId;
-	}
-	public String[] getVetCorrespondente()
-	{
-		return vetExercicios;
-	}
-	
 	public void ordenarVetores(String grupo)
 	{
 		if(grupo.equals("Peito"))  // Peito?

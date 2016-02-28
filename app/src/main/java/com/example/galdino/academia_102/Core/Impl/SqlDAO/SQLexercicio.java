@@ -16,10 +16,12 @@ import java.util.Map;
 public class SQLexercicio extends AbsSQL{
 	
 	private static final String Col_cd_exercicio = "cd_exercicio";
+	private static final String Col_ds_nome_exercicio = "ds_nome_exercicio";
+	private static final String Col_ds_nome_logico_exercicio = "ds_nome_logico_exercicio";
 	private static final String Col_ds_exercicio = "ds_exercicio";
-	private static final String Col_cd_grupo = "cd_grupo";
-	private static final String[] colunas = {Col_ds_exercicio,Col_cd_grupo};
-	private static final String[] colunasBusca = {Col_cd_exercicio,Col_ds_exercicio,Col_cd_grupo};
+	private static final String Col_cd_grupo = "f_cd_grupo";
+	private static final String[] colunas = {Col_ds_nome_exercicio, Col_ds_nome_logico_exercicio, Col_ds_exercicio,Col_cd_grupo};
+	private static final String[] colunasBusca = {Col_cd_exercicio, Col_ds_nome_exercicio, Col_ds_nome_logico_exercicio, Col_ds_exercicio,Col_cd_grupo};
 	private SQL db;
 	
 	private Map<String, String> mapExercicio;
@@ -31,6 +33,8 @@ public class SQLexercicio extends AbsSQL{
 		nomeTabela	 = "tb_exercicio";
 		sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela + " ( " +
 				Col_cd_exercicio + " INTEGER PRIMARY KEY, " +
+				Col_ds_nome_exercicio + " TEXT, "+
+				Col_ds_nome_logico_exercicio + " TEXT, "+
 				Col_ds_exercicio + " TEXT, "+
 				Col_cd_grupo + " INTEGER FOREIGN KEY )";
 	}
@@ -66,7 +70,9 @@ public class SQLexercicio extends AbsSQL{
 			exercicio =  (Exercicio)entidade;
 			mapSql = new HashMap<String, String>();
 
-			mapSql.put(Col_ds_exercicio, String.valueOf(exercicio.getNome()));
+			mapSql.put(Col_ds_nome_exercicio, exercicio.getNome());
+			mapSql.put(Col_ds_nome_logico_exercicio, exercicio.getNomeLogico());
+			mapSql.put(Col_ds_exercicio, exercicio.getDescricao());
 			mapSql.put(Col_cd_grupo, String.valueOf(exercicio.getIdGrupo()));
 			db.addRegistro(mapSql);
 			//db.close();
@@ -100,7 +106,7 @@ public class SQLexercicio extends AbsSQL{
 			}
 			query += " FROM " + nomeTabela + " WHERE 1 = 1";
 			if (!TextUtils.isEmpty(exercicio.getID()))
-				query += " AND " + Col_cd_exercicio + "= '" + exercicio.getID() + "'";
+				query += " AND " + Col_cd_exercicio + " = '" + exercicio.getID() + "'";
 
 			listSql = new ArrayList<EntidadeDominio>();
 
@@ -111,9 +117,12 @@ public class SQLexercicio extends AbsSQL{
 			{
 				Exercicio e = new Exercicio();
 				// ******************* TEM QUE SER A MESMA SEQUENCIA DA LISTA(colunasBusca)***********************
+				//{Col_cd_exercicio, Col_ds_nome_exercicio, Col_ds_nome_logico_exercicio, Col_ds_exercicio,Col_cd_grupo};
 				e.setID(listMapSql.get(i).get(colunasBusca[0]));
 				e.setNome(listMapSql.get(i).get(colunasBusca[1]));
-				e.setIdGrupo(listMapSql.get(i).get(colunasBusca[2]));
+				e.setNomeLogico(listMapSql.get(i).get(colunasBusca[2]));
+				e.setDescricao(listMapSql.get(i).get(colunasBusca[3]));
+				e.setIdGrupo(Integer.parseInt(listMapSql.get(i).get(colunasBusca[4])));
 
 				listSql.add(e);
 			}

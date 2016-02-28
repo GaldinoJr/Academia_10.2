@@ -7,13 +7,21 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.galdino.academia_102.Controler.Controler;
+import com.example.galdino.academia_102.Dominio.Configuracao;
+import com.example.galdino.academia_102.Dominio.EntidadeDominio;
+import com.example.galdino.academia_102.Dominio.InicarBancoExercicios;
+import com.example.galdino.academia_102.Dominio.IniciarBancoExercicios2;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
+
+import java.util.List;
 
 public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnTelaExe,
             btnTelaFicha;
+    private List<EntidadeDominio> listEntDom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +32,23 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
         //
         btnTelaExe.setOnClickListener(this);
         btnTelaFicha.setOnClickListener(this);
+        // Verifica se é a primeira execução do App no celular e cria o Banco de exercícios
+        Configuracao configuracao = new Configuracao();
+
+        listEntDom = configuracao.operar(this, true, Controler.DF_CONSULTAR, configuracao);
+        if(listEntDom != null) {
+            configuracao = (Configuracao) listEntDom.get(0);
+            if(configuracao.getFgBancoCriado() != 1)
+            {
+                IniciarBancoExercicios2 inicarBancoExercicios = new IniciarBancoExercicios2();
+                inicarBancoExercicios.criar(this);
+            }
+        }
+        else
+        {
+            IniciarBancoExercicios2 inicarBancoExercicios = new IniciarBancoExercicios2();
+            inicarBancoExercicios.criar(this);
+        }
     }
 
   //  @Override

@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.galdino.academia_102.Controler.Controler;
+import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
@@ -35,7 +36,7 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal_ficha);
         //
-
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED); // Para não iniciar o teclado quando abrir a tela
         //
         btnAddTreino = (Button)findViewById(id.btnAddTreino);
         txtNomeTreino = (EditText)findViewById(id.txtNomeTreino);
@@ -82,24 +83,24 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
 		trein = dbTreino.pesquisarTreino(1);
 		Toast.makeText(TelaPrincipalFicha.this, trein.getID() + ", " + trein.getNome(), Toast.LENGTH_SHORT).show();
 		*/
-        //dbTreino = new SQLtreino(this);
-//		List<Treino> lTreino = new LinkedList<Treino>();
-//		lTreino = dbTreino.pesquisarTodosTreinos();
-
+        List<EntidadeDominio> listEntDom;
         treino = new Treino();
-        List<Treino> lTreino = new LinkedList<Treino>();
-        lTreino = treino.converteEntidadeEmClasse(treino.operar(this,true, Controler.DF_CONSULTAR,treino), Treino.class);
+        //List<Treino> lTreino = new LinkedList<Treino>();
+        //lTreino = treino.converteEntidadeEmClasse(treino.operar(this,true, Controler.DF_CONSULTAR,treino), Treino.class);
+        listEntDom = treino.operar(this,true, Controler.DF_CONSULTAR,treino);
 
-        //lTreino = (Treino)treino.operar(this,true, Controler.DF_CONSULTAR);
-        if(lTreino == null)
+//        if(lTreino == null)
+//            return;
+        if(listEntDom == null)
             return;
-        else
-        if(lTreino.isEmpty())
+        else if(listEntDom.isEmpty())
             return;
-        String[] vetSTreino = new String[lTreino.size()];
-        for(i = 0; i< lTreino.size();i++)
-            vetSTreino[i] = lTreino.get(i).getNome();
-
+        String[] vetSTreino = new String[listEntDom.size()];
+        for(i = 0; i< listEntDom.size();i++) {
+            Treino t = new Treino();
+            t = (Treino)listEntDom.get(i);
+            vetSTreino[i] = t.getNome();
+        }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, vetSTreino);
 
