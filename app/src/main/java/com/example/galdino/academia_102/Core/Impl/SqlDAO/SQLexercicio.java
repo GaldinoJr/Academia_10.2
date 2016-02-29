@@ -36,7 +36,7 @@ public class SQLexercicio extends AbsSQL{
 				Col_ds_nome_exercicio + " TEXT, "+
 				Col_ds_nome_logico_exercicio + " TEXT, "+
 				Col_ds_exercicio + " TEXT, "+
-				Col_cd_grupo + " INTEGER FOREIGN KEY )";
+				Col_cd_grupo + " INTEGER )";// com FOREIGN KEY não funciona
 	}
 
 	public SQLexercicio(Context context){
@@ -74,7 +74,7 @@ public class SQLexercicio extends AbsSQL{
 			mapSql.put(Col_ds_nome_logico_exercicio, exercicio.getNomeLogico());
 			mapSql.put(Col_ds_exercicio, exercicio.getDescricao());
 			mapSql.put(Col_cd_grupo, String.valueOf(exercicio.getIdGrupo()));
-			db.addRegistro(mapSql);
+ 			db.addRegistro(mapSql);
 			//db.close();
 		}
 		catch(Exception e)

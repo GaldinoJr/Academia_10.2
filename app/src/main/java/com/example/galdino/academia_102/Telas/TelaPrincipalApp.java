@@ -10,7 +10,6 @@ import android.widget.Button;
 import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Dominio.Configuracao;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
-import com.example.galdino.academia_102.Dominio.InicarBancoExercicios;
 import com.example.galdino.academia_102.Dominio.IniciarBancoExercicios2;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;

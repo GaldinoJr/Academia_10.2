@@ -51,7 +51,7 @@ public class TelaFichaListExercicios extends AppCompatActivity implements View.O
             if(listEntDom != null) {
                 grupoMuscular = (GrupoMuscular) listEntDom.get(0);
                 Toast.makeText(this, "Exercicio: " + exercicio.getNome() + " ID: " + exercicio.getID() +
-                        " Grupo: " + grupoMuscular.getNome() + " ID: " + grupoMuscular.getID(), Toast.LENGTH_LONG);
+                        " Grupo: " + grupoMuscular.getNome() + " ID: " + grupoMuscular.getID(), Toast.LENGTH_LONG).show();
             }
         }
     }
