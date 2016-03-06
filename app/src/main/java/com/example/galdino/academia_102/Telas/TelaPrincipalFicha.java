@@ -13,12 +13,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.galdino.academia_102.BaseAdapter.ExercicioBaseAdapter;
+import com.example.galdino.academia_102.BaseAdapter.ListaTreinosBaseAdapter;
 import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
+import com.example.galdino.academia_102.Dominio.Exercicio;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -74,39 +78,56 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
         return true;
     }
 
-
-    private void atualizarListTreinos()
+    private List<EntidadeDominio> carregarTreinos()
     {
-		/*
-		Treino trein = new Treino();
-		dbTreino = new SQLtreino(this);
-		trein = dbTreino.pesquisarTreino(1);
-		Toast.makeText(TelaPrincipalFicha.this, trein.getID() + ", " + trein.getNome(), Toast.LENGTH_SHORT).show();
-		*/
         List<EntidadeDominio> listEntDom;
         treino = new Treino();
         //List<Treino> lTreino = new LinkedList<Treino>();
         //lTreino = treino.converteEntidadeEmClasse(treino.operar(this,true, Controler.DF_CONSULTAR,treino), Treino.class);
+        //if(lTreino == null)
+        //return;
         listEntDom = treino.operar(this,true, Controler.DF_CONSULTAR,treino);
-
-//        if(lTreino == null)
-//            return;
         if(listEntDom == null)
-            return;
+            return null;
         else if(listEntDom.isEmpty())
+            return null;
+        else
+            return listEntDom;
+    }
+    private void atualizarListTreinos()
+    {
+        List<EntidadeDominio> listEntDom = carregarTreinos();
+        ArrayList<Treino> results = new ArrayList<Treino>();
+        if(listEntDom == null)
             return;
         String[] vetSTreino = new String[listEntDom.size()];
         for(i = 0; i< listEntDom.size();i++) {
             Treino t = new Treino();
             t = (Treino)listEntDom.get(i);
             vetSTreino[i] = t.getNome();
+            results.add(t);
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, vetSTreino);
 
         listTreinos.setAdapter(adapter);
-
+        final ListView lvTreinos = (ListView)findViewById(id.listTreinos);
+        ArrayList<Treino> image_details2 = results;
+        lvTreinos.setAdapter(new ListaTreinosBaseAdapter(this, image_details2));
     }
+//    public ArrayList<Treino> GetSearchResults()
+//    {
+//        ArrayList<Treino> results = new ArrayList<Treino>();
+//        List<EntidadeDominio> listEntDom = carregarTreinos();
+//        if(listEntDom == null)
+//            return null;
+//        for(i = 0; i< listEntDom.size();i++) {
+//            Treino t = new Treino();
+//            t = (Treino)listEntDom.get(i);
+//            results.add(t);
+//        }
+//        return results;
+//    }
     @Override
     public void onClick(View view) {
         if(view == btnAddTreino)
