@@ -10,20 +10,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.galdino.academia_102.BaseAdapter.ExercicioBaseAdapter;
 import com.example.galdino.academia_102.BaseAdapter.ListaTreinosBaseAdapter;
 import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
-import com.example.galdino.academia_102.Dominio.Exercicio;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClickListener {
@@ -32,9 +30,11 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
     private Button btnAddTreino;
     private EditText txtNomeTreino;
     private ListView listTreinos;
+    private List<EntidadeDominio> listEntDomTreinos;
     //
     //private SQLtreino dbTreino;
     private Treino treino;
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +53,7 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
         listTreinos.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id)
+            public void onItemClick(AdapterView<?> a, View v, final int position, long id)
             {
                 String nome;
                 Object o = listTreinos.getItemAtPosition(position);
@@ -94,16 +94,18 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
         else
             return listEntDom;
     }
+
     private void atualizarListTreinos()
     {
         List<EntidadeDominio> listEntDom = carregarTreinos();
+        listEntDomTreinos = listEntDom;
         ArrayList<Treino> results = new ArrayList<Treino>();
+
         if(listEntDom == null)
             return;
         String[] vetSTreino = new String[listEntDom.size()];
         for(i = 0; i< listEntDom.size();i++) {
-            Treino t = new Treino();
-            t = (Treino)listEntDom.get(i);
+            Treino t = (Treino)listEntDom.get(i);
             vetSTreino[i] = t.getNome();
             results.add(t);
         }
@@ -113,21 +115,8 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
         listTreinos.setAdapter(adapter);
         final ListView lvTreinos = (ListView)findViewById(id.listTreinos);
         ArrayList<Treino> image_details2 = results;
-        lvTreinos.setAdapter(new ListaTreinosBaseAdapter(this, image_details2));
+        lvTreinos.setAdapter(new ListaTreinosBaseAdapter(this, image_details2,listEntDom));
     }
-//    public ArrayList<Treino> GetSearchResults()
-//    {
-//        ArrayList<Treino> results = new ArrayList<Treino>();
-//        List<EntidadeDominio> listEntDom = carregarTreinos();
-//        if(listEntDom == null)
-//            return null;
-//        for(i = 0; i< listEntDom.size();i++) {
-//            Treino t = new Treino();
-//            t = (Treino)listEntDom.get(i);
-//            results.add(t);
-//        }
-//        return results;
-//    }
     @Override
     public void onClick(View view) {
         if(view == btnAddTreino)
@@ -158,5 +147,18 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
         finish();
 
     }
+    public void BtnExclui(View v)
+    {
+        int linha = (Integer) v.getTag(); // linha clicada da list(foi setado no ListaTreinosbaseAdapter - > holder.itemImage.setTag(position);
+        excluirTreino(linha);
+        atualizarListTreinos();
 
+    }
+    public void excluirTreino(int linha)
+    {
+        if(listEntDomTreinos != null) {
+            Treino treino = (Treino) listEntDomTreinos.get(linha);
+            treino.operar(this,true, Controler.DF_EXCLUIR,treino);
+        }
+    }
 }

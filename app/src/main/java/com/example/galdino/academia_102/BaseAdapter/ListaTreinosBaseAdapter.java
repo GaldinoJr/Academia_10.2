@@ -8,10 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.galdino.academia_102.Controler.Controler;
+import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Galdino on 05/03/2016.
@@ -19,21 +22,19 @@ import java.util.ArrayList;
 public class ListaTreinosBaseAdapter extends BaseAdapter {
     private static ArrayList<Treino> ALlistaTreino;
     private LayoutInflater l_Inflater;
-
+    private List<EntidadeDominio> listEntDomTreinos;
     // Da pra ordenar os ids, pelos ids
     //private Integer[] imgId;
     private Integer imgId;
-
-
+    private Context context;
     // Construtor 1
-    public ListaTreinosBaseAdapter(Context context, ArrayList<Treino> results)
+    public ListaTreinosBaseAdapter(Context context, ArrayList<Treino> results, List<EntidadeDominio> listEntDomTreinos)
     {
-        Treino treino = new Treino();
-        //ex.ordenarVetores(grupo);
-        //imgId = orderAlfabeticamenteIdImagem(ex.getVetId());
         imgId = R.drawable.ic_close_black_24dp;
         ALlistaTreino = results;
         l_Inflater = LayoutInflater.from(context);
+        this.listEntDomTreinos = listEntDomTreinos;
+        this.context = context;
     }
     // Construtor 2
     public ListaTreinosBaseAdapter()
@@ -69,6 +70,7 @@ public class ListaTreinosBaseAdapter extends BaseAdapter {
     // Vai converter um view para aparecer dentro de outro
     public View getView(int position, View convertView, ViewGroup parent)
     {
+        final int linha = position;
         ViewHolder holder;
         if(convertView == null) // A lista ainda não foi criada
         {
@@ -88,6 +90,7 @@ public class ListaTreinosBaseAdapter extends BaseAdapter {
         holder.txt_itemName.setText(ALlistaTreino.get(position).getNome());
       //  holder.itemImage.setImageResource(imgId[ALlistaTreino.get(position).getIdImage() - 1]);
         holder.itemImage.setImageResource(imgId);
+        holder.itemImage.setTag(position);
         return convertView;
     }
 }

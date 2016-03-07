@@ -103,7 +103,10 @@ public class SQLtreino extends AbsSQL{
 
 	@Override
 	public void excluir(EntidadeDominio entidade) {
-
+		treino = (Treino)entidade;
+		if(!TextUtils.isEmpty(treino.getID())) {
+			db.deletarRegistro(treino.getID(),Col_cd_treino);
+		}
 	}
 
 	@Override
@@ -117,9 +120,7 @@ public class SQLtreino extends AbsSQL{
 			{
 				query += ", " + colunasBusca[i];
 			}
-			query += " FROM " + nomeTabela + " WHERE 1 = 1";
-			if (!TextUtils.isEmpty(treino.getID()))
-				query += " AND " + Col_cd_treino + "= '" + treino.getID() + "'";
+			query += " FROM " + nomeTabela + montarClausulaWhere(treino);
 
 			listSql = new ArrayList<EntidadeDominio>();
 
@@ -143,5 +144,12 @@ public class SQLtreino extends AbsSQL{
 		catch(Exception e){ e.printStackTrace(); }
 
 		return null;
+	}
+	private String montarClausulaWhere(Treino t)
+	{
+		String clausula = " WHERE 1 = 1";
+		if (!TextUtils.isEmpty(t.getID()))
+			clausula += " AND " + Col_cd_treino + "= '" + t.getID() + "'";
+		return clausula;
 	}
 }
