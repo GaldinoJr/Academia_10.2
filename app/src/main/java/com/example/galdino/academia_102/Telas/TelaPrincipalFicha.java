@@ -55,14 +55,14 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
             @Override
             public void onItemClick(AdapterView<?> a, View v, final int position, long id)
             {
-                String nome;
+                //String nome;
                 Object o = listTreinos.getItemAtPosition(position);
-                nome = o.toString();
+               // nome = o.toString();
                 //Toast.makeText(TelaPrincipalFicha.this, "nome: " + nome, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
                 intent.setClass(TelaPrincipalFicha.this, TelaFichaListExercicios.class);
-                intent.putExtra("nomeTreino", nome);
+                intent.putExtra("nomeTreino", retornarNomeTreino(position));
                 startActivity(intent); // chama a próxima tela
                 finish();
 
@@ -100,20 +100,20 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
         List<EntidadeDominio> listEntDom = carregarTreinos();
         listEntDomTreinos = listEntDom;
         ArrayList<Treino> results = new ArrayList<Treino>();
+        ListView lvTreinos = (ListView)findViewById(id.listTreinos);
 
-        if(listEntDom == null)
+        if(listEntDom == null) {
+            lvTreinos.setAdapter(null);
             return;
+        }
         String[] vetSTreino = new String[listEntDom.size()];
         for(i = 0; i< listEntDom.size();i++) {
             Treino t = (Treino)listEntDom.get(i);
             vetSTreino[i] = t.getNome();
             results.add(t);
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, vetSTreino);
-
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, vetSTreino);
         listTreinos.setAdapter(adapter);
-        final ListView lvTreinos = (ListView)findViewById(id.listTreinos);
         ArrayList<Treino> image_details2 = results;
         lvTreinos.setAdapter(new ListaTreinosBaseAdapter(this, image_details2,listEntDom));
     }
@@ -160,5 +160,13 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
             Treino treino = (Treino) listEntDomTreinos.get(linha);
             treino.operar(this,true, Controler.DF_EXCLUIR,treino);
         }
+    }
+    public String retornarNomeTreino(int linha)
+    {
+        if(listEntDomTreinos != null) {
+            Treino treino = (Treino) listEntDomTreinos.get(linha);
+            return treino.getNome();
+        }
+        return "Sem informação";
     }
 }
