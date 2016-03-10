@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#696969"
+    android:background="@color/corListaPretoClaro"
     tools:context=".TelaListaExercicios" >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignBottom="@+id/Divisor1"
-        android:background="#363636"
+        android:background="@color/corActionBarPretoEscuro"
         >
 
         <ImageView
@@ -20,7 +20,7 @@
             android:layout_alignParentLeft="true"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
-            android:background="#363636"
+            android:background="@color/corActionBarPretoEscuro"
             android:id="@+id/imgPrincipal"
             android:src="@drawable/icone_triceps"
             />
@@ -42,7 +42,7 @@
         android:layout_width="fill_parent"
         android:layout_height="2dip"
         android:layout_marginTop="55dp"
-        android:background="#696969" />
+        android:background="@color/corDetalhesAmarelos" />
 
     <ListView
         android:id="@+id/lvExercicios"

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#4F4F4F"
+    android:background="@color/corActionBarPretoEscuro"
     tools:context=".TelaFichaListExercicios" >
 
     <TextView
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:text="@string/nmTreino"
         android:layout_alignParentTop="true"
-        android:textColor="#FFFAFA"/>
+        android:textColor="@color/corTextoBranco"/>
 
     <View
         android:id="@+id/Divisor1"
@@ -24,7 +24,7 @@
         android:layout_height="2dip"
         android:layout_below="@+id/lblNmTreino"
         android:layout_marginTop="10dp"
-        android:background="#EEEE00" />
+        android:background="@color/corDetalhesAmarelos" />
 
 
 

@@ -12,9 +12,9 @@
 
 
     </android.support.design.widget.AppBarLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
         >
         <include layout="@layout/content_tela_ficha_list_exercicios" />
     </LinearLayout>
@@ -26,8 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:tint="#000000"
-        android:backgroundTint="#EEEE00"
+        android:tint="@color/corActionBarPretoEscuro"
+        android:backgroundTint="@color/corDetalhesAmarelos"
         app:borderWidth="0dp"
         app:elevation="6dp"
         app:fabSize="normal"
