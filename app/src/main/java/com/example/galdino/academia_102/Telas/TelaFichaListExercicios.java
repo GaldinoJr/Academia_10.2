@@ -2,6 +2,7 @@ package com.example.galdino.academia_102.Telas;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
@@ -18,20 +19,26 @@ import com.example.galdino.academia_102.R.id;
 
 import java.util.List;
 
-public class TelaFichaListExercicios extends AppCompatActivity implements View.OnClickListener {
-    private Button btnAddEx;
+public class TelaFichaListExercicios extends AppCompatActivity {
+    private FloatingActionButton fBtnAddEx;
     private String nmTreino;
     private TextView lblNmTreino;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_ficha_list_exercicios);
+        // FLOAT BUTTON
+        fBtnAddEx = (FloatingActionButton) findViewById(R.id.fBtnAddExercicio
+        );
+        fBtnAddEx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(TelaFichaListExercicios.this, "clicou", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         // associa os objetos da tela
-        btnAddEx = (Button)findViewById(id.btnAddExercicio);
         lblNmTreino = (TextView)findViewById(id.lblNmTreino);
-        // dizer que os botões podem ser clicados
-        btnAddEx.setOnClickListener(this);
-        //
         // cria a intenção que vai receber os dados da tela 1
         Intent dados = getIntent();
         // Recebe os dados da tela anterior
@@ -63,14 +70,6 @@ public class TelaFichaListExercicios extends AppCompatActivity implements View.O
         return true;
     }
 
-    @Override
-    public void onClick(View view) {
-        if(view == btnAddEx)
-        {
-            Toast.makeText(TelaFichaListExercicios.this, "clicou", Toast.LENGTH_SHORT).show();
-        }
-
-    }
     public void onBackPressed() // voltar?
     {
 
