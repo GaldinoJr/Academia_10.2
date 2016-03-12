@@ -26,6 +26,10 @@
         android:layout_marginTop="10dp"
         android:background="@color/corDetalhesAmarelos" />
 
-
-
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvTreinoExercicio"
+        android:layout_below="@+id/Divisor1"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

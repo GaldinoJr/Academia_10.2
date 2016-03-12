@@ -2,24 +2,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/corActionBarPretoEscuro"
  >
 
     <ImageView
         android:id="@+id/imgExercicioo"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        
+        android:src="@drawable/abdominal_com_giro"
+        android:layout_centerVertical="true"
      />
 
     <TextView
         android:id="@+id/txtNomeExercicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imgExercicioo"
-        android:layout_marginBottom="30dp"
+        android:layout_alignTop="@+id/imgExercicioo"
         android:layout_toRightOf="@+id/imgExercicioo"
-        android:layout_marginLeft="5dp"
-        android:text="@string/nada" 
-        android:textSize="@dimen/tamanho20"/>
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:text="Levantamento terra com aa halter"
+        android:textSize="18dp"
+        android:textColor="@color/corTextoBranco"
+        />
 
+    <TextView
+        android:id="@+id/txtSerie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgExercicioo"
+        android:layout_toRightOf="@+id/imgExercicioo"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="5dp"
+        android:text="Séries 3 Reps 10 - 8 - 6"
+        android:textSize="18dp"
+        android:textColor="@color/corTextoBranco"
+        android:visibility="invisible"
+        />
 </RelativeLayout>
