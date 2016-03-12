@@ -62,7 +62,8 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
                 Intent intent = new Intent();
                 // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
                 intent.setClass(TelaPrincipalFicha.this, TelaFichaListExercicios.class);
-                intent.putExtra("nomeTreino", retornarNomeTreino(position));
+                intent.putExtra("idTreino", retornarInfoTreino(position,0));
+                intent.putExtra("nomeTreino", retornarInfoTreino(position, 1));
                 startActivity(intent); // chama a próxima tela
                 finish();
 
@@ -161,11 +162,14 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
             treino.operar(this,true, Controler.DF_EXCLUIR,treino);
         }
     }
-    public String retornarNomeTreino(int linha)
+    public String retornarInfoTreino(int linha, int coluna)
     {
         if(listEntDomTreinos != null) {
             Treino treino = (Treino) listEntDomTreinos.get(linha);
-            return treino.getNome();
+            if(coluna == 0)
+                return treino.getID();
+            else if(coluna == 1)
+                return treino.getNome();
         }
         return "Sem informação";
     }

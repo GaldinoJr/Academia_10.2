@@ -3,7 +3,6 @@ package com.example.galdino.academia_102.Telas;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
@@ -62,7 +61,7 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
         if(view == btnTelaExe)
         { // chama a tela principal de exercicios
             Intent intent = new Intent();
-            intent.setClass(TelaPrincipalApp.this, TelaPrincipal.class);
+            intent.setClass(TelaPrincipalApp.this, TelaPrincipalExercicio.class);
             startActivity(intent); // chama a próxima tela
             finish(); // Encerra a tela atual
         }

@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Telas.TelaPrincipal"
+            android:name=".Telas.TelaPrincipalExercicio"
             android:label="@string/title_activity_tela_principal"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>

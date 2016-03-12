@@ -131,7 +131,7 @@ public class TelaListaExercicios extends AppCompatActivity {
         Intent intent;
         intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaListaExercicios.this, TelaPrincipal.class);
+        intent.setClass(TelaListaExercicios.this, TelaPrincipalExercicio.class);
         startActivity(intent); // chama a próxima tela
         finish();
 

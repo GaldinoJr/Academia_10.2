@@ -21,7 +21,8 @@ import java.util.List;
 
 public class TelaFichaListExercicios extends AppCompatActivity {
     private FloatingActionButton fBtnAddEx;
-    private String nmTreino;
+    private String nmTreino,
+                   idTreino;
     private TextView lblNmTreino;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,14 @@ public class TelaFichaListExercicios extends AppCompatActivity {
         fBtnAddEx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(TelaFichaListExercicios.this, "clicou", Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(TelaFichaListExercicios.this, "clicou", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setClass(TelaFichaListExercicios.this, TelaPrincipalExercicio.class);
+                intent.putExtra("idTreino", idTreino);
+                intent.putExtra("nmTreino", nmTreino);
+                intent.putExtra("nmTelaCorrespondente",TelaFichaListExercicios.class.toString());
+                startActivity(intent); // chama a próxima tela
+                finish();
             }
         });
         // associa os objetos da tela
@@ -43,6 +50,7 @@ public class TelaFichaListExercicios extends AppCompatActivity {
         Intent dados = getIntent();
         // Recebe os dados da tela anterior
         nmTreino = dados.getStringExtra("nomeTreino");
+        idTreino = dados.getStringExtra("idTreino");
         //
         lblNmTreino.setText(nmTreino);
         // Teste Banco de daddos

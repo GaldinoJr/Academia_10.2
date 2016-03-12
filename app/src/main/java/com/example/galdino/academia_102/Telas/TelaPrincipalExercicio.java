@@ -3,10 +3,7 @@ package com.example.galdino.academia_102.Telas;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -23,7 +20,7 @@ import com.example.galdino.academia_102.R;
 
 import java.util.ArrayList;
 
-public class TelaPrincipal extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener {
+public class TelaPrincipalExercicio extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener {
     //private String grupo;
     private ImageView imgIconeAbdomen,
             imgIconeBiceps,
@@ -43,7 +40,10 @@ public class TelaPrincipal extends AppCompatActivity implements View.OnTouchList
     private ImageView iVprincipal;
     private static final int LIMITE_MINIMO = 50;
     private static final int TOLERANCIA = 0;
-    private String grupo;
+    private String grupo,
+                   telaAnterior,
+                   nmTreino,
+                   idTreino;
     float Y1, Y2;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -86,42 +86,17 @@ public class TelaPrincipal extends AppCompatActivity implements View.OnTouchList
         imgIconePanturrilha.setImageDrawable(ra.RoundImageGrupo("Panturrilha",this));
         imgIconePeito.setImageDrawable(ra.RoundImageGrupo("Peito",this));
         imgIconeTriceps.setImageDrawable(ra.RoundImageGrupo("Triceps",this));
-//		Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.icone_abdomen);
-//		RoundImage roundedImage  = new RoundImage(bm);
-//		imgIconeAbdomen.setImageDrawable(roundedImage);
 
-        //
         iVprincipal = (ImageView)findViewById(R.id.image);
         if (iVprincipal != null) {
             iVprincipal.setOnTouchListener (this);
         }
         //
+        Intent dados = getIntent();
+        telaAnterior = dados.getStringExtra("nmTelaCorrespondente");
+        idTreino = dados.getStringExtra("idTreino");
+        nmTreino = dados.getStringExtra("nmTreino");
 
-        //final ListView lv1 = (ListView) findViewById(R.id.list);
-
-        //lv1.setAdapter(new GrupoMuscularBaseAdapter(this, image_details));
-
-        //lv1.setOnItemClickListener(new OnItemClickListener()
-//		{
-//			@Override
-//			public void onItemClick(AdapterView<?> a, View v, int position, long id)
-//			{
-        //		Object o = lv1.getItemAtPosition(position);
-//
-//				GrupoMuscular obj_itemDetails = (GrupoMuscular)o;
-//				grupo = obj_itemDetails.getNome();
-//				Exercicio exercicio = new Exercicio();
-//				exercicio.ordenarVetores(grupo);
-//				vetor = exercicio.getVetCorrespondente();
-//				if(vetor == null)
-//				{
-//					Toast.makeText(TelaPrincipal.this, "Não à exercicios para este grupo", Toast.LENGTH_SHORT);
-//					 Intent intent = new Intent(Intent.ACTION_MAIN);
-//					 finish();
-//				}
-//            	chamarTelaCorrespondeteAoGrupo(vetor, grupo);
-//			}
-//		});
     }
 
     @Override
@@ -140,7 +115,7 @@ public class TelaPrincipal extends AppCompatActivity implements View.OnTouchList
         b.putStringArray("exe", vetExe);
         intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaPrincipal.this, TelaListaExercicios.class);
+        intent.setClass(TelaPrincipalExercicio.this, TelaListaExercicios.class);
         intent.putExtras(b);
         intent.putExtra("grupo", grupo);
         startActivity(intent); // chama a próxima tela
@@ -225,7 +200,7 @@ public class TelaPrincipal extends AppCompatActivity implements View.OnTouchList
                 vetor = exercicio.getVetCorrespondente();
                 if(vetor == null)
                 {
-                    Toast.makeText(TelaPrincipal.this, "Não à exercicios para este grupo", Toast.LENGTH_SHORT);
+                    Toast.makeText(TelaPrincipalExercicio.this, "Não à exercicios para este grupo", Toast.LENGTH_SHORT);
                     Intent intent = new Intent(Intent.ACTION_MAIN);
                     finish();
                 }
@@ -326,7 +301,7 @@ public class TelaPrincipal extends AppCompatActivity implements View.OnTouchList
         vetor = exercicio.getVetCorrespondente();
         if(vetor == null)
         {
-            Toast.makeText(TelaPrincipal.this, "Não à exercicios para este grupo", Toast.LENGTH_SHORT);
+            Toast.makeText(TelaPrincipalExercicio.this, "Não à exercicios para este grupo", Toast.LENGTH_SHORT);
             Intent intent = new Intent(Intent.ACTION_MAIN);
             finish();
         }
@@ -338,7 +313,13 @@ public class TelaPrincipal extends AppCompatActivity implements View.OnTouchList
 
         Intent intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaPrincipal.this, TelaPrincipalApp.class);
+        if(TelaFichaListExercicios.class.toString().equals(telaAnterior)) {
+            intent.setClass(TelaPrincipalExercicio.this, TelaFichaListExercicios.class);
+            intent.putExtra("nomeTreino", nmTreino);
+            intent.putExtra("idTreino", idTreino);
+        }
+        else
+            intent.setClass(TelaPrincipalExercicio.this, TelaPrincipalApp.class);
         startActivity(intent); // chama a próxima tela(tela anterior)
         finish();
 
