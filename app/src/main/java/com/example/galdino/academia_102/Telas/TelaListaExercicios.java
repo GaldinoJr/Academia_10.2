@@ -18,6 +18,7 @@ import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Exercicio;
 import com.example.galdino.academia_102.Dominio.GrupoMuscular;
+import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
 
@@ -94,17 +95,13 @@ public class TelaListaExercicios extends AppCompatActivity {
 
         final ListView lvExercicio = (ListView)findViewById(id.lvExercicios);
 
-        lvExercicio.setAdapter(new ExercicioBaseAdapter(this, image_details2, grupo));
+        lvExercicio.setAdapter(new ExercicioBaseAdapter(this, image_details2, grupo, selecionados));
 
         lvExercicio.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id)
             {
-                //
-                // Recuperando o checkbox
-                CheckBox chkExercicioSelecionado = (CheckBox) v.findViewById(R.id.chkExercicioSelecionado);
-                //
                 String nome = "",
                         exe = "";
                // Bundle b2;
@@ -189,5 +186,33 @@ public class TelaListaExercicios extends AppCompatActivity {
         }// for
         return results;
     }
+    public String retornarInfoExercicioNaList(int linha, int coluna)
+    {
+        if(listEntDomExercicio != null) {
+            Exercicio exe = (Exercicio) listEntDomExercicio.get(linha);
+            if(coluna == 0)
+                return exe.getID();
+            else if(coluna == 1)
+                return exe.getNome();
+        }
+        return "Sem informação";
+    }
+    public void BtnCheckExercicio(View v)
+    {
+        int linha = (Integer) v.getTag(); // linha clicada da list(foi setado no ListaTreinosbaseAdapter - > holder.itemImage.setTag(position);
+        // Recuperando o checkbox
+        CheckBox chkExercicioSelecionado = (CheckBox) v.findViewById(R.id.chkExercicioSelecionado);
+        chkExercicioSelecionado.setTag(linha);
 
+        //String nomeExercicio = (String) chkExercicioSelecionado.getTag();
+        if (chkExercicioSelecionado.isChecked()) {
+            Toast.makeText(getApplicationContext(), "Checbox do exercício " + retornarInfoExercicioNaList(linha,1) + " marcado!", Toast.LENGTH_SHORT).show();
+            if (!selecionados.contains(linha))
+                selecionados.add(String.valueOf(linha));
+        } else {
+            Toast.makeText(getApplicationContext(), "Checbox do exercício " + retornarInfoExercicioNaList(linha,1) + " desmarcado!", Toast.LENGTH_SHORT).show();
+            if (selecionados.contains(linha))
+                selecionados.remove(linha);
+        }
+    }
 }
