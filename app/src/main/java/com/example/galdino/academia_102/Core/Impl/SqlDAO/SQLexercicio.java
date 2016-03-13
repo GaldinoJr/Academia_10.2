@@ -107,7 +107,10 @@ public class SQLexercicio extends AbsSQL{
 			query += " FROM " + nomeTabela + " WHERE 1 = 1";
 			if (!TextUtils.isEmpty(exercicio.getID()))
 				query += " AND " + Col_cd_exercicio + " = '" + exercicio.getID() + "'";
+			if (exercicio.getIdGrupo() != null)
+				query += " AND " + Col_cd_grupo + " = '" + exercicio.getIdGrupo() + "'";
 
+			query += " ORDER BY " + Col_ds_nome_exercicio + " ASC";
 			listSql = new ArrayList<EntidadeDominio>();
 
 			listMapSql = new LinkedList<Map<String, String>>(); // talvez seja redundante, testar e tirar se for*****

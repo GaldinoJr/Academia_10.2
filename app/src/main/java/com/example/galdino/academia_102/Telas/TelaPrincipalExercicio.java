@@ -107,20 +107,25 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
     }
 
 
-    public void chamarTelaCorrespondeteAoGrupo(String[] vetExe, String grupo)
-    {
-        Bundle b;
-
-        b=new Bundle();
-        b.putStringArray("exe", vetExe);
-        intent = new Intent();
-        // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaPrincipalExercicio.this, TelaListaExercicios.class);
-        intent.putExtras(b);
-        intent.putExtra("grupo", grupo);
-        startActivity(intent); // chama a próxima tela
-        finish(); // Encerra a tela atual
-    }
+//    public void chamarTelaCorrespondeteAoGrupo(String[] vetExe, String grupo)
+//    {
+//        Bundle b;
+//
+//        b=new Bundle();
+//        b.putStringArray("exe", vetExe);
+//        intent = new Intent();
+//        // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
+//        intent.setClass(TelaPrincipalExercicio.this, TelaListaExercicios.class);
+//        intent.putExtras(b);
+//        intent.putExtra("grupo", grupo);
+//        intent.putExtra("nmTelaCorrespondente",telaAnterior);
+//        if(TelaFichaListExercicios.class.toString().equals(telaAnterior)) {
+//            intent.putExtra("idTreino", idTreino);
+//            intent.putExtra("nmTreino", nmTreino);
+//        }
+//        startActivity(intent); // chama a próxima tela
+//        finish(); // Encerra a tela atual
+//    }
 
 
 
@@ -204,8 +209,8 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
                     Intent intent = new Intent(Intent.ACTION_MAIN);
                     finish();
                 }
-                chamarTelaCorrespondeteAoGrupo(vetor, grupo);
-
+                //chamarTelaCorrespondeteAoGrupo(vetor, grupo);
+                chamarTelaCorrespondeteAoGrupo(grupo);
 
                 handledHere = true;
                 break;
@@ -296,16 +301,34 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
     private void imageClick(String sGrupo)
     {
         grupo = sGrupo;
-        Exercicio exercicio = new Exercicio();
-        exercicio.ordenarVetores(grupo);
-        vetor = exercicio.getVetCorrespondente();
-        if(vetor == null)
-        {
-            Toast.makeText(TelaPrincipalExercicio.this, "Não à exercicios para este grupo", Toast.LENGTH_SHORT);
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            finish();
+        //Exercicio exercicio = new Exercicio();
+        // pega os exercícios do código(não apagar)
+        //exercicio.ordenarVetores(grupo);
+        //vetor = exercicio.getVetCorrespondente();
+
+//        if(vetor == null)
+//        {
+//            Toast.makeText(TelaPrincipalExercicio.this, "Não à exercicios para este grupo", Toast.LENGTH_SHORT);
+//            Intent intent = new Intent(Intent.ACTION_MAIN);
+//            finish();
+//        }
+        //chamarTelaCorrespondeteAoGrupo(vetor, grupo);
+        chamarTelaCorrespondeteAoGrupo(sGrupo);
+    }
+
+    public void chamarTelaCorrespondeteAoGrupo(String grupo)
+    {
+        intent = new Intent();
+        // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
+        intent.setClass(TelaPrincipalExercicio.this, TelaListaExercicios.class);
+        intent.putExtra("grupo", grupo);
+        intent.putExtra("nmTelaCorrespondente",telaAnterior);
+        if(TelaFichaListExercicios.class.toString().equals(telaAnterior)) {
+            intent.putExtra("idTreino", idTreino);
+            intent.putExtra("nmTreino", nmTreino);
         }
-        chamarTelaCorrespondeteAoGrupo(vetor, grupo);
+        startActivity(intent); // chama a próxima tela
+        finish(); // Encerra a tela atual
     }
 
     public void onBackPressed() // voltar?

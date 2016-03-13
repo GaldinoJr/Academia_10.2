@@ -7,7 +7,7 @@ public class Exercicio extends EntidadeDominio {
 	private String nome;
 	private String descricao;
 	private String nomeLogico;
-	private int idGrupo;
+	private Integer idGrupo;
 	private int idImage;
 	private String[] vetExercicios;
 	private Integer[] VetImgId;
@@ -230,7 +230,7 @@ public class Exercicio extends EntidadeDominio {
 	{
 		return vetExercicios;
 	}
-	public int getIdGrupo() {
+	public Integer getIdGrupo() {
 		return idGrupo;
 	}
 
@@ -247,7 +247,7 @@ public class Exercicio extends EntidadeDominio {
 	public void setNomeLogico(String nomeLogico) {
 		this.nomeLogico = nomeLogico;
 	}
-	public void setIdGrupo(int idGrupo) {
+	public void setIdGrupo(Integer idGrupo) {
 		this.idGrupo = idGrupo;
 	}
 

@@ -21,7 +21,7 @@
         android:layout_toRightOf="@+id/imgExercicioo"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
-        android:text="Levantamento terra com aa halter"
+        android:text="Levantamento terra com aaaaa halter"
         android:textSize="18dp"
         android:textColor="@color/corTextoBranco"
         />
@@ -34,9 +34,20 @@
         android:layout_toRightOf="@+id/imgExercicioo"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="5dp"
-        android:text="Séries 3 Reps 10 - 8 - 6"
+        android:text="3 x 10 - 8 - 6"
         android:textSize="18dp"
         android:textColor="@color/corTextoBranco"
-        android:visibility="invisible"
+        android:visibility="visible"
         />
+
+    <CheckBox
+        android:button="@drawable/cb_selector"
+        android:id="@+id/chkExercicioSelecionado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgExercicioo"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:visibility="invisible"
+         />
 </RelativeLayout>

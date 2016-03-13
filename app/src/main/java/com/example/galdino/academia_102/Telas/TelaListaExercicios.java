@@ -6,27 +6,39 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.galdino.academia_102.AndroidItens.RoundAdapter;
 import com.example.galdino.academia_102.BaseAdapter.ExercicioBaseAdapter;
+import com.example.galdino.academia_102.Controler.Controler;
+import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Exercicio;
+import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TelaListaExercicios extends AppCompatActivity {
 
     private TextView txtNomeGrupo;
-    private String[] vetExe;
+    //private String[] vetExe;
     private String grupo;
     private ImageView imgCorGrupo;
-    //private CorGrupos corGrupos;
-    //private Integer idCor;
-    private Intent dados ;
+    private Intent dados;
+    private String telaAnterior,
+                    nmTreino,
+                    idTreino;
+    private List<EntidadeDominio> listEntDom;
+    private List<EntidadeDominio> listEntDomExercicio;
+    private GrupoMuscular grupoMuscular;
+    private Exercicio exercicio;
+    private final List<String> selecionados = new ArrayList<String>();  //Para evitar o erro do checkBox
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,21 +49,43 @@ public class TelaListaExercicios extends AppCompatActivity {
         // recebe os dados da tela 1
         dados = getIntent();
 
-        // Recebe os conteudos
-        Bundle b=this.getIntent().getExtras();
-        vetExe = b.getStringArray("exe");
+        // Pega os dados do código (não apagar)
+        //Bundle b=this.getIntent().getExtras();
+        //vetExe = b.getStringArray("exe");
+
+        // Carregar o id do grupo no banco
+        grupoMuscular = new GrupoMuscular();
         grupo = dados.getStringExtra("grupo");
-
-        // Indentifica qual a imagem correspondente do grupo muscular
-        //corGrupos = new CorGrupos();
-        //idCor = corGrupos.verificarCorGrupo(grupo);
-
+        grupoMuscular.setNome(grupo);
+        listEntDom = grupoMuscular.operar(this, true, Controler.DF_CONSULTAR, grupoMuscular);
+        int idGrupo;
+        if(listEntDom != null) {
+            grupoMuscular = (GrupoMuscular)listEntDom.get(0);
+            idGrupo = Integer.parseInt(grupoMuscular.getID());
+        }
+        else
+        {
+            Toast.makeText(this,"Grupo muscular " + grupo + " não existe na base de dados.",Toast.LENGTH_LONG).show();
+            return;
+        }
+        // Carrega os exercícios do grupo correspondente
+        exercicio = new Exercicio();
+        exercicio.setIdGrupo(idGrupo);
+        listEntDomExercicio = exercicio.operar(this,true,Controler.DF_CONSULTAR,exercicio);
+        if(listEntDomExercicio == null) {
+            Toast.makeText(this,"Não existe exercícios do grupo muscular " + grupo + " na base de dados.",Toast.LENGTH_LONG).show();
+            return;
+        }
+        telaAnterior = dados.getStringExtra("nmTelaCorrespondente");
+        if(telaAnterior != null) {
+            idTreino = dados.getStringExtra("idTreino");
+            nmTreino = dados.getStringExtra("nmTreino");
+        }
         //arredonda a imagem
         RoundAdapter ra = new RoundAdapter();
         imgCorGrupo.setImageDrawable(ra.RoundImageGrupo(grupo,this));
 
         // Devolve os conteudos
-        // imgCorGrupo.setImageResource(idCor);
         txtNomeGrupo.setText(grupo);
 
 
@@ -67,9 +101,13 @@ public class TelaListaExercicios extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id)
             {
+                //
+                // Recuperando o checkbox
+                CheckBox chkExercicioSelecionado = (CheckBox) v.findViewById(R.id.chkExercicioSelecionado);
+                //
                 String nome = "",
                         exe = "";
-                Bundle b2;
+               // Bundle b2;
 
                 Object o = lvExercicio.getItemAtPosition(position);
 
@@ -77,7 +115,7 @@ public class TelaListaExercicios extends AppCompatActivity {
                 exe = obj_itemDetails.getNome();
                 nome = encontrarNome(exe);
                 Intent intent = new Intent();
-                b2=new Bundle();
+                //b2=new Bundle();
 
                 // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
                 intent.setClass(TelaListaExercicios.this, TelaExercicio.class);
@@ -86,17 +124,13 @@ public class TelaListaExercicios extends AppCompatActivity {
                 intent.putExtra("nome",nome);
                 intent.putExtra("exe", exe);
                 //intent.putExtra("idCor", idCor);
-                b2.putStringArray("vetExe", vetExe);
-                intent.putExtras(b2);
+                //b2.putStringArray("vetExe", vetExe);
+                //intent.putExtras(b2);
 
                 startActivity(intent); // chama a próxima tela
-                finish();
+                //finish();
             }
         });
-
-
-
-
     }
 
     @Override
@@ -140,23 +174,18 @@ public class TelaListaExercicios extends AppCompatActivity {
     public ArrayList<Exercicio> GetSearchResults()
     {
         int i, qtdRegistro;
-        Integer[] vetIndice;
-
-        Exercicio exercicio;
-        exercicio = new Exercicio();
-        // Ordena em ordem alfabetica os vetores
-
+        //Integer[] vetIndice;
         ArrayList<Exercicio> results = new ArrayList<Exercicio>();
-        qtdRegistro = vetExe.length;
-
-        vetIndice = new Integer[qtdRegistro];
+        //qtdRegistro = vetExe.length;
+        qtdRegistro = listEntDomExercicio.size();
+        //vetIndice = new Integer[qtdRegistro];
         for(i = 0; i < qtdRegistro; i++)
         {
-            vetIndice[i] = i;
-            exercicio = new Exercicio();
-            exercicio.setNome(vetExe[i]);
-            exercicio.setIdImage(i+1);
-            results.add(exercicio);
+            //vetIndice[i] = i;
+            Exercicio e = new Exercicio();
+            e = (Exercicio)listEntDomExercicio.get(i);
+            e.setIdImage(i+1);
+            results.add(e);
         }// for
         return results;
     }

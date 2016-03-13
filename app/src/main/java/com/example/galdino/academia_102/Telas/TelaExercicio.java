@@ -29,7 +29,7 @@ public class TelaExercicio extends AppCompatActivity {
             aux;
     private WebView wvExercicio;
     private ImageView imgCorTelaExer;
-    private String[] vetExe;
+    //private String[] vetExe;
     //private Integer idCor;
 
     @Override
@@ -53,9 +53,9 @@ public class TelaExercicio extends AppCompatActivity {
         //idCor = dados.getIntExtra("idCor", 0);
 
         // Recebe o conteudo do vetor que vai ser devolvido
-        vetExe = (String[])dados.getSerializableExtra("exercicios");
-        Bundle b=this.getIntent().getExtras();
-        vetExe = b.getStringArray("vetExe");
+//        vetExe = (String[])dados.getSerializableExtra("exercicios");
+//        Bundle b=this.getIntent().getExtras();
+//        vetExe = b.getStringArray("vetExe");
         //
         grupo = dados.getStringExtra("grupo");
         // Define o caminho do gif
@@ -100,17 +100,17 @@ public class TelaExercicio extends AppCompatActivity {
 
     public void onBackPressed()
     {
-        Bundle b;
-        Intent intent;
+       // Bundle b;
+        //Intent intent;
 
-        b=new Bundle();
-        b.putStringArray("exe", vetExe);
-        intent = new Intent();
+//        b=new Bundle();
+//        b.putStringArray("exe", vetExe);
+        //intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaExercicio.this, TelaListaExercicios.class);
-        intent.putExtras(b);
-        intent.putExtra("grupo", grupo);
-        startActivity(intent); // chama a próxima tela
+        //intent.setClass(TelaExercicio.this, TelaListaExercicios.class);
+       // intent.putExtras(b);
+        //intent.putExtra("grupo", grupo);
+        //startActivity(intent); // chama a próxima tela
         finish();
 
     }

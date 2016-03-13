@@ -106,7 +106,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		}
 		// 
 		holder.txt_itemName.setText(ExercicioArrayList.get(position).getNome());
-		holder.itemImage.setImageResource(imgId[ExercicioArrayList.get(position).getIdImage() - 1]);
+		holder.itemImage.setImageResource(imgId[ExercicioArrayList.get(position).getIdImage() - 1]); // ** SO FUNCIONA ENQUANTO A IMAGEM ESTIVER SENDO COLOCADA EM ORDEM ALFABETICA NA CLASSE
 		return convertView;
 	}
 
