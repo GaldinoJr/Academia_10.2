@@ -19,19 +19,18 @@ import java.util.List;
 public class ExercicioBaseAdapter  extends BaseAdapter {
 	private static ArrayList<Exercicio> ExercicioArrayList;
 	private LayoutInflater l_Inflater;
-	private List<String> selecionados = new ArrayList<String>();  //Para evitar o erro do checkBox
 	// Da pra ordenar os ids, pelos ids
 	private Integer[] imgId;
-	
-	
+	private boolean[] selecionados; //Para evitar o erro do checkBox
 	
 	// Construtor 1
-	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, String grupo,  List<String> selecionados)
+	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, String grupo,boolean[] selecionados)
 	{
 		Exercicio ex = new Exercicio();
 		ex.ordenarVetores(grupo);
 		imgId = orderAlfabeticamenteIdImagem(ex.getVetId());
 		ExercicioArrayList = results;
+		//itemChecked = new boolean[results.size()];
 		this.selecionados = selecionados;
 		l_Inflater = LayoutInflater.from(context);
 	}
@@ -70,13 +69,13 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		return ExercicioArrayList.size();
 	}
 	
-	// Encontra a pocis�o no array 
+	// Encontra a pocição no array
 	public Object getItem(int position)
 	{
 		return ExercicioArrayList.get(position);
 	}
 	
-	// Devolve a posi��o
+	// Devolve a posição
 	public long getItemId(int position) 
 	{
 		return position;
@@ -102,18 +101,19 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 			holder.itemImage = (ImageView)convertView.findViewById(id.imgExercicioo);
 			holder.txt_itemName = (TextView)convertView.findViewById(id.txtNomeExercicio);
 			holder.chkExercicioSelecionado = (CheckBox)convertView.findViewById(id.chkExercicioSelecionado);
-			//holder.chkExercicioSelecionado.setChecked(true);
-			if(selecionados.contains(position)) {
-				holder.chkExercicioSelecionado.setChecked(true);
-			} else {
-				holder.chkExercicioSelecionado.setChecked(false);
-			}
+			//holder.chkExercicioSelecionado.setChecked(false);
 			convertView.setTag(holder); // devolve os conteudos
 		}
 		else // se já foi criada
 		{
 			holder = (ViewHolder) convertView.getTag(); // Pega o conteudo que já foi enviado
 		}
+		//
+		holder.chkExercicioSelecionado.setChecked(false);
+		if (selecionados[position])
+			holder.chkExercicioSelecionado.setChecked(true);
+		else
+			holder.chkExercicioSelecionado.setChecked(false);
 		// 
 		holder.txt_itemName.setText(ExercicioArrayList.get(position).getNome());
 		holder.itemImage.setImageResource(imgId[ExercicioArrayList.get(position).getIdImage() - 1]); // ** SO FUNCIONA ENQUANTO A IMAGEM ESTIVER SENDO COLOCADA EM ORDEM ALFABETICA NA CLASSE
