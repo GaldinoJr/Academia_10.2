@@ -1,6 +1,7 @@
 package com.example.galdino.academia_102.BaseAdapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.example.galdino.academia_102.Dominio.Exercicio;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
+import com.example.galdino.academia_102.Telas.TelaFichaListExercicios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +24,13 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 	// Da pra ordenar os ids, pelos ids
 	private Integer[] imgId;
 	private boolean[] selecionados; //Para evitar o erro do checkBox
+	private Integer indTela;
+	// 1 = TelaListaExercicio
+	// 2 = Tela para add exercício no treino
+	// 3 = TelaTreino
 	
 	// Construtor 1
-	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, String grupo,boolean[] selecionados)
+	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, String grupo,boolean[] selecionados, Integer indTela)
 	{
 		Exercicio ex = new Exercicio();
 		ex.ordenarVetores(grupo);
@@ -32,6 +38,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		ExercicioArrayList = results;
 		//itemChecked = new boolean[results.size()];
 		this.selecionados = selecionados;
+		this.indTela = indTela;
 		l_Inflater = LayoutInflater.from(context);
 	}
 	// Construtor 2
@@ -86,6 +93,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		TextView txt_itemName;
 	 	ImageView itemImage;
 		CheckBox chkExercicioSelecionado;
+		TextView txtSerie;
 	 }
 	
 	// Vai converter um view para aparecer dentro de outro
@@ -101,6 +109,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 			holder.itemImage = (ImageView)convertView.findViewById(id.imgExercicioo);
 			holder.txt_itemName = (TextView)convertView.findViewById(id.txtNomeExercicio);
 			holder.chkExercicioSelecionado = (CheckBox)convertView.findViewById(id.chkExercicioSelecionado);
+			holder.txtSerie = (TextView) convertView.findViewById(id.txtSerie);
 			//holder.chkExercicioSelecionado.setChecked(false);
 			convertView.setTag(holder); // devolve os conteudos
 		}
@@ -108,12 +117,19 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		{
 			holder = (ViewHolder) convertView.getTag(); // Pega o conteudo que já foi enviado
 		}
-		//
-		holder.chkExercicioSelecionado.setChecked(false);
-		if (selecionados[position])
-			holder.chkExercicioSelecionado.setChecked(true);
-		else
+		if(indTela == 2) // Tela para add exercício no treino
+		{
+			holder.chkExercicioSelecionado.setVisibility(View.VISIBLE);
 			holder.chkExercicioSelecionado.setChecked(false);
+			if (selecionados[position])
+				holder.chkExercicioSelecionado.setChecked(true);
+			else
+				holder.chkExercicioSelecionado.setChecked(false);
+		}
+		if(indTela == 3) // Tela de treino?
+		{
+			holder.txtSerie.setVisibility(View.VISIBLE);
+		}
 		// 
 		holder.txt_itemName.setText(ExercicioArrayList.get(position).getNome());
 		holder.itemImage.setImageResource(imgId[ExercicioArrayList.get(position).getIdImage() - 1]); // ** SO FUNCIONA ENQUANTO A IMAGEM ESTIVER SENDO COLOCADA EM ORDEM ALFABETICA NA CLASSE

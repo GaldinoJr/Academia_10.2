@@ -40,6 +40,7 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
     private ImageView iVprincipal;
     private static final int LIMITE_MINIMO = 50;
     private static final int TOLERANCIA = 0;
+    private static int indTela;
     private String grupo,
                    telaAnterior,
                    nmTreino,
@@ -96,7 +97,10 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
         telaAnterior = dados.getStringExtra("nmTelaCorrespondente");
         idTreino = dados.getStringExtra("idTreino");
         nmTreino = dados.getStringExtra("nmTreino");
-
+        if(TelaFichaListExercicios.class.toString().equals(telaAnterior))
+            indTela = 2;
+        else
+            indTela = 1;
     }
 
     @Override
@@ -336,7 +340,7 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
 
         Intent intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-        if(TelaFichaListExercicios.class.toString().equals(telaAnterior)) {
+        if(indTela == 2) {
             intent.setClass(TelaPrincipalExercicio.this, TelaFichaListExercicios.class);
             intent.putExtra("nomeTreino", nmTreino);
             intent.putExtra("idTreino", idTreino);

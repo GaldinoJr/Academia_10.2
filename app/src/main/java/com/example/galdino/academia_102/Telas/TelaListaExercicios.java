@@ -2,6 +2,7 @@ package com.example.galdino.academia_102.Telas;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
@@ -41,10 +42,19 @@ public class TelaListaExercicios extends AppCompatActivity {
     private Exercicio exercicio;
     private final List<String> selecionados = new ArrayList<String>();
     private static boolean[] itemChecked;
+    private FloatingActionButton fBtnConfirmarExercicio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_lista_exercicios);
+        // FLOAT BUTTON
+        fBtnConfirmarExercicio = (FloatingActionButton) findViewById(R.id.fBtnConfirmarExercicio);
+        fBtnConfirmarExercicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(TelaListaExercicios.this, "clicou", Toast.LENGTH_SHORT).show();
+            }
+        });
         // associa os objetos
         txtNomeGrupo = (TextView)findViewById(id.txtNomeGrup);
         imgCorGrupo = (ImageView)findViewById(id.imgPrincipal);
@@ -54,10 +64,20 @@ public class TelaListaExercicios extends AppCompatActivity {
         // Pega os dados do código (não apagar)
         //Bundle b=this.getIntent().getExtras();
         //vetExe = b.getStringArray("exe");
-
-        // Carregar o id do grupo no banco
-        grupoMuscular = new GrupoMuscular();
+        int indTela = 1;
+        // Recebe os dados da tela anterior
         grupo = dados.getStringExtra("grupo");
+        telaAnterior = dados.getStringExtra("nmTelaCorrespondente");
+        if(telaAnterior != null) {
+            idTreino = dados.getStringExtra("idTreino");
+            nmTreino = dados.getStringExtra("nmTreino");
+        }
+        if(TelaFichaListExercicios.class.toString().equals(telaAnterior)) {
+            indTela = 2;
+            fBtnConfirmarExercicio.setVisibility(View.VISIBLE);
+        }
+            // Carregar o id do grupo no banco
+        grupoMuscular = new GrupoMuscular();
         grupoMuscular.setNome(grupo);
         listEntDom = grupoMuscular.operar(this, true, Controler.DF_CONSULTAR, grupoMuscular);
         int idGrupo;
@@ -78,11 +98,7 @@ public class TelaListaExercicios extends AppCompatActivity {
             Toast.makeText(this,"Não existe exercícios do grupo muscular " + grupo + " na base de dados.",Toast.LENGTH_LONG).show();
             return;
         }
-        telaAnterior = dados.getStringExtra("nmTelaCorrespondente");
-        if(telaAnterior != null) {
-            idTreino = dados.getStringExtra("idTreino");
-            nmTreino = dados.getStringExtra("nmTreino");
-        }
+
         //arredonda a imagem
         RoundAdapter ra = new RoundAdapter();
         imgCorGrupo.setImageDrawable(ra.RoundImageGrupo(grupo,this));
@@ -96,7 +112,7 @@ public class TelaListaExercicios extends AppCompatActivity {
 
         final ListView lvExercicio = (ListView)findViewById(id.lvExercicios);
 
-        lvExercicio.setAdapter(new ExercicioBaseAdapter(this, image_details2, grupo, itemChecked));
+        lvExercicio.setAdapter(new ExercicioBaseAdapter(this, image_details2, grupo, itemChecked, indTela ));
 
         lvExercicio.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
