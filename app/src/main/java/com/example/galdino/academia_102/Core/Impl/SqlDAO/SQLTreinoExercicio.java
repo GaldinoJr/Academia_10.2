@@ -87,6 +87,8 @@ public class SQLTreinoExercicio extends AbsSQL {
             query += " FROM " + nomeTabela + " WHERE 1 = 1";
             if (!TextUtils.isEmpty(treinoExercicio.getID()))
                 query += " AND " + Col_cd_treino_exercicio + " = '" + treinoExercicio.getID() + "'";
+            if (treinoExercicio.getIdTreino() != null)
+                query += " AND " + Col_cd_treino + " = " + treinoExercicio.getIdTreino();
 
             listSql = new ArrayList<EntidadeDominio>();
 

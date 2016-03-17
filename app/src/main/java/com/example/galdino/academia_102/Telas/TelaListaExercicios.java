@@ -20,6 +20,7 @@ import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Exercicio;
 import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.Dominio.Treino;
+import com.example.galdino.academia_102.Dominio.TreinoExercicio;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
 
@@ -40,7 +41,6 @@ public class TelaListaExercicios extends AppCompatActivity {
     private List<EntidadeDominio> listEntDomExercicio;
     private GrupoMuscular grupoMuscular;
     private Exercicio exercicio;
-    private final List<String> selecionados = new ArrayList<String>();
     private static boolean[] itemChecked;
     private FloatingActionButton fBtnConfirmarExercicio;
     @Override
@@ -52,7 +52,19 @@ public class TelaListaExercicios extends AppCompatActivity {
         fBtnConfirmarExercicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(TelaListaExercicios.this, "clicou", Toast.LENGTH_SHORT).show();
+                if(salvarExercíciosTreino() == -1)
+                    Toast.makeText(TelaListaExercicios.this, "Erro ao gravar o treino.", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(TelaListaExercicios.this, "Exercícios registrados.", Toast.LENGTH_SHORT).show();
+                    Intent intent;
+                    intent = new Intent();
+                    // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
+                    intent.setClass(TelaListaExercicios.this, TelaPrincipalExercicio.class);
+                    intent.putExtra("nmTelaCorrespondente",telaAnterior);
+                    intent.putExtra("idTreino",idTreino);
+                    startActivity(intent); // chama a próxima tela
+                    finish();
+                }
             }
         });
         // associa os objetos
@@ -76,7 +88,7 @@ public class TelaListaExercicios extends AppCompatActivity {
             indTela = 2;
             fBtnConfirmarExercicio.setVisibility(View.VISIBLE);
         }
-            // Carregar o id do grupo no banco
+        // Carregar o id do grupo no banco
         grupoMuscular = new GrupoMuscular();
         grupoMuscular.setNome(grupo);
         listEntDom = grupoMuscular.operar(this, true, Controler.DF_CONSULTAR, grupoMuscular);
@@ -106,9 +118,7 @@ public class TelaListaExercicios extends AppCompatActivity {
         // Devolve os conteudos
         txtNomeGrupo.setText(grupo);
 
-
         ArrayList<Exercicio> image_details2 = GetSearchResults();
-
 
         final ListView lvExercicio = (ListView)findViewById(id.lvExercicios);
 
@@ -121,7 +131,6 @@ public class TelaListaExercicios extends AppCompatActivity {
             {
                 String nome = "",
                         exe = "";
-               // Bundle b2;
 
                 Object o = lvExercicio.getItemAtPosition(position);
 
@@ -129,20 +138,14 @@ public class TelaListaExercicios extends AppCompatActivity {
                 exe = obj_itemDetails.getNome();
                 nome = encontrarNome(exe);
                 Intent intent = new Intent();
-                //b2=new Bundle();
 
                 // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
                 intent.setClass(TelaListaExercicios.this, TelaExercicio.class);
-
                 intent.putExtra("grupo", grupo);
                 intent.putExtra("nome",nome);
                 intent.putExtra("exe", exe);
-                //intent.putExtra("idCor", idCor);
-                //b2.putStringArray("vetExe", vetExe);
-                //intent.putExtras(b2);
-
                 startActivity(intent); // chama a próxima tela
-                //finish();
+                //finish(); // Não faz para não perder as info nem precisar carregar de novo.
             }
         });
     }
@@ -175,37 +178,32 @@ public class TelaListaExercicios extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        // TODO Auto-generated method stub
         Intent intent;
         intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
         intent.setClass(TelaListaExercicios.this, TelaPrincipalExercicio.class);
-        intent.putExtra("nmTelaCorrespondente",telaAnterior);
+        intent.putExtra("nmTelaCorrespondente", telaAnterior);
+        intent.putExtra("idTreino",idTreino);
         startActivity(intent); // chama a próxima tela
         finish();
-
     }
 
-    public ArrayList<Exercicio> GetSearchResults()
+    private ArrayList<Exercicio> GetSearchResults()
     {
         int i, qtdRegistro;
-        //Integer[] vetIndice;
         ArrayList<Exercicio> results = new ArrayList<Exercicio>();
-        //qtdRegistro = vetExe.length;
         qtdRegistro = listEntDomExercicio.size();
         itemChecked = new boolean[qtdRegistro];
-        //vetIndice = new Integer[qtdRegistro];
+
         for(i = 0; i < qtdRegistro; i++)
         {
-            //vetIndice[i] = i;
-            Exercicio e = new Exercicio();
-            e = (Exercicio)listEntDomExercicio.get(i);
+            Exercicio e = (Exercicio)listEntDomExercicio.get(i);
             e.setIdImage(i+1);
             results.add(e);
         }// for
         return results;
     }
-    public String retornarInfoExercicioNaList(int linha, int coluna)
+    private String retornarInfoExercicioNaList2(int linha, int coluna)
     {
         if(listEntDomExercicio != null) {
             Exercicio exe = (Exercicio) listEntDomExercicio.get(linha);
@@ -216,17 +214,39 @@ public class TelaListaExercicios extends AppCompatActivity {
         }
         return "Sem informação";
     }
-   public void BtnCheckExercicio(View v)
+    public void BtnCheckExercicio(View v)
     {
         CheckBox chk = (CheckBox) v.findViewById(R.id.chkExercicioSelecionado);
         int linha = (Integer) v.getTag();
         if (chk.isChecked()) {
             itemChecked[linha] = true;
-            Toast.makeText(getApplicationContext(), "Checbox do exercício " + retornarInfoExercicioNaList(linha,1) + " marcado!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Checbox do exercício " + retornarInfoExercicioNaList2(linha, 1) + " marcado!", Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(getApplicationContext(), "Checbox do exercício " + retornarInfoExercicioNaList(linha,1) + " desmarcado!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Checbox do exercício " + retornarInfoExercicioNaList2(linha, 1) + " desmarcado!", Toast.LENGTH_SHORT).show();
             itemChecked[linha] = false;
         }
     }
+    private int salvarExercíciosTreino()
+    {
+        try {
+            int i, qtdRegistro = listEntDomExercicio.size();
+
+            for(i = 0; i < qtdRegistro; i++) {
+                if(itemChecked[i]) {
+                    Exercicio ex = (Exercicio) listEntDomExercicio.get(i);
+                    TreinoExercicio treinoExercicio = new TreinoExercicio();
+                    treinoExercicio.setIdTreino(Integer.parseInt(idTreino));
+                    treinoExercicio.setIdExercicio(Integer.parseInt(ex.getID()));
+                    treinoExercicio.operar(this,true,Controler.DF_SALVAR,treinoExercicio);
+                }
+            }
+            return 0;
+        }
+        catch(Exception e)
+        {
+            return -1;
+        }
+    }
+
 }

@@ -160,6 +160,7 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
         if(listEntDomTreinos != null) {
             Treino treino = (Treino) listEntDomTreinos.get(linha);
             treino.operar(this,true, Controler.DF_EXCLUIR,treino);
+            //***PRECISA EXCLUIR OS TREINOS DESSE EXERCICIO
         }
     }
     public String retornarInfoTreino(int linha, int coluna)
