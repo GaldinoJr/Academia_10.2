@@ -33,7 +33,7 @@ public class SQLMusculoExercicio  extends AbsSQL {
         sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela + " ( " +
                 Col_cd_musculo_exercicio + " INTEGER PRIMARY KEY, " +
                 Col_cd_musculo + " INTEGER FOREIGN KEY, "+
-                Col_cd_exercicio + " INTEGER FOREIGN KEY, "+
+                Col_cd_exercicio + " INTEGER, "+ //FOREIGN KEY
                 Col_ind_primario_secundario + " INTEGER )";
     }
 

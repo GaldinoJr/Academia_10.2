@@ -32,8 +32,8 @@ public class SQLTreinoExercicio extends AbsSQL {
         nomeTabela = "tb_treino_exercicio";
         sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela + " ( " +
                 Col_cd_treino_exercicio + " INTEGER PRIMARY KEY, " +
-                Col_cd_treino + " INTEGER FOREIGN KEY, "+
-                Col_cd_exercicio + " INTEGER FOREIGN KEY, "+
+                Col_cd_treino + " INTEGER, "+ //FOREIGN KEY
+                Col_cd_exercicio + " INTEGER, "+ //FOREIGN KEY ** Não funciona sa desgraça, ja me fodeu TRES vezes
                 Col_nr_repeticoes + " INTEGER )";
     }
 
@@ -103,7 +103,8 @@ public class SQLTreinoExercicio extends AbsSQL {
                 te.setID(listMapSql.get(i).get(colunasBusca[0]));
                 te.setIdTreino(Integer.parseInt(listMapSql.get(i).get(colunasBusca[1])));
                 te.setIdExercicio(Integer.parseInt(listMapSql.get(i).get(colunasBusca[2])));
-                te.setNrRepeticoes(Integer.parseInt(listMapSql.get(i).get(colunasBusca[3])));
+                if(!listMapSql.get(i).get(colunasBusca[3]).equals("null"))
+                    te.setNrRepeticoes(Integer.parseInt(listMapSql.get(i).get(colunasBusca[3])));
 
                 listSql.add(te);
             }

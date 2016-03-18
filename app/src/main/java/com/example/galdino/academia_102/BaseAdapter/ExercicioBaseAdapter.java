@@ -33,8 +33,10 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, String grupo,boolean[] selecionados, Integer indTela)
 	{
 		Exercicio ex = new Exercicio();
-		ex.ordenarVetores(grupo);
-		imgId = orderAlfabeticamenteIdImagem(ex.getVetId());
+		if(grupo != null) {
+			ex.ordenarVetores(grupo);
+			imgId = orderAlfabeticamenteIdImagem(ex.getVetId());
+		}
 		ExercicioArrayList = results;
 		//itemChecked = new boolean[results.size()];
 		this.selecionados = selecionados;

@@ -70,7 +70,7 @@ public class TelaFichaListExercicios extends AppCompatActivity {
         // monta a lista
         if(listEntDomExercicio != null) {
             int indTela = 3;
-            String grupo = null;
+            String grupo = "Peito";
             final Context context = this;
             lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(this, results, grupo, null, indTela));
 
@@ -141,8 +141,8 @@ public class TelaFichaListExercicios extends AppCompatActivity {
                 TreinoExercicio te = (TreinoExercicio)entDomTreinoExercico;
                 Exercicio exercicio = new Exercicio();
                 exercicio.setID(String.valueOf(te.getIdExercicio()));
-                List<EntidadeDominio> listEntDomExercicio = exercicio.operar(this,true,Controler.DF_CONSULTAR,exercicio);
-                exercicio = (Exercicio)listEntDomExercicio.get(0);
+                List<EntidadeDominio> listEntDomExe = exercicio.operar(this,true,Controler.DF_CONSULTAR,exercicio);
+                exercicio = (Exercicio)listEntDomExe.get(0);
                 exercicio.setIdImage(i + 1); // Vai dar merda
                 results.add(exercicio);
                 listEntDomExercicio.add(exercicio);
