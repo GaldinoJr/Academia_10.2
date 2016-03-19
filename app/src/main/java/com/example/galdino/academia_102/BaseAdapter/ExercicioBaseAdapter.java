@@ -22,7 +22,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 	private static ArrayList<Exercicio> ExercicioArrayList;
 	private LayoutInflater l_Inflater;
 	// Da pra ordenar os ids, pelos ids
-	private Integer[] imgId;
+	//private Integer[] imgId;
 	private boolean[] selecionados; //Para evitar o erro do checkBox
 	private Integer indTela;
 	// 1 = TelaListaExercicio
@@ -35,7 +35,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		Exercicio ex = new Exercicio();
 		if(grupo != null) {
 			ex.ordenarVetores(grupo);
-			imgId = orderAlfabeticamenteIdImagem(ex.getVetId());
+			//imgId = orderAlfabeticamenteIdImagem(ex.getVetId());
 		}
 		ExercicioArrayList = results;
 		//itemChecked = new boolean[results.size()];
