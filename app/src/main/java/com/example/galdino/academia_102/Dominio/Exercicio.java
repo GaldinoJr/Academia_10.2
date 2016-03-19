@@ -4,9 +4,10 @@ package com.example.galdino.academia_102.Dominio;
 import com.example.galdino.academia_102.R;
 
 public class Exercicio extends EntidadeDominio {
-	private String nome;
-	private String descricao;
-	private String nomeLogico;
+	private String nome,
+			       descricao,
+			       nomeLogico,
+			       nomeLogicoFoto;
 	private Integer idGrupo;
 	private int idImage;
 	private String[] vetExercicios;
@@ -233,6 +234,9 @@ public class Exercicio extends EntidadeDominio {
 	public Integer getIdGrupo() {
 		return idGrupo;
 	}
+	public String getNomeLogicoFoto() {
+		return nomeLogicoFoto;
+	}
 
 	// sets
 	public void setIdImage(int idImage) {
@@ -250,7 +254,9 @@ public class Exercicio extends EntidadeDominio {
 	public void setIdGrupo(Integer idGrupo) {
 		this.idGrupo = idGrupo;
 	}
-
+	public void setNomeLogicoFoto(String nomeLogicoFoto) {
+		this.nomeLogicoFoto = nomeLogicoFoto;
+	}
 
 	private  String[] orderAlfabeticamenteVetor(String[] vetor)
 	{

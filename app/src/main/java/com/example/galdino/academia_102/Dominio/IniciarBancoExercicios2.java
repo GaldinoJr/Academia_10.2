@@ -14,7 +14,9 @@ public class IniciarBancoExercicios2 {
             i;
     private String[] grupos;
     private GrupoMuscular grupoMuscular;
-
+    private String
+                nomeGif,
+                nomeFoto;
     public IniciarBancoExercicios2()
     {
         grupoMuscular = new GrupoMuscular();
@@ -60,12 +62,11 @@ public class IniciarBancoExercicios2 {
                 {
 
                     String nome = vetorExercicio[j];
-                    String nomeLogico = encontrarNome(nome);
-                    String descricao = documento.carregarArquivoTxt(grupo, nomeLogico, "Descr");
-
+                    encontrarNomes(nome, grupo);
                     exercicio.setNome(nome);
-                    exercicio.setNomeLogico(nomeLogico);
-                    exercicio.setDescricao(descricao);
+                    exercicio.setNomeLogico(nomeGif);
+                    exercicio.setNomeLogicoFoto(nomeFoto);
+                    exercicio.setDescricao(documento.carregarArquivoTxt(grupo, nomeGif, "Descr"));
                     exercicio.setIdGrupo(Integer.parseInt(g.getID()));
                     exercicio.operar(context, true, Controler.DF_SALVAR, exercicio);
 
@@ -86,26 +87,59 @@ public class IniciarBancoExercicios2 {
         configuracao.operar(context,true,Controler.DF_SALVAR,configuracao);
     }
 
-
-    private String encontrarNome(String nome)
+    private void encontrarNomes(String nome, String grupo)
     {
         int tamanho,
-                i;
+                i,
+                j;
 
         String gifNome = "";
+        String fotoNome = grupo.toLowerCase() + "_";
         tamanho = nome.length(); // recebe a quantidade de caracteres da palavra
-        for(i = 0; i< tamanho; i++) // Roda toda  string
+        for(i = 0, j = 0; j < tamanho; i++, j++) // Roda toda  string
         {
-            if(nome.charAt(i) == ' ') // Achou espaço?
+            // monta o nome do gif
+            if(i < tamanho)
             {
-                gifNome += String.valueOf(nome.charAt(i +1)).toUpperCase(); // sim pula ele e muda o próximo caracter para maiusculo concatenando na nova string
-                i++; // incrementa o indice
+                if (nome.charAt(i) == ' ') // Achou espaço?
+                {
+                    gifNome += String.valueOf(nome.charAt(i + 1)).toUpperCase(); // sim pula ele e muda o próximo caracter para maiusculo concatenando na nova string
+                    i++; // incrementa o indice
+                }
+                else
+                    gifNome += nome.charAt(i); // apenas concatena a letra na string
+
             }
+            // monta o nome da foto
+            if(nome.charAt(j) == ' ') // Achou espaço?
+                fotoNome += "_";
             else
-                gifNome += nome.charAt(i); // apenas concatena na string
+                fotoNome += String.valueOf(nome.charAt(j)).toLowerCase(); // apenas concatena a letra  na string
         }
         gifNome = "gif" + gifNome; // Concatena o nome obtido com gif na frente, a fim de terminar o nome
-        return gifNome;
+        nomeGif = gifNome;
+        nomeFoto = fotoNome;
     }
+
+//    private String encontrarNome(String nome)
+//    {
+//        int tamanho,
+//                i;
+//
+//        String gifNome = "";
+//        tamanho = nome.length(); // recebe a quantidade de caracteres da palavra
+//        for(i = 0; i< tamanho; i++) // Roda toda  string
+//        {
+//            if(nome.charAt(i) == ' ') // Achou espaço?
+//            {
+//                gifNome += String.valueOf(nome.charAt(i +1)).toUpperCase(); // sim pula ele e muda o próximo caracter para maiusculo concatenando na nova string
+//                i++; // incrementa o indice
+//            }
+//            else
+//                gifNome += nome.charAt(i); // apenas concatena na string
+//        }
+//        gifNome = "gif" + gifNome; // Concatena o nome obtido com gif na frente, a fim de terminar o nome
+//        return gifNome;
+//    }
 }
 

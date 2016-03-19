@@ -28,7 +28,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 	// 1 = TelaListaExercicio
 	// 2 = Tela para add exercício no treino
 	// 3 = TelaTreino
-	
+	private Context context;
 	// Construtor 1
 	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, String grupo,boolean[] selecionados, Integer indTela)
 	{
@@ -42,6 +42,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		this.selecionados = selecionados;
 		this.indTela = indTela;
 		l_Inflater = LayoutInflater.from(context);
+		this.context = context;
 	}
 	// Construtor 2
 	public ExercicioBaseAdapter()
@@ -60,7 +61,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 			flgHouveTroca = false;
 			for(i = 0; i < nTamanho-1; i++)
 			{
-				if(imgid[i] > imgid[i+1]) // Atual � maior que o pr�ximo?
+				if(imgid[i] > imgid[i+1]) // Atual é maior que o próximo?
 				{ // sim, ent�o troca
 					aux = imgid[i];
 					imgid[i] = imgid[i+1];
@@ -134,7 +135,9 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		}
 		// 
 		holder.txt_itemName.setText(ExercicioArrayList.get(position).getNome());
-		holder.itemImage.setImageResource(imgId[ExercicioArrayList.get(position).getIdImage() - 1]); // ** SO FUNCIONA ENQUANTO A IMAGEM ESTIVER SENDO COLOCADA EM ORDEM ALFABETICA NA CLASSE
+		int indiceFoto = context.getResources().getIdentifier(ExercicioArrayList.get(position).getNomeLogicoFoto(), "drawable", context.getPackageName());
+		holder.itemImage.setImageResource(indiceFoto);
+		//holder.itemImage.setImageResource(imgId[ExercicioArrayList.get(position).getIdImage() - 1]); // ** SO FUNCIONA ENQUANTO A IMAGEM ESTIVER SENDO COLOCADA EM ORDEM ALFABETICA NA CLASSE
 		holder.chkExercicioSelecionado.setTag(position);
 		return convertView;
 	}
