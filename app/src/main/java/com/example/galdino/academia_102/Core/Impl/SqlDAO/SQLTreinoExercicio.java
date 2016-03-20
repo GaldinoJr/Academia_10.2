@@ -72,7 +72,15 @@ public class SQLTreinoExercicio extends AbsSQL {
 
     @Override
     public void excluir(EntidadeDominio entidade) {
-
+        treinoExercicio = (TreinoExercicio)entidade;
+        if(treinoExercicio != null)
+        {
+            String[] colunas = {String.valueOf(treinoExercicio.getIdTreino()), String.valueOf(treinoExercicio.getIdExercicio())};
+            String query = Col_cd_treino + " = ? AND " +
+                           Col_cd_exercicio + " = ?";
+            db.deletarComClausula(query,colunas);
+            db.close();
+        }
     }
 
     @Override

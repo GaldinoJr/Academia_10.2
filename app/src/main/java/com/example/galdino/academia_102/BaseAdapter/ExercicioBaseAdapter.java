@@ -91,6 +91,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 	 	ImageView itemImage;
 		CheckBox chkExercicioSelecionado;
 		TextView txtSerie;
+		ImageView imgExcluirExercicioTreino;
 	 }
 	
 	// Vai converter um view para aparecer dentro de outro
@@ -102,8 +103,9 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 			// cria o inflater que servira para converter para um xml ficar dentro do outro
 			convertView = l_Inflater.inflate(R.layout.xml_exercicio, null);
 			holder = new ViewHolder();
-			// recebe o conteudo do xml que ser� um item da listView, associando os objtos da tela com os daqui
+			// recebe o conteudo do xml que será um item da listView, associando os objtos da tela com os daqui
 			holder.itemImage = (ImageView)convertView.findViewById(id.imgExercicioo);
+			holder.imgExcluirExercicioTreino = (ImageView)convertView.findViewById(id.imgExcluirExercicioTreino);
 			holder.txt_itemName = (TextView)convertView.findViewById(id.txtNomeExercicio);
 			holder.chkExercicioSelecionado = (CheckBox)convertView.findViewById(id.chkExercicioSelecionado);
 			holder.txtSerie = (TextView) convertView.findViewById(id.txtSerie);
@@ -132,6 +134,8 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		if(indTela == 3) // Tela de treino?
 		{
 			holder.txtSerie.setVisibility(View.VISIBLE);
+			holder.imgExcluirExercicioTreino.setVisibility(View.VISIBLE);
+			holder.imgExcluirExercicioTreino.setTag(position); // para pegar a linha quando for executado o click do botão
 		}
 		// 
 		holder.txt_itemName.setText(ExercicioArrayList.get(position).getNome());

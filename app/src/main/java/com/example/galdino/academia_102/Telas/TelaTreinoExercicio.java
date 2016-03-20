@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.galdino.academia_102.BaseAdapter.ExercicioBaseAdapter;
 import com.example.galdino.academia_102.Controler.Controler;
@@ -17,6 +19,7 @@ import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Exercicio;
 import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.Dominio.RetornarInfoExercicioNaList;
+import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.Dominio.TreinoExercicio;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
@@ -34,6 +37,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
     private TextView lblNmTreino;
     private ArrayList<String> vetIDExe;
     private ArrayList<Exercicio> results;
+    private RetornarInfoExercicioNaList retornarInfoExercicioNaList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +73,10 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         //
         lblNmTreino.setText(nmTreino);
         // Carregar a lista de exercício com os exercícios do treino correspondente
-        carregarExerciciosTreino();
+        atualizarListExercicio();
         // monta a lista
         if(listEntDomExercicio != null) {
-            int indTela = 3;
             final Context context = this;
-            lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(this, results, null, indTela, vetIDExe));
 
             lvTreinoExercicio.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -85,7 +87,6 @@ public class TelaTreinoExercicio extends AppCompatActivity {
 
                     Exercicio obj_itemDetails = (Exercicio) o;
                     exe = obj_itemDetails.getNome();
-                    RetornarInfoExercicioNaList retornarInfoExercicioNaList = new RetornarInfoExercicioNaList(listEntDomExercicio);
                     //nome = encontrarNome(exe);
                     NomeLogico = retornarInfoExercicioNaList.getNomeLogico(position);
                     // carrega o grupo desse exercicio
@@ -139,7 +140,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
             results = new ArrayList<Exercicio>();
             listEntDomExercicio = new LinkedList<>();
             vetIDExe = new ArrayList<>();
-            //vetIDExe = new String[listEntDomTreinoExercicio.size()];
+
             for (EntidadeDominio entDomTreinoExercico: listEntDomTreinoExercicio)
             {
                 TreinoExercicio te = (TreinoExercicio)entDomTreinoExercico;
@@ -147,13 +148,43 @@ public class TelaTreinoExercicio extends AppCompatActivity {
                 exercicio.setID(String.valueOf(te.getIdExercicio()));
                 List<EntidadeDominio> listEntDomExe = exercicio.operar(this,true,Controler.DF_CONSULTAR,exercicio);
                 exercicio = (Exercicio)listEntDomExe.get(0);
-                //exercicio.setIdImage(i + 1); // Vai dar merda
                 results.add(exercicio);
                 listEntDomExercicio.add(exercicio);
-                //vetIDExe[i] = exercicio.getID();
                 vetIDExe.add(exercicio.getID());
                 i++;
             }
+            retornarInfoExercicioNaList = new RetornarInfoExercicioNaList(listEntDomExercicio);
         }
     }
-}
+    public void BtnExcluirExercicioTreino(View v)
+    {
+        // VERIFICAR SE CONFIRMA A EXCLUSÃO DO EXERCÍCIO
+        if(listEntDomExercicio != null)
+        {
+            try {
+                int linha = (Integer) v.getTag();
+                TreinoExercicio treinoExercicioExclui = new TreinoExercicio();
+                treinoExercicioExclui.setIdTreino(Integer.parseInt(idTreino));
+                treinoExercicioExclui.setIdExercicio(Integer.parseInt(retornarInfoExercicioNaList.getId(linha)));
+                treinoExercicioExclui.operar(this, true, Controler.DF_EXCLUIR, treinoExercicioExclui);
+                atualizarListExercicio();
+                Toast.makeText(this,"Exercício removido do treino.",Toast.LENGTH_LONG).show();
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(this,"Erro ao excluir o exercício.",Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+    private void atualizarListExercicio()
+    {
+        // Carregar a lista de exercício com os exercícios do treino correspondente
+        carregarExerciciosTreino();
+        // monta a lista
+        if(listEntDomExercicio != null)
+        {
+            int indTela = 3;
+            lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(this, results, null, indTela, vetIDExe));
+        }
+    }
+}//end Activity
