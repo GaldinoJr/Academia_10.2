@@ -67,7 +67,7 @@ public class SQLexercicio extends AbsSQL{
 //	}
 
 	@Override
-	public void salvar(EntidadeDominio entidade) {
+	public EntidadeDominio salvar(EntidadeDominio entidade) {
 		try {
 			exercicio =  (Exercicio)entidade;
 			mapSql = new HashMap<String, String>();
@@ -77,12 +77,15 @@ public class SQLexercicio extends AbsSQL{
 			mapSql.put(Col_ds_nome_logico_foto_exercicio, exercicio.getNomeLogicoFoto());
 			mapSql.put(Col_ds_exercicio, exercicio.getDescricao());
 			mapSql.put(Col_cd_grupo, String.valueOf(exercicio.getIdGrupo()));
- 			db.addRegistro(mapSql);
+			long id = db.addRegistro(mapSql);
+			exercicio.setID(String.valueOf(id));
 			//db.close();
+			return exercicio;
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			return null;
 		}
 	}
 

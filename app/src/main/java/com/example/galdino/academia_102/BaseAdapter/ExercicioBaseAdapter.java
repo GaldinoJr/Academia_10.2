@@ -29,9 +29,10 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 	// 2 = Tela para add exercício no treino
 	// 3 = TelaTreino
 	private Context context;
-	private String[] vetIDExe;
+	//private String[] vetIDExe;
+	private	ArrayList<String> vetIDExe;
 	// Construtor 1
-	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, boolean[] selecionados, Integer indTela, String[] vetIDExe)
+	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, boolean[] selecionados, Integer indTela, ArrayList<String> vetIDExe)
 	{
 		ExercicioArrayList = results;
 		this.selecionados = selecionados;
@@ -120,9 +121,11 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		{
 			holder.chkExercicioSelecionado.setVisibility(View.VISIBLE);
 			holder.chkExercicioSelecionado.setChecked(false);
-			for(int i = 0; i < vetIDExe.length; i++)
-				if(ExercicioArrayList.get(position).getID().equals(vetIDExe[i]))
-					selecionados[position] = true;
+			if( vetIDExe.contains(ExercicioArrayList.get(position).getID()))
+				selecionados[position] = true;
+//			for(int i = 0; i < vetIDExe.contains(); i++)
+//				if(ExercicioArrayList.get(position).getID().equals(vetIDExe[i]))
+//					selecionados[position] = true;
 
 			if (selecionados[position])
 				holder.chkExercicioSelecionado.setChecked(true);

@@ -81,18 +81,21 @@ public class SQLtreino extends AbsSQL{
 //	}
 
 	@Override
-	public void salvar(EntidadeDominio entidade) {
+	public EntidadeDominio salvar(EntidadeDominio entidade) {
 		try {
 			treino =  (Treino)entidade;
 			mapSql = new HashMap<String, String>();
 
 			mapSql.put(Col_ds_treino, String.valueOf(treino.getNome()));
-			db.addRegistro(mapSql);
+			long id = db.addRegistro(mapSql);
 			//db.close();
+			treino.setID(String.valueOf(id));
+			return treino;
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			return null;
 		}
 	}
 

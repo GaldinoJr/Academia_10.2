@@ -41,18 +41,21 @@ public class SQLMusculo  extends AbsSQL {
     }
 
     @Override
-    public void salvar(EntidadeDominio entidade) {
+    public EntidadeDominio salvar(EntidadeDominio entidade) {
         try {
             musculo =  (Musculo)entidade;
             mapSql = new HashMap<String, String>();
 
             mapSql.put(Col_ds_musculo, musculo.getNome());
-            db.addRegistro(mapSql);
+            long id = db.addRegistro(mapSql);
             //db.close();
+            musculo.setID(String.valueOf(id));
+            return musculo;
         }
         catch(Exception e)
         {
             e.printStackTrace();
+            return null;
         }
     }
 

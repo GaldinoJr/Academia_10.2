@@ -9,7 +9,7 @@
         android:id="@+id/imgExercicioo"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/abdominal_com_giro"
+        android:src="@drawable/abdomen_com_giro"
         android:layout_centerVertical="true"
      />
 

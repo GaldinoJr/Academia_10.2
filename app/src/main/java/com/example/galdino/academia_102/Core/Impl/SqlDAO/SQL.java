@@ -86,7 +86,7 @@ public class SQL extends SQLiteOpenHelper {
     }
 
     // Adicionar um registro no banco
-    public void addRegistro(Map<String, String> map){
+    public long addRegistro(Map<String, String> map){
         //for logging
         //Log.d("addBook", book.toString());
         // 1. get reference to writable DB
@@ -101,12 +101,13 @@ public class SQL extends SQLiteOpenHelper {
 
 
         // 3. insert
-        db.insert(nomeTabela, // table
+        long id = db.insert(nomeTabela, // table
                 null, //nullColumnHack
                 values); // key/value -> keys = column names/ values = column values
 
         // 4. close
         db.close();
+        return id;
     }
 
     // Buscar um registro

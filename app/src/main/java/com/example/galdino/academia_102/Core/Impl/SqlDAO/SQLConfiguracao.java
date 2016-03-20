@@ -41,18 +41,21 @@ public class SQLConfiguracao extends AbsSQL {
     }
 
     @Override
-    public void salvar(EntidadeDominio entidade) {
+    public EntidadeDominio salvar(EntidadeDominio entidade) {
         try {
             configuracao =  (Configuracao)entidade;
             mapSql = new HashMap<String, String>();
 
             mapSql.put(Col_fg_banco_criado, String.valueOf(configuracao.getFgBancoCriado()));
-            db.addRegistro(mapSql);
+            long id = db.addRegistro(mapSql);
+            configuracao.setID(String.valueOf(id));
             //db.close();
+            return configuracao;
         }
         catch(Exception e)
         {
             e.printStackTrace();
+            return null;
         }
     }
 

@@ -19,6 +19,7 @@ import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TelaPrincipalExercicio extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener {
     //private String grupo;
@@ -45,7 +46,8 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
                    idTreino;
     //private float X1, X2, deltaX;
     //float Y1, Y2;
-    private String[] vetIDExe;
+    //private String[] vetIDExe;
+    private ArrayList<String> vetIDExe;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -97,8 +99,9 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
         telaAnterior = dados.getStringExtra("nmTelaCorrespondente");
         idTreino = dados.getStringExtra("idTreino");
         nmTreino = dados.getStringExtra("nmTreino");
-        Bundle b=this.getIntent().getExtras();
-        vetIDExe = b.getStringArray("exe");
+        //Bundle b=this.getIntent().getExtras();
+        //vetIDExe = b.getStringArray("exe");
+        vetIDExe = dados.getStringArrayListExtra("exe");
     }
 
     @Override
@@ -293,9 +296,10 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
         if(TelaFichaListExercicios.class.toString().equals(telaAnterior)) {
             intent.putExtra("idTreino", idTreino);
             intent.putExtra("nmTreino", nmTreino);
-            Bundle b=new Bundle();
-            b.putStringArray("exe", vetIDExe);
-            intent.putExtras(b);
+            intent.putStringArrayListExtra("exe", (ArrayList<String>) vetIDExe);
+//            Bundle b=new Bundle();
+//            b.putStringArray("exe", vetIDExe);
+//            intent.putExtras(b);
         }
         startActivity(intent); // chama a próxima tela
         finish(); // Encerra a tela atual

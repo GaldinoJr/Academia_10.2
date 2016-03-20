@@ -31,7 +31,7 @@ public class TelaListaExercicios extends AppCompatActivity {
 
     private TextView txtNomeGrupo;
     //private String[] vetExe;
-    private String[] vetIDExe;
+    private ArrayList<String> vetIDExe;
     private String grupo;
     private ImageView imgCorGrupo;
     private Intent dados;
@@ -74,8 +74,9 @@ public class TelaListaExercicios extends AppCompatActivity {
             indTela = 2;
             idTreino = dados.getStringExtra("idTreino");
             nmTreino = dados.getStringExtra("nmTreino");
-            Bundle b=this.getIntent().getExtras();
-            vetIDExe = b.getStringArray("exe");
+//            Bundle b=this.getIntent().getExtras();
+//            vetIDExe = b.getStringArray("exe");
+            vetIDExe = dados.getStringArrayListExtra("exe");
             fBtnConfirmarExercicio.setVisibility(View.VISIBLE);
         }
         // Carregar o id do grupo no banco
@@ -175,9 +176,10 @@ public class TelaListaExercicios extends AppCompatActivity {
         intent.putExtra("nmTelaCorrespondente", telaAnterior);
         intent.putExtra("idTreino", idTreino);
         intent.putExtra("nmTreino",nmTreino);
-        Bundle b=new Bundle();
-        b.putStringArray("exe", vetIDExe);
-        intent.putExtras(b);
+        intent.putStringArrayListExtra("exe", (ArrayList<String>) vetIDExe);
+//        Bundle b=new Bundle();
+//        b.putStringArray("exe", vetIDExe);
+//        intent.putExtras(b);
         startActivity(intent); // chama a próxima tela
         finish();
     }
@@ -229,15 +231,17 @@ public class TelaListaExercicios extends AppCompatActivity {
             for(i = 0; i < qtdRegistro; i++)
             {
                 if(itemChecked[i]) {
-                    List<EntidadeDominio> listTeste;
+                    List<EntidadeDominio> listAux;
                     Exercicio ex = (Exercicio) listEntDomExercicio.get(i);
                     TreinoExercicio treinoExercicio = new TreinoExercicio();
                     treinoExercicio.setIdTreino(Integer.parseInt(idTreino));
                     treinoExercicio.setIdExercicio(Integer.parseInt(ex.getID()));
-                    listTeste = treinoExercicio.operar(this, true, Controler.DF_CONSULTAR, treinoExercicio);
-                    if(listTeste == null)
+                    listAux = treinoExercicio.operar(this, true, Controler.DF_CONSULTAR, treinoExercicio);
+                    if(listAux == null)
                     {
-                        treinoExercicio.operar(this, true, Controler.DF_SALVAR, treinoExercicio);
+                        listAux = treinoExercicio.operar(this, true, Controler.DF_SALVAR, treinoExercicio);
+                        treinoExercicio = (TreinoExercicio)listAux.get(0);
+                        vetIDExe.add(String.valueOf(treinoExercicio.getIdExercicio()));
                     }
                 }
             }

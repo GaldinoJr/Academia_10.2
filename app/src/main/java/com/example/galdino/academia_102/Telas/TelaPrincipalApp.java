@@ -63,9 +63,6 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
             Intent intent = new Intent();
             intent.setClass(TelaPrincipalApp.this, TelaPrincipalExercicio.class);
             intent.putExtra("exe", "");
-//            Bundle b=new Bundle();
-//            b.putStringArray("exe", null);
-//            intent.putExtras(b);
             startActivity(intent); // chama a próxima tela
             finish(); // Encerra a tela atual
         }

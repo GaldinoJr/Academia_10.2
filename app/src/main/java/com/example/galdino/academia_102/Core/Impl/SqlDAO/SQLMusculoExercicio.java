@@ -45,7 +45,7 @@ public class SQLMusculoExercicio  extends AbsSQL {
     }
 
     @Override
-    public void salvar(EntidadeDominio entidade) {
+    public EntidadeDominio salvar(EntidadeDominio entidade) {
         try {
             musculoExercicio =  (MusculoExercicio)entidade;
             mapSql = new HashMap<String, String>();
@@ -53,12 +53,15 @@ public class SQLMusculoExercicio  extends AbsSQL {
             mapSql.put(Col_cd_musculo, String.valueOf(musculoExercicio.getIdMusculo()));
             mapSql.put(Col_cd_exercicio, String.valueOf(musculoExercicio.getIdExercicio()));
             mapSql.put(Col_ind_primario_secundario, String.valueOf(musculoExercicio.getIndPrimarioSecundario()));
-            db.addRegistro(mapSql);
+            long id = db.addRegistro(mapSql);
             //db.close();
+            musculoExercicio.setID(String.valueOf(id));
+            return musculoExercicio;
         }
         catch(Exception e)
         {
             e.printStackTrace();
+            return null;
         }
     }
 

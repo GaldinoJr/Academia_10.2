@@ -34,7 +34,7 @@ public class TelaFichaListExercicios extends AppCompatActivity {
     private String nmTreino,
                    idTreino;
     private TextView lblNmTreino;
-    private String[] vetIDExe;
+    private ArrayList<String> vetIDExe;
     private ArrayList<Exercicio> results;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +55,10 @@ public class TelaFichaListExercicios extends AppCompatActivity {
                 intent.putExtra("idTreino", idTreino);
                 intent.putExtra("nmTreino", nmTreino);
                 intent.putExtra("nmTelaCorrespondente",TelaFichaListExercicios.class.toString());
-                Bundle b=new Bundle();
-                b.putStringArray("exe", vetIDExe);
-                intent.putExtras(b);
+                intent.putStringArrayListExtra("exe", (ArrayList<String>) vetIDExe);
+                //Bundle b=new Bundle();
+//                b.putStringArray("exe", vetIDExe);
+//                intent.putExtras(b);
                 startActivity(intent); // chama a próxima tela
                 finish();
             }
@@ -139,7 +140,8 @@ public class TelaFichaListExercicios extends AppCompatActivity {
             int i = 0;
             results = new ArrayList<Exercicio>();
             listEntDomExercicio = new LinkedList<>();
-            vetIDExe = new String[listEntDomTreinoExercicio.size()];
+            vetIDExe = new ArrayList<>();
+            //vetIDExe = new String[listEntDomTreinoExercicio.size()];
             for (EntidadeDominio entDomTreinoExercico: listEntDomTreinoExercicio)
             {
                 TreinoExercicio te = (TreinoExercicio)entDomTreinoExercico;
@@ -150,7 +152,8 @@ public class TelaFichaListExercicios extends AppCompatActivity {
                 //exercicio.setIdImage(i + 1); // Vai dar merda
                 results.add(exercicio);
                 listEntDomExercicio.add(exercicio);
-                vetIDExe[i] = exercicio.getID();
+                //vetIDExe[i] = exercicio.getID();
+                vetIDExe.add(exercicio.getID());
                 i++;
             }
         }

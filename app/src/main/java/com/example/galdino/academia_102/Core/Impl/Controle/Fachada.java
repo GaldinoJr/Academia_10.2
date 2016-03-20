@@ -104,13 +104,13 @@ public class Fachada  implements IFachada {
 //        ValidarDadosInclProduto rValidarDadosInclProduto = new ValidarDadosInclProduto();
         //
 
-        // ADD as classes que ser�o testadas
+        // ADD as classes que serão testadas
 //        List<IStrategy> rnsSalvarProduto = new ArrayList<IStrategy>();
 //        List<IStrategy> rnsSalvarVenda = new ArrayList<IStrategy>();
 //        List<IStrategy> rnsSalvarProdTrocado = new ArrayList<IStrategy>();
 //        List<IStrategy> rnsSalvarTroca = new ArrayList<IStrategy>();
 //
-        // ****** N�O ADD LISTA DE REGRAS PARA CLASSE ProdVendido
+        // ****** NãO ADD LISTA DE REGRAS PARA CLASSE ProdVendido
 
         // Adiciona as regras do negocio que seram testadas
         //rnsSalvarProdTrocado.add(rValidarVendaPromocao);
@@ -162,10 +162,12 @@ public class Fachada  implements IFachada {
             IDAO dao = daos.get(nmClasse);
             try
             {
-                dao.salvar(entidade);
-                List<EntidadeDominio> entidades = new ArrayList<EntidadeDominio>();
-                entidades.add(entidade);
-                resultado.setEntidades(entidades);
+                List<EntidadeDominio> entidadeAux = new ArrayList<EntidadeDominio>();
+                entidadeAux.add(dao.salvar(entidade));
+                resultado.setEntidades(entidadeAux);
+//                List<EntidadeDominio> entidades = new ArrayList<EntidadeDominio>();
+//                entidades.add(entidade);
+//                resultado.setEntidades(entidades);
             }
             // MUDEI *****
             catch (Exception e)
