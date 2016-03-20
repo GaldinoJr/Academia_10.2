@@ -29,49 +29,45 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 	// 2 = Tela para add exercício no treino
 	// 3 = TelaTreino
 	private Context context;
+	private String[] vetIDExe;
 	// Construtor 1
-	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, String grupo,boolean[] selecionados, Integer indTela)
+	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, boolean[] selecionados, Integer indTela, String[] vetIDExe)
 	{
-		Exercicio ex = new Exercicio();
-		if(grupo != null) {
-			ex.ordenarVetores(grupo);
-			//imgId = orderAlfabeticamenteIdImagem(ex.getVetId());
-		}
 		ExercicioArrayList = results;
-		//itemChecked = new boolean[results.size()];
 		this.selecionados = selecionados;
 		this.indTela = indTela;
 		l_Inflater = LayoutInflater.from(context);
 		this.context = context;
+		this.vetIDExe = vetIDExe;
 	}
 	// Construtor 2
 	public ExercicioBaseAdapter()
 	{
 		
 	}
-	private Integer[] orderAlfabeticamenteIdImagem(Integer[]imgid)
-	{
-		int aux, 
-			nTamanho,
-			i;
-		Boolean flgHouveTroca = false;
-		nTamanho = imgid.length;
-		do
-		{
-			flgHouveTroca = false;
-			for(i = 0; i < nTamanho-1; i++)
-			{
-				if(imgid[i] > imgid[i+1]) // Atual é maior que o próximo?
-				{ // sim, ent�o troca
-					aux = imgid[i];
-					imgid[i] = imgid[i+1];
-					imgid[i+1] = aux;
-					flgHouveTroca = true; // indica que houve troca
-				}
-			}
-		}while(flgHouveTroca);	
-		return imgid;
-	}
+//	private Integer[] orderAlfabeticamenteIdImagem(Integer[]imgid)
+//	{
+//		int aux,
+//			nTamanho,
+//			i;
+//		Boolean flgHouveTroca = false;
+//		nTamanho = imgid.length;
+//		do
+//		{
+//			flgHouveTroca = false;
+//			for(i = 0; i < nTamanho-1; i++)
+//			{
+//				if(imgid[i] > imgid[i+1]) // Atual é maior que o próximo?
+//				{ // sim, ent�o troca
+//					aux = imgid[i];
+//					imgid[i] = imgid[i+1];
+//					imgid[i+1] = aux;
+//					flgHouveTroca = true; // indica que houve troca
+//				}
+//			}
+//		}while(flgHouveTroca);
+//		return imgid;
+//	}
 
 	// Conta quantos registros tem no array
 	public int getCount() 
@@ -124,6 +120,10 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		{
 			holder.chkExercicioSelecionado.setVisibility(View.VISIBLE);
 			holder.chkExercicioSelecionado.setChecked(false);
+			for(int i = 0; i < vetIDExe.length; i++)
+				if(ExercicioArrayList.get(position).getID().equals(vetIDExe[i]))
+					selecionados[position] = true;
+
 			if (selecionados[position])
 				holder.chkExercicioSelecionado.setChecked(true);
 			else

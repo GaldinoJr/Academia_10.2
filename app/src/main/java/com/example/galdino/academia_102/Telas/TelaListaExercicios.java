@@ -31,6 +31,7 @@ public class TelaListaExercicios extends AppCompatActivity {
 
     private TextView txtNomeGrupo;
     //private String[] vetExe;
+    private String[] vetIDExe;
     private String grupo;
     private ImageView imgCorGrupo;
     private Intent dados;
@@ -56,14 +57,7 @@ public class TelaListaExercicios extends AppCompatActivity {
                     Toast.makeText(TelaListaExercicios.this, "Erro ao gravar o treino.", Toast.LENGTH_SHORT).show();
                 else {
                     Toast.makeText(TelaListaExercicios.this, "Exercícios registrados.", Toast.LENGTH_SHORT).show();
-                    Intent intent;
-                    intent = new Intent();
-                    // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-                    intent.setClass(TelaListaExercicios.this, TelaPrincipalExercicio.class);
-                    intent.putExtra("nmTelaCorrespondente",telaAnterior);
-                    intent.putExtra("idTreino",idTreino);
-                    startActivity(intent); // chama a próxima tela
-                    finish();
+                    onBackPressed();
                 }
             }
         });
@@ -72,20 +66,16 @@ public class TelaListaExercicios extends AppCompatActivity {
         imgCorGrupo = (ImageView)findViewById(id.imgPrincipal);
         // recebe os dados da tela 1
         dados = getIntent();
-
-        // Pega os dados do código (não apagar)
-        //Bundle b=this.getIntent().getExtras();
-        //vetExe = b.getStringArray("exe");
         int indTela = 1;
         // Recebe os dados da tela anterior
         grupo = dados.getStringExtra("grupo");
         telaAnterior = dados.getStringExtra("nmTelaCorrespondente");
-        if(telaAnterior != null) {
-            idTreino = dados.getStringExtra("idTreino");
-            nmTreino = dados.getStringExtra("nmTreino");
-        }
         if(TelaFichaListExercicios.class.toString().equals(telaAnterior)) {
             indTela = 2;
+            idTreino = dados.getStringExtra("idTreino");
+            nmTreino = dados.getStringExtra("nmTreino");
+            Bundle b=this.getIntent().getExtras();
+            vetIDExe = b.getStringArray("exe");
             fBtnConfirmarExercicio.setVisibility(View.VISIBLE);
         }
         // Carregar o id do grupo no banco
@@ -122,7 +112,7 @@ public class TelaListaExercicios extends AppCompatActivity {
 
         final ListView lvExercicio = (ListView)findViewById(id.lvExercicios);
 
-        lvExercicio.setAdapter(new ExercicioBaseAdapter(this, image_details2, grupo, itemChecked, indTela ));
+        lvExercicio.setAdapter(new ExercicioBaseAdapter(this, image_details2, itemChecked, indTela, vetIDExe));
 
         lvExercicio.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -183,7 +173,11 @@ public class TelaListaExercicios extends AppCompatActivity {
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
         intent.setClass(TelaListaExercicios.this, TelaPrincipalExercicio.class);
         intent.putExtra("nmTelaCorrespondente", telaAnterior);
-        intent.putExtra("idTreino",idTreino);
+        intent.putExtra("idTreino", idTreino);
+        intent.putExtra("nmTreino",nmTreino);
+        Bundle b=new Bundle();
+        b.putStringArray("exe", vetIDExe);
+        intent.putExtras(b);
         startActivity(intent); // chama a próxima tela
         finish();
     }
@@ -232,13 +226,19 @@ public class TelaListaExercicios extends AppCompatActivity {
         try {
             int i, qtdRegistro = listEntDomExercicio.size();
 
-            for(i = 0; i < qtdRegistro; i++) {
+            for(i = 0; i < qtdRegistro; i++)
+            {
                 if(itemChecked[i]) {
+                    List<EntidadeDominio> listTeste;
                     Exercicio ex = (Exercicio) listEntDomExercicio.get(i);
                     TreinoExercicio treinoExercicio = new TreinoExercicio();
                     treinoExercicio.setIdTreino(Integer.parseInt(idTreino));
                     treinoExercicio.setIdExercicio(Integer.parseInt(ex.getID()));
-                    treinoExercicio.operar(this,true,Controler.DF_SALVAR,treinoExercicio);
+                    listTeste = treinoExercicio.operar(this, true, Controler.DF_CONSULTAR, treinoExercicio);
+                    if(listTeste == null)
+                    {
+                        treinoExercicio.operar(this, true, Controler.DF_SALVAR, treinoExercicio);
+                    }
                 }
             }
             return 0;

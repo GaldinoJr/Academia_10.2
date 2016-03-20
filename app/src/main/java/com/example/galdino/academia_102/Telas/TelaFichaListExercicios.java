@@ -34,6 +34,7 @@ public class TelaFichaListExercicios extends AppCompatActivity {
     private String nmTreino,
                    idTreino;
     private TextView lblNmTreino;
+    private String[] vetIDExe;
     private ArrayList<Exercicio> results;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,9 @@ public class TelaFichaListExercicios extends AppCompatActivity {
                 intent.putExtra("idTreino", idTreino);
                 intent.putExtra("nmTreino", nmTreino);
                 intent.putExtra("nmTelaCorrespondente",TelaFichaListExercicios.class.toString());
+                Bundle b=new Bundle();
+                b.putStringArray("exe", vetIDExe);
+                intent.putExtras(b);
                 startActivity(intent); // chama a próxima tela
                 finish();
             }
@@ -70,9 +74,8 @@ public class TelaFichaListExercicios extends AppCompatActivity {
         // monta a lista
         if(listEntDomExercicio != null) {
             int indTela = 3;
-            String grupo = "Peito";
             final Context context = this;
-            lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(this, results, grupo, null, indTela));
+            lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(this, results, null, indTela, vetIDExe));
 
             lvTreinoExercicio.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -136,6 +139,7 @@ public class TelaFichaListExercicios extends AppCompatActivity {
             int i = 0;
             results = new ArrayList<Exercicio>();
             listEntDomExercicio = new LinkedList<>();
+            vetIDExe = new String[listEntDomTreinoExercicio.size()];
             for (EntidadeDominio entDomTreinoExercico: listEntDomTreinoExercicio)
             {
                 TreinoExercicio te = (TreinoExercicio)entDomTreinoExercico;
@@ -143,9 +147,10 @@ public class TelaFichaListExercicios extends AppCompatActivity {
                 exercicio.setID(String.valueOf(te.getIdExercicio()));
                 List<EntidadeDominio> listEntDomExe = exercicio.operar(this,true,Controler.DF_CONSULTAR,exercicio);
                 exercicio = (Exercicio)listEntDomExe.get(0);
-                exercicio.setIdImage(i + 1); // Vai dar merda
+                //exercicio.setIdImage(i + 1); // Vai dar merda
                 results.add(exercicio);
                 listEntDomExercicio.add(exercicio);
+                vetIDExe[i] = exercicio.getID();
                 i++;
             }
         }

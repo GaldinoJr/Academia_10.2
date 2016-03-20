@@ -36,7 +36,6 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
     private Intent intent;
     private  String[] vetSgrupos;
     private String[] vetor;
-    private float X1, X2, deltaX;
     private ImageView iVprincipal;
     private static final int LIMITE_MINIMO = 50;
     private static final int TOLERANCIA = 0;
@@ -44,7 +43,9 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
                    telaAnterior,
                    nmTreino,
                    idTreino;
-    float Y1, Y2;
+    //private float X1, X2, deltaX;
+    //float Y1, Y2;
+    private String[] vetIDExe;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -96,6 +97,8 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
         telaAnterior = dados.getStringExtra("nmTelaCorrespondente");
         idTreino = dados.getStringExtra("idTreino");
         nmTreino = dados.getStringExtra("nmTreino");
+        Bundle b=this.getIntent().getExtras();
+        vetIDExe = b.getStringArray("exe");
     }
 
     @Override
@@ -104,29 +107,6 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
         //getMenuInflater().inflate(R.menu.tela_principal, menu);
         return true;
     }
-
-
-//    public void chamarTelaCorrespondeteAoGrupo(String[] vetExe, String grupo)
-//    {
-//        Bundle b;
-//
-//        b=new Bundle();
-//        b.putStringArray("exe", vetExe);
-//        intent = new Intent();
-//        // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-//        intent.setClass(TelaPrincipalExercicio.this, TelaListaExercicios.class);
-//        intent.putExtras(b);
-//        intent.putExtra("grupo", grupo);
-//        intent.putExtra("nmTelaCorrespondente",telaAnterior);
-//        if(TelaFichaListExercicios.class.toString().equals(telaAnterior)) {
-//            intent.putExtra("idTreino", idTreino);
-//            intent.putExtra("nmTreino", nmTreino);
-//        }
-//        startActivity(intent); // chama a próxima tela
-//        finish(); // Encerra a tela atual
-//    }
-
-
 
     public ArrayList<GrupoMuscular> GetSearchResults()
     {
@@ -300,18 +280,6 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
     private void imageClick(String sGrupo)
     {
         grupo = sGrupo;
-        //Exercicio exercicio = new Exercicio();
-        // pega os exercícios do código(não apagar)
-        //exercicio.ordenarVetores(grupo);
-        //vetor = exercicio.getVetCorrespondente();
-
-//        if(vetor == null)
-//        {
-//            Toast.makeText(TelaPrincipalExercicio.this, "Não à exercicios para este grupo", Toast.LENGTH_SHORT);
-//            Intent intent = new Intent(Intent.ACTION_MAIN);
-//            finish();
-//        }
-        //chamarTelaCorrespondeteAoGrupo(vetor, grupo);
         chamarTelaCorrespondeteAoGrupo(sGrupo);
     }
 
@@ -325,6 +293,9 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
         if(TelaFichaListExercicios.class.toString().equals(telaAnterior)) {
             intent.putExtra("idTreino", idTreino);
             intent.putExtra("nmTreino", nmTreino);
+            Bundle b=new Bundle();
+            b.putStringArray("exe", vetIDExe);
+            intent.putExtras(b);
         }
         startActivity(intent); // chama a próxima tela
         finish(); // Encerra a tela atual

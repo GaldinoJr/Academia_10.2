@@ -89,9 +89,10 @@ public class SQLTreinoExercicio extends AbsSQL {
                 query += " AND " + Col_cd_treino_exercicio + " = '" + treinoExercicio.getID() + "'";
             if (treinoExercicio.getIdTreino() != null)
                 query += " AND " + Col_cd_treino + " = " + treinoExercicio.getIdTreino();
+            if (treinoExercicio.getIdExercicio() != null)
+                query += " AND " + Col_cd_exercicio + " = " + treinoExercicio.getIdExercicio();
 
             listSql = new ArrayList<EntidadeDominio>();
-
             listMapSql = new LinkedList<Map<String, String>>(); // talvez seja redundante, testar e tirar se for*****
             listMapSql = db.pesquisarComSelect(query, colunasBusca);
             //db.close();
