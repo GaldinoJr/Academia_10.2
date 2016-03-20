@@ -18,10 +18,10 @@
 
     <ImageView
         android:id="@+id/imgExcluirTreino"
-        android:layout_width="@dimen/tamanho20"
-        android:layout_height="@dimen/tamanho20"
-        android:src="@drawable/ic_close_black_24dp"
-        android:layout_alignBottom="@+id/txtNomeTreino"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_delete_branco"
+        android:layout_marginRight="15dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:onClick="BtnExclui"

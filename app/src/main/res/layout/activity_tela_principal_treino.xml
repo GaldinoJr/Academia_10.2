@@ -47,6 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
         android:layout_toLeftOf="@+id/btnAddTreino"
+        android:textColor="@color/corTextoBranco"
         android:layout_alignParentBottom="true"/>
 
 

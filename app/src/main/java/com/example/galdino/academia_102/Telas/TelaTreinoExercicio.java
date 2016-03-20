@@ -134,12 +134,11 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         TreinoExercicio treinoExercicio = new TreinoExercicio();
         treinoExercicio.setIdTreino(Integer.parseInt(idTreino));
         listEntDomTreinoExercicio = treinoExercicio.operar(this,true,Controler.DF_CONSULTAR,treinoExercicio);
+        results = new ArrayList<Exercicio>();
+        listEntDomExercicio = new LinkedList<>();
+        vetIDExe = new ArrayList<>();
         if(listEntDomTreinoExercicio != null)
         {
-            int i = 0;
-            results = new ArrayList<Exercicio>();
-            listEntDomExercicio = new LinkedList<>();
-            vetIDExe = new ArrayList<>();
 
             for (EntidadeDominio entDomTreinoExercico: listEntDomTreinoExercicio)
             {
@@ -151,7 +150,6 @@ public class TelaTreinoExercicio extends AppCompatActivity {
                 results.add(exercicio);
                 listEntDomExercicio.add(exercicio);
                 vetIDExe.add(exercicio.getID());
-                i++;
             }
             retornarInfoExercicioNaList = new RetornarInfoExercicioNaList(listEntDomExercicio);
         }
@@ -180,11 +178,14 @@ public class TelaTreinoExercicio extends AppCompatActivity {
     {
         // Carregar a lista de exercício com os exercícios do treino correspondente
         carregarExerciciosTreino();
-        // monta a lista
         if(listEntDomExercicio != null)
         {
             int indTela = 3;
             lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(this, results, null, indTela, vetIDExe));
+        }
+        else
+        {
+            lvTreinoExercicio.setAdapter(null);
         }
     }
 }//end Activity

@@ -23,14 +23,10 @@ public class ListaTreinosBaseAdapter extends BaseAdapter {
     private static ArrayList<Treino> ALlistaTreino;
     private LayoutInflater l_Inflater;
     private List<EntidadeDominio> listEntDomTreinos;
-    // Da pra ordenar os ids, pelos ids
-    //private Integer[] imgId;
-    private Integer imgId;
     private Context context;
     // Construtor 1
     public ListaTreinosBaseAdapter(Context context, ArrayList<Treino> results, List<EntidadeDominio> listEntDomTreinos)
     {
-        imgId = R.drawable.ic_close_black_24dp;
         ALlistaTreino = results;
         l_Inflater = LayoutInflater.from(context);
         this.listEntDomTreinos = listEntDomTreinos;
@@ -88,8 +84,6 @@ public class ListaTreinosBaseAdapter extends BaseAdapter {
         }
         //
         holder.txt_itemName.setText(ALlistaTreino.get(position).getNome());
-      //  holder.itemImage.setImageResource(imgId[ALlistaTreino.get(position).getIdImage() - 1]);
-        holder.itemImage.setImageResource(imgId);
         holder.itemImage.setTag(position);
         return convertView;
     }

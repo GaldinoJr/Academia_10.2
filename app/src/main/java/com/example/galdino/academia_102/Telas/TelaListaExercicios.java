@@ -73,9 +73,9 @@ public class TelaListaExercicios extends AppCompatActivity {
             indTela = 2;
             idTreino = dados.getStringExtra("idTreino");
             nmTreino = dados.getStringExtra("nmTreino");
-//            Bundle b=this.getIntent().getExtras();
-//            vetIDExe = b.getStringArray("exe");
             vetIDExe = dados.getStringArrayListExtra("exe");
+            if(vetIDExe == null)
+                vetIDExe = new ArrayList<>();
             fBtnConfirmarExercicio.setVisibility(View.VISIBLE);
         }
         // Carregar o id do grupo no banco

@@ -120,11 +120,9 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		{
 			holder.chkExercicioSelecionado.setVisibility(View.VISIBLE);
 			holder.chkExercicioSelecionado.setChecked(false);
-			if( vetIDExe.contains(ExercicioArrayList.get(position).getID()))
-				selecionados[position] = true;
-//			for(int i = 0; i < vetIDExe.contains(); i++)
-//				if(ExercicioArrayList.get(position).getID().equals(vetIDExe[i]))
-//					selecionados[position] = true;
+			if(vetIDExe != null)
+				if( vetIDExe.contains(ExercicioArrayList.get(position).getID()))
+					selecionados[position] = true;
 
 			if (selecionados[position])
 				holder.chkExercicioSelecionado.setChecked(true);
