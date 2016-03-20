@@ -38,12 +38,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Telas.TelaPrincipalFicha"
+            android:name=".Telas.TelaPrincipalTreino"
             android:label="@string/title_activity_tela_principal_ficha"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".Telas.TelaFichaListExercicios"
+            android:name=".Telas.TelaTreinoExercicio"
             android:label="@string/title_activity_tela_ficha_list_exercicios"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>

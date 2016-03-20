@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,7 +23,7 @@ import com.example.galdino.academia_102.R.id;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClickListener {
+public class TelaPrincipalTreino extends AppCompatActivity implements View.OnClickListener {
 
     private int i;
     private Button btnAddTreino;
@@ -38,7 +37,7 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_principal_ficha);
+        setContentView(R.layout.activity_tela_principal_treino);
         //
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED); // Para não iniciar o teclado quando abrir a tela
         //
@@ -58,10 +57,10 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
                 //String nome;
                 Object o = listTreinos.getItemAtPosition(position);
                // nome = o.toString();
-                //Toast.makeText(TelaPrincipalFicha.this, "nome: " + nome, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(TelaPrincipalTreino.this, "nome: " + nome, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-                intent.setClass(TelaPrincipalFicha.this, TelaFichaListExercicios.class);
+                intent.setClass(TelaPrincipalTreino.this, TelaTreinoExercicio.class);
                 intent.putExtra("idTreino", retornarInfoTreino(position,0));
                 intent.putExtra("nomeTreino", retornarInfoTreino(position, 1));
                 startActivity(intent); // chama a próxima tela
@@ -126,7 +125,7 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
             nomeTreino = txtNomeTreino.getText().toString();
             if(nomeTreino.equals("")) // não digitou nome nenhum?
             {
-                Toast.makeText(TelaPrincipalFicha.this, "Digite um nome para o treino", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TelaPrincipalTreino.this, "Digite um nome para o treino", Toast.LENGTH_SHORT).show();
                 return;
             }
             // se chegou até aqui digitou um nome, então cadastrar o novo treino no banco, e chamar o método para atualizar a list
@@ -143,7 +142,7 @@ public class TelaPrincipalFicha extends AppCompatActivity implements View.OnClic
 
         Intent intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaPrincipalFicha.this, TelaPrincipalApp.class);
+        intent.setClass(TelaPrincipalTreino.this, TelaPrincipalApp.class);
         startActivity(intent); // chama a próxima tela(tela anterior)
         finish();
 

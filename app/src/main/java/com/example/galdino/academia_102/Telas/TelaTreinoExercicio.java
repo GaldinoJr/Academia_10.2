@@ -8,10 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.galdino.academia_102.BaseAdapter.ExercicioBaseAdapter;
 import com.example.galdino.academia_102.Controler.Controler;
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TelaFichaListExercicios extends AppCompatActivity {
+public class TelaTreinoExercicio extends AppCompatActivity {
     private ListView lvTreinoExercicio;
     private List<EntidadeDominio> listEntDomExercicio;
     private FloatingActionButton fBtnAddEx;
@@ -39,7 +37,7 @@ public class TelaFichaListExercicios extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_ficha_list_exercicios);
+        setContentView(R.layout.activity_tela_treino_exercicio);
         // associa os objetos da tela
         lblNmTreino = (TextView)findViewById(id.lblNmTreino);
         lvTreinoExercicio = (ListView)findViewById(id.lvTreinoExercicio);
@@ -49,12 +47,12 @@ public class TelaFichaListExercicios extends AppCompatActivity {
         fBtnAddEx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(TelaFichaListExercicios.this, "clicou", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(TelaTreinoExercicio.this, "clicou", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
-                intent.setClass(TelaFichaListExercicios.this, TelaPrincipalExercicio.class);
+                intent.setClass(TelaTreinoExercicio.this, TelaPrincipalExercicio.class);
                 intent.putExtra("idTreino", idTreino);
                 intent.putExtra("nmTreino", nmTreino);
-                intent.putExtra("nmTelaCorrespondente",TelaFichaListExercicios.class.toString());
+                intent.putExtra("nmTelaCorrespondente",TelaTreinoExercicio.class.toString());
                 intent.putStringArrayListExtra("exe", (ArrayList<String>) vetIDExe);
                 //Bundle b=new Bundle();
 //                b.putStringArray("exe", vetIDExe);
@@ -101,7 +99,7 @@ public class TelaFichaListExercicios extends AppCompatActivity {
                     }
                     Intent intent = new Intent();
                     // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-                    intent.setClass(TelaFichaListExercicios.this, TelaExercicio.class);
+                    intent.setClass(TelaTreinoExercicio.this, TelaExercicio.class);
                     intent.putExtra("grupo", grupo);
                     intent.putExtra("nome", NomeLogico);
                     intent.putExtra("exe", exe);
@@ -124,7 +122,7 @@ public class TelaFichaListExercicios extends AppCompatActivity {
     {
         Intent intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaFichaListExercicios.this, TelaPrincipalFicha.class);
+        intent.setClass(TelaTreinoExercicio.this, TelaPrincipalTreino.class);
         startActivity(intent); // chama a próxima tela(tela anterior)
         finish();
     }

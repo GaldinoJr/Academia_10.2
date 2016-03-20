@@ -19,7 +19,6 @@ import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TelaPrincipalExercicio extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener {
     //private String grupo;
@@ -293,7 +292,7 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
         intent.setClass(TelaPrincipalExercicio.this, TelaListaExercicios.class);
         intent.putExtra("grupo", grupo);
         intent.putExtra("nmTelaCorrespondente",telaAnterior);
-        if(TelaFichaListExercicios.class.toString().equals(telaAnterior)) {
+        if(TelaTreinoExercicio.class.toString().equals(telaAnterior)) {
             intent.putExtra("idTreino", idTreino);
             intent.putExtra("nmTreino", nmTreino);
             intent.putStringArrayListExtra("exe", (ArrayList<String>) vetIDExe);
@@ -310,8 +309,8 @@ public class TelaPrincipalExercicio extends AppCompatActivity implements View.On
 
         Intent intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-        if(TelaFichaListExercicios.class.toString().equals(telaAnterior)) {
-            intent.setClass(TelaPrincipalExercicio.this, TelaFichaListExercicios.class);
+        if(TelaTreinoExercicio.class.toString().equals(telaAnterior)) {
+            intent.setClass(TelaPrincipalExercicio.this, TelaTreinoExercicio.class);
             intent.putExtra("nomeTreino", nmTreino);
             intent.putExtra("idTreino", idTreino);
         }

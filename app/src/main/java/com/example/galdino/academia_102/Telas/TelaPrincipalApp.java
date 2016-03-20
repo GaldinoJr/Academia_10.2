@@ -69,7 +69,7 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
         if(view == btnTelaFicha)
         { // chama a tela principal de fichas
             Intent intent = new Intent();
-            intent.setClass(TelaPrincipalApp.this, TelaPrincipalFicha.class);
+            intent.setClass(TelaPrincipalApp.this, TelaPrincipalTreino.class);
             startActivity(intent); // chama a próxima tela
             finish(); // Encerra a tela atual
         }

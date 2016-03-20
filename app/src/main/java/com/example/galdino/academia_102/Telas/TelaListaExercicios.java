@@ -19,7 +19,6 @@ import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Exercicio;
 import com.example.galdino.academia_102.Dominio.GrupoMuscular;
-import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.Dominio.TreinoExercicio;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
@@ -70,7 +69,7 @@ public class TelaListaExercicios extends AppCompatActivity {
         // Recebe os dados da tela anterior
         grupo = dados.getStringExtra("grupo");
         telaAnterior = dados.getStringExtra("nmTelaCorrespondente");
-        if(TelaFichaListExercicios.class.toString().equals(telaAnterior)) {
+        if(TelaTreinoExercicio.class.toString().equals(telaAnterior)) {
             indTela = 2;
             idTreino = dados.getStringExtra("idTreino");
             nmTreino = dados.getStringExtra("nmTreino");
