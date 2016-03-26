@@ -119,15 +119,6 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         return true;
     }
 
-    public void onBackPressed() // voltar?
-    {
-        Intent intent = new Intent();
-        // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaTreinoExercicio.this, TelaPrincipalTreino.class);
-        startActivity(intent); // chama a próxima tela(tela anterior)
-        finish();
-    }
-
     private void carregarExerciciosTreino()
     {
         List<EntidadeDominio> listEntDomTreinoExercicio;
@@ -174,6 +165,17 @@ public class TelaTreinoExercicio extends AppCompatActivity {
             }
         }
     }
+    public void BtnAddRepeticaoExercicio(View v)
+    {
+        int linha = (Integer) v.getTag();
+        Intent intent = new Intent();
+        intent.setClass(this,TelaAddRepeticaoExercicio.class);
+        intent.putExtra("linha", linha);
+        intent.putExtra("nomeTreino", nmTreino);
+        intent.putExtra("idTreino", idTreino);
+        startActivity(intent);
+        finish();
+    }
     private void atualizarListExercicio()
     {
         // Carregar a lista de exercício com os exercícios do treino correspondente
@@ -187,5 +189,13 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         {
             lvTreinoExercicio.setAdapter(null);
         }
+    }
+    public void onBackPressed() // voltar?
+    {
+        Intent intent = new Intent();
+        // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
+        intent.setClass(TelaTreinoExercicio.this, TelaPrincipalTreino.class);
+        startActivity(intent); // chama a próxima tela(tela anterior)
+        finish();
     }
 }//end Activity

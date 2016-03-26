@@ -92,6 +92,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		CheckBox chkExercicioSelecionado;
 		TextView txtSerie;
 		ImageView imgExcluirExercicioTreino;
+		ImageView imgAddRepeticaoExercicio;
 	 }
 	
 	// Vai converter um view para aparecer dentro de outro
@@ -106,9 +107,10 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 			// recebe o conteudo do xml que será um item da listView, associando os objtos da tela com os daqui
 			holder.itemImage = (ImageView)convertView.findViewById(id.imgExercicioo);
 			holder.imgExcluirExercicioTreino = (ImageView)convertView.findViewById(id.imgExcluirExercicioTreino);
+			holder.imgAddRepeticaoExercicio = (ImageView)convertView.findViewById(id.imgAddRepeticaoExercicio);
 			holder.txt_itemName = (TextView)convertView.findViewById(id.txtNomeExercicio);
-			holder.chkExercicioSelecionado = (CheckBox)convertView.findViewById(id.chkExercicioSelecionado);
 			holder.txtSerie = (TextView) convertView.findViewById(id.txtSerie);
+			holder.chkExercicioSelecionado = (CheckBox)convertView.findViewById(id.chkExercicioSelecionado);
 			//holder.chkExercicioSelecionado.setChecked(false);
 			convertView.setTag(holder); // devolve os conteudos
 		}
@@ -134,6 +136,8 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 			holder.txtSerie.setVisibility(View.VISIBLE);
 			holder.imgExcluirExercicioTreino.setVisibility(View.VISIBLE);
 			holder.imgExcluirExercicioTreino.setTag(position); // para pegar a linha quando for executado o click do botão
+			holder.imgAddRepeticaoExercicio.setVisibility(View.VISIBLE);
+			holder.imgAddRepeticaoExercicio.setTag(position); // para pegar a linha quando for executado o click do botão
 		}
 		// 
 		holder.txt_itemName.setText(ExercicioArrayList.get(position).getNome());

@@ -47,6 +47,16 @@
             android:label="@string/title_activity_tela_ficha_list_exercicios"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".Telas.TelaAddRepeticao"
+            android:label="@string/title_activity_tela_add_repeticao"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".Telas.TelaAddRepeticaoExercicio"
+            android:label="@string/title_activity_tela_add_repeticao_exercicio"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

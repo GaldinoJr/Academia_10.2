@@ -32,4 +32,6 @@
     <string name="activity_image_trans">TransicaoImagemGrupo</string>
     <string name="title_activity_tela_principal_app">TelaPrincipalApp</string>
     <string name="title_activity_teste">Teste</string>
+    <string name="title_activity_tela_add_repeticao">TelaAddRepeticao</string>
+    <string name="title_activity_tela_add_repeticao_exercicio">TelaAddRepeticaoExercicio</string>
 </resources>

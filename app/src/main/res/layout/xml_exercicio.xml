@@ -19,25 +19,12 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imgExercicioo"
         android:layout_toRightOf="@+id/imgExercicioo"
+        android:layout_toLeftOf="@+id/imgExcluirExercicioTreino"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:text="Levantamento terra com aaaaa halter"
         android:textSize="18dp"
         android:textColor="@color/corTextoBranco"
-        />
-
-    <TextView
-        android:id="@+id/txtSerie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imgExercicioo"
-        android:layout_toRightOf="@+id/imgExercicioo"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="5dp"
-        android:text="3 x 10 - 8 - 6"
-        android:textSize="18dp"
-        android:textColor="@color/corTextoBranco"
-        android:visibility="invisible"
         />
 
     <CheckBox
@@ -54,14 +41,40 @@
         android:onClick="BtnCheckExercicio"
          />
 
+    <TextView
+        android:id="@+id/txtSerie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgExercicioo"
+        android:layout_toRightOf="@+id/imgExercicioo"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="5dp"
+        android:text="3 x 10 - 8 - 6"
+        android:textSize="18dp"
+        android:textColor="@color/corTextoBranco"
+        android:visibility="invisible"
+        />
+
+    <ImageView
+        android:id="@+id/imgAddRepeticaoExercicio"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_edit_repeticao_branco"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:layout_alignTop="@+id/imgExercicioo"
+        android:visibility="invisible"
+        android:onClick="BtnAddRepeticaoExercicio"
+        />
+
     <ImageView
         android:id="@+id/imgExcluirExercicioTreino"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/ic_delete_branco"
         android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/imgExercicioo"
         android:layout_marginRight="15dp"
-        android:layout_centerVertical="true"
         android:visibility="invisible"
         android:onClick="BtnExcluirExercicioTreino"
         />
