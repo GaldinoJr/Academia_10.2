@@ -8,6 +8,7 @@ import com.example.galdino.academia_102.Dominio.MusculoExercicio;
 import com.example.galdino.academia_102.Dominio.TreinoExercicio;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -75,11 +76,24 @@ public class SQLTreinoExercicio extends AbsSQL {
         treinoExercicio = (TreinoExercicio)entidade;
         if(treinoExercicio != null)
         {
-            String[] colunas = {String.valueOf(treinoExercicio.getIdTreino()), String.valueOf(treinoExercicio.getIdExercicio())};
-            String query = Col_cd_treino + " = ? AND " +
-                           Col_cd_exercicio + " = ?";
-            db.deletarComClausula(query,colunas);
-            db.close();
+            String[] colunas;
+            String query = "";
+            ArrayList<String> arrayColunas = new ArrayList<>();
+            if(treinoExercicio.getIdTreino() != null) {
+                query += Col_cd_treino + " = ? ";
+                arrayColunas.add(treinoExercicio.getIdTreino().toString());
+            }
+            if(treinoExercicio.getIdExercicio() != null) {
+                query += " AND " + Col_cd_exercicio + " = ?";
+                arrayColunas.add(treinoExercicio.getIdExercicio().toString());
+            }
+
+            colunas = new String[arrayColunas.size()];
+            for(int i = 0; i < arrayColunas.size(); i++)
+                colunas[i] = arrayColunas.get(i);
+
+            db.deletarComClausula(query, colunas);
+            //db.close();
         }
     }
 

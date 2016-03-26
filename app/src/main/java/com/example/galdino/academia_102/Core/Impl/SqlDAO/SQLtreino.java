@@ -4,8 +4,10 @@ package com.example.galdino.academia_102.Core.Impl.SqlDAO;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Treino;
+import com.example.galdino.academia_102.Dominio.TreinoExercicio;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,9 +21,7 @@ public class SQLtreino extends AbsSQL{
 	private static final String[] colunas = {Col_ds_treino};
 	private static final String[] colunasBusca = {Col_cd_treino,Col_ds_treino};
 	private SQL db;
-	
-	private Map<String, String> mapTreino;
-	private String sId;
+	private Context context;
 	private Treino treino;
 
 	protected void iniciar()
@@ -35,6 +35,7 @@ public class SQLtreino extends AbsSQL{
 	
 	public SQLtreino(Context context){
 		iniciar();
+		this.context = context;
 		//db  = new SQL(context, DATABASE_NAME, nomeTabela, colunas, sqlCriarTabela ); // GANHO DE PERFORMANCE NO CÓDIGO ORIGINAL
 		db  = SQL.getInstance(context, DATABASE_NAME );
 		db.popularInfo(nomeTabela, colunas, sqlCriarTabela);
@@ -56,28 +57,11 @@ public class SQLtreino extends AbsSQL{
 //		Treino treino = new Treino();
 //		if(mapDados == null) // não encontrou o treino?
 //			return treino = null; // retorna indicando que o treino não foi encontrado
-//		
+//
 //		treino.setID(mapDados.get(Col_cd_treino));
 //		treino.setNome(mapDados.get(Col_ds_treino));
 //	    return treino;
 //
-//	}
-	
-//	public List<Treino> pesquisarTodosTreinos()
-//	{
-//		List<Treino> ltreino = new LinkedList<Treino>();
-//		Treino treino;
-//		String[] colunasBusca = {Col_cd_treino, Col_ds_treino};
-//		 List<Map<String, String>> LMtreinos = new LinkedList<Map<String, String>>();
-//		 LMtreinos = db.buscarTodosRegistros(colunasBusca);
-//		 for(int i = 0; i< LMtreinos.size();i++)
-//		 {
-//			treino = new Treino();
-//			treino.setID(LMtreinos.get(i).get(Col_cd_treino));
-//			treino.setNome(LMtreinos.get(i).get(Col_ds_treino));
-//			ltreino.add(treino);
-//		 }
-//		 return ltreino;
 //	}
 
 	@Override
@@ -107,8 +91,12 @@ public class SQLtreino extends AbsSQL{
 	@Override
 	public void excluir(EntidadeDominio entidade) {
 		treino = (Treino)entidade;
-		if(!TextUtils.isEmpty(treino.getID())) {
-			db.deletarRegistro(treino.getID(),Col_cd_treino);
+		if(!TextUtils.isEmpty(treino.getID()))
+		{
+			db.deletarRegistro(treino.getID(),Col_cd_treino); // Quando for usar algo de outra base, ou abrir uma conexão novamente
+			TreinoExercicio treinoExercicio = new TreinoExercicio();
+			treinoExercicio.setIdTreino(Integer.parseInt(treino.getID()));
+			treinoExercicio.operar(context,true, Controler.DF_EXCLUIR,treinoExercicio);
 		}
 	}
 
