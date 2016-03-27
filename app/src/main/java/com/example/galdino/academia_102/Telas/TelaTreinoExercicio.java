@@ -172,6 +172,8 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         intent.setClass(this,TelaAddRepeticaoExercicio.class);
         intent.putExtra("linha", linha);
         intent.putExtra("nomeTreino", nmTreino);
+        intent.putExtra("nomeExercicio", retornarInfoExercicioNaList.getNome(linha));
+        intent.putExtra("nomeGrupo", descobrirGrupo(retornarInfoExercicioNaList.getIdGrupo(linha)));
         intent.putExtra("idTreino", idTreino);
         startActivity(intent);
         finish();
@@ -189,6 +191,14 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         {
             lvTreinoExercicio.setAdapter(null);
         }
+    }
+    private String descobrirGrupo(int idGrupo)
+    {
+        GrupoMuscular grupoMuscular = new GrupoMuscular();
+        grupoMuscular.setID(String.valueOf(idGrupo));
+        List<EntidadeDominio> listAux = grupoMuscular.operar(this,true,Controler.DF_CONSULTAR, grupoMuscular);
+        grupoMuscular = (GrupoMuscular)listAux.get(0);
+        return grupoMuscular.getNome();
     }
     public void onBackPressed() // voltar?
     {

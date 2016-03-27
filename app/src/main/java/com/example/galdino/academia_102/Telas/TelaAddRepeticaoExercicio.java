@@ -8,24 +8,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.galdino.academia_102.BaseAdapter.BaseAdapterRepeticoes;
+import com.example.galdino.academia_102.BaseAdapter.ListaTreinosBaseAdapter;
+import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View.OnClickListener {
     private Button btnMaisRepeticao,
             btnMenosRepeticao;
     private FloatingActionButton fBtnConfirmarAddRepeticaoExercicio;
-    private TextView txtSerie;
+    private EditText edtSerie;
+    private TextView txtNomeGrupoExercicio;
     private ListView lvRepeticoes;
     private String nmTreino,
+                   nmGrupo,
+                   nmExercicio,
                    idTreino;
     private Integer idLinha;
+    private ArrayList<String> results;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +49,8 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
         btnMenosRepeticao = (Button)findViewById(R.id.btnMenosRepeticao);
         fBtnConfirmarAddRepeticaoExercicio = (FloatingActionButton)findViewById(R.id.fBtnConfirmarAddRepeticaoExercicio);
         lvRepeticoes = (ListView)findViewById(R.id.lvRepeticoes);
-        txtSerie = (TextView)findViewById(R.id.txtSerie);
+        edtSerie = (EditText)findViewById(R.id.edtSerie);
+        txtNomeGrupoExercicio = (TextView)findViewById(R.id.txtNomeGrupoExercicio);
         //
         btnMaisRepeticao.setOnClickListener(this);
         btnMenosRepeticao.setOnClickListener(this);
@@ -56,8 +69,13 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
         //
         Intent dados = getIntent();
         nmTreino = dados.getStringExtra("nomeTreino");
+        nmGrupo = dados.getStringExtra("nomeGrupo");
+        nmExercicio = dados.getStringExtra("nomeExercicio");
         idTreino = dados.getStringExtra("idTreino");
-        idLinha = dados.getIntExtra("linha",0);
+        idLinha = dados.getIntExtra("linha", 0);
+        txtNomeGrupoExercicio.setText(nmGrupo + "/" + nmExercicio);
+        //
+        controleList("iniciar");
     }
 
     @Override
@@ -65,29 +83,53 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
     {
         if(view == btnMaisRepeticao)
         {
-            controleNumberPickerHorizontal("+");
+            edtSerie.setText(controleNumberPickerHorizontal("+", edtSerie.getText().toString()));
         }
         else if(view == btnMenosRepeticao)
         {
-            controleNumberPickerHorizontal("-");
+            edtSerie.setText(controleNumberPickerHorizontal("-", edtSerie.getText().toString()));
         }
     }
 
-    private void controleNumberPickerHorizontal(String comando)
+    private void controleList(String comando)
+    {
+        results = new ArrayList<String>();
+        results.add("0");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+        lvRepeticoes.setAdapter(adapter);
+        ArrayList<String> image_details2 = results;
+        lvRepeticoes.setAdapter(new BaseAdapterRepeticoes(this, image_details2));
+    }
+    private String controleNumberPickerHorizontal(String comando, String numero)
     {
         int qtdRepeticoes = 0;
-        if(!TextUtils.isEmpty(txtSerie.getText()))
-            qtdRepeticoes = Integer.parseInt(txtSerie.getText().toString());
+        if(!TextUtils.isEmpty(numero) && numero != null && !numero.equals(""))
+            qtdRepeticoes = Integer.parseInt(numero);
         if(qtdRepeticoes > 0)
             if(comando.equals("-"))
                 qtdRepeticoes --;
         if(comando.equals("+"))
             qtdRepeticoes ++;
-        txtSerie.setText(String.valueOf(qtdRepeticoes));
+        return String.valueOf(qtdRepeticoes);
     }
     private int salvarRepeticoes()
     {
         return -1;
+    }
+    public void click_btnMenosRepeticaoList(View v)
+    {
+        EditText edtRepeticoes = (EditText) v.findViewById(R.id.edtRepeticoes);
+        int linha = (Integer) v.getTag();
+        if(edtRepeticoes != null)
+            edtRepeticoes.setText(controleNumberPickerHorizontal("-",edtRepeticoes.getText().toString()));
+    }
+    public void click_btnMaisRepeticaoList(View v)
+    {
+        EditText edtRepeticoes = (EditText) v.findViewById(R.id.edtRepeticoes);
+        EditText edtTeste = (EditText) v.findViewById(R.id.edtSerie);
+        int linha = (Integer) v.getTag();
+        if(edtRepeticoes != null)
+            edtRepeticoes.setText(controleNumberPickerHorizontal("+",edtRepeticoes.getText().toString()));
     }
     public void onBackPressed() // voltar?
     {

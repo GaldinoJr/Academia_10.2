@@ -14,7 +14,25 @@
         android:layout_alignParentTop="true"
         android:layout_alignBottom="@+id/Divisor1"
         android:background="@color/corActionBarPretoEscuro"
-        >
+    >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/txtNomeGrupoExercicio"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/corTextoBranco"
+            android:textSize="20dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/reativeSerie"
+        android:layout_alignTop="@+id/Divisor2"
+        android:background="@color/corActionBarPretoEscuro"
+    >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,53 +40,58 @@
             android:id="@+id/textView3"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignBottom="@+id/txtSerie"
+            android:layout_alignBottom="@+id/edtSerie"
             android:layout_marginBottom="15dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="20dp"
             android:textColor="@color/corTextoBranco"
             android:textSize="20dp"/>
 
         <EditText
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:id="@+id/txtSerie"
+            android:id="@+id/edtSerie"
             android:inputType="numberDecimal"
             android:ems="10"
-            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/textView3"
-            android:layout_toEndOf="@+id/textView3"
-            android:layout_marginTop="10dp"
             android:textColor="@color/corTextoBranco"/>
-
-        <Button
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:text="+"
-            android:id="@+id/btnMaisRepeticao"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/txtSerie"
-            android:layout_toEndOf="@+id/txtSerie"
-            android:background="@color/corDetalhesAmarelos"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="3dp"
-            />
 
         <Button
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="-"
             android:id="@+id/btnMenosRepeticao"
-            android:layout_alignTop="@+id/btnMaisRepeticao"
-            android:layout_toRightOf="@+id/btnMaisRepeticao"
-            android:layout_toEndOf="@+id/btnMaisRepeticao"
+            android:layout_toRightOf="@+id/edtSerie"
             android:layout_marginLeft="10dp"
-            android:background="@color/corDetalhesAmarelos"/>
+            android:background="@color/corDetalhesAmarelos"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:id="@+id/btnMaisRepeticao"
+            android:layout_alignTop="@+id/btnMenosRepeticao"
+            android:layout_toRightOf="@+id/btnMenosRepeticao"
+            android:layout_toEndOf="@+id/btnMenosRepeticao"
+            android:background="@color/corDetalhesAmarelos"
+            android:layout_marginLeft="10dp"
+            />
+
     </RelativeLayout>
     <View
         android:id="@+id/Divisor1"
         android:layout_width="fill_parent"
         android:layout_height="2dip"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="80dp"
+        android:background="@color/corDetalhesAmarelos" />
+
+    <View
+        android:id="@+id/Divisor2"
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:layout_marginBottom="60dp"
+        android:layout_alignParentBottom="true"
         android:background="@color/corDetalhesAmarelos" />
 
     <ListView
@@ -76,6 +99,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/lvRepeticoes"
         android:layout_below="@+id/Divisor1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignBottom="@+id/Divisor2"
+    />
 </RelativeLayout>
