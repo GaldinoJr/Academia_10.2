@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/corListaPretoClaro"
+
 >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Repeticoes"
         android:id="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/edtRepeticoes"
-        android:layout_marginBottom="15dp"
+        android:gravity="center_vertical"
         android:layout_marginLeft="20dp"
         android:textColor="@color/corTextoBranco"
         android:textSize="20dp"/>
@@ -22,22 +21,19 @@
     <EditText
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:id="@+id/edtRepeticoes"
+        android:id="@+id/edtRepeticoes1"
         android:inputType="numberDecimal"
         android:ems="10"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/textView3"
-        android:textColor="@color/corTextoBranco"/>
+        android:textColor="@color/corTextoBranco"
+    />
 
     <Button
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:text="-"
         android:id="@+id/btnMenosRepeticaoList"
-        android:layout_toRightOf="@+id/edtRepeticoes"
         android:layout_marginLeft="10dp"
         android:background="@color/corDetalhesAmarelos"
-        android:layout_centerVertical="true"
         android:onClick="click_btnMenosRepeticaoList"
     />
 
@@ -46,12 +42,11 @@
         android:layout_height="wrap_content"
         android:text="+"
         android:id="@+id/btnMaisRepeticaoList"
-        android:layout_alignTop="@+id/btnMenosRepeticaoList"
-        android:layout_toRightOf="@+id/btnMenosRepeticaoList"
-        android:layout_toEndOf="@+id/btnMenosRepeticaoList"
         android:background="@color/corDetalhesAmarelos"
         android:layout_marginLeft="10dp"
         android:onClick="click_btnMaisRepeticaoList"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         />
 
-</RelativeLayout>
+</LinearLayout>

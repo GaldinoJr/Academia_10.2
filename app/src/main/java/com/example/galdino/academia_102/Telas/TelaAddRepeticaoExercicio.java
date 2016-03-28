@@ -84,17 +84,28 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
         if(view == btnMaisRepeticao)
         {
             edtSerie.setText(controleNumberPickerHorizontal("+", edtSerie.getText().toString()));
+            controleList("+");
         }
         else if(view == btnMenosRepeticao)
         {
             edtSerie.setText(controleNumberPickerHorizontal("-", edtSerie.getText().toString()));
+            controleList("-");
         }
     }
 
     private void controleList(String comando)
     {
-        results = new ArrayList<String>();
-        results.add("0");
+        if(comando.equals("iniciar")) {
+            results = new ArrayList<String>();
+            results.add("0");
+        }
+        else if(comando.equals("+"))
+            results.add("0");
+        else if(comando.equals("-"))
+        {
+            int indice = results.size();
+            results.remove(indice-1);
+        }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
         lvRepeticoes.setAdapter(adapter);
         ArrayList<String> image_details2 = results;
@@ -118,18 +129,18 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
     }
     public void click_btnMenosRepeticaoList(View v)
     {
-        EditText edtRepeticoes = (EditText) v.findViewById(R.id.edtRepeticoes);
         int linha = (Integer) v.getTag();
-        if(edtRepeticoes != null)
-            edtRepeticoes.setText(controleNumberPickerHorizontal("-",edtRepeticoes.getText().toString()));
+        int repeticao = (Integer) v.getId();
+        results.set(linha,controleNumberPickerHorizontal("-",String.valueOf(repeticao)));
+        controleList("nada");
     }
     public void click_btnMaisRepeticaoList(View v)
     {
-        EditText edtRepeticoes = (EditText) v.findViewById(R.id.edtRepeticoes);
-        EditText edtTeste = (EditText) v.findViewById(R.id.edtSerie);
+        //EditText edtRepeticoes = (EditText) v.findViewById(R.id.edtRepeticoes1);
         int linha = (Integer) v.getTag();
-        if(edtRepeticoes != null)
-            edtRepeticoes.setText(controleNumberPickerHorizontal("+",edtRepeticoes.getText().toString()));
+        int repeticao = (Integer) v.getId();
+        results.set(linha,controleNumberPickerHorizontal("+",String.valueOf(repeticao)));
+        controleList("nada");
     }
     public void onBackPressed() // voltar?
     {

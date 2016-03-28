@@ -11,7 +11,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="adjustPan">
         <activity
             android:name=".Telas.TelaPrincipalExercicio"
             android:label="@string/title_activity_tela_principal"
@@ -45,11 +46,6 @@
         <activity
             android:name=".Telas.TelaTreinoExercicio"
             android:label="@string/title_activity_tela_ficha_list_exercicios"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
-            android:name=".Telas.TelaAddRepeticao"
-            android:label="@string/title_activity_tela_add_repeticao"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
