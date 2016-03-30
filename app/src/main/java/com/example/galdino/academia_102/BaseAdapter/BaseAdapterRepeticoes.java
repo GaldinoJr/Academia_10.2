@@ -44,7 +44,9 @@ public class BaseAdapterRepeticoes extends BaseAdapter{
     {
 
     }
-
+    public void mudarFlaf(boolean flag) {
+        teste = flag;
+    }
     // Conta quantos registros tem no array
     public int getCount()
     {
@@ -103,19 +105,22 @@ public class BaseAdapterRepeticoes extends BaseAdapter{
         //holder.edtRepeticoes.setId(position);
         holder.id = position;
         //String body = (String) getItem(position);
+        //FUNCIONA
         holder.edtRepeticoes.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
                 // TODO Auto-generated method stub
-                ALlistaTreino.set(holder.id, arg0.toString());
+                if(!teste)
+                    ALlistaTreino.set(holder.id, arg0.toString());
             }
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
                                           int arg3) {
                 // TODO Auto-generated method stub
-                ALlistaTreino.set(holder.id, arg0.toString());
+                if(!teste)
+                    ALlistaTreino.set(holder.id, arg0.toString());
 //                if(!teste)
 //                    if(!holder.edtRepeticoes.requestFocus())
 //                        holder.edtRepeticoes.requestFocus();
@@ -128,8 +133,6 @@ public class BaseAdapterRepeticoes extends BaseAdapter{
                 //Integer aux =
             }
         });
-        holder.btnMaisRepeticaoList.setId(Integer.parseInt(ALlistaTreino.get(position)));
-        holder.btnMenosRepeticaoList.setId(Integer.parseInt(ALlistaTreino.get(position)));
         // Add listener for edit text
 //        holder.edtRepeticoes
 //                .setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -150,7 +153,9 @@ public class BaseAdapterRepeticoes extends BaseAdapter{
 //                });
 
         //
-        teste = false;
+
+        holder.btnMaisRepeticaoList.setId(Integer.parseInt(ALlistaTreino.get(position)));
+        holder.btnMenosRepeticaoList.setId(Integer.parseInt(ALlistaTreino.get(position)));
         return convertView;
     }
 }

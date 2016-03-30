@@ -124,9 +124,12 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
                 results.remove(indice-1);
             novaLinha = true;
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+        else if(comando.equals("nada"))
+            novaLinha = true;
         ArrayList<String> image_details2 = results;
-        lvRepeticoes.setAdapter(new BaseAdapterRepeticoes(this, image_details2, novaLinha));
+        BaseAdapterRepeticoes bs = new BaseAdapterRepeticoes(this, image_details2, novaLinha);
+        lvRepeticoes.setAdapter(bs);
+       // bs.mudarFlaf(false);
     }
     private String controleNumberPickerHorizontal(String comando, String numero)
     {
