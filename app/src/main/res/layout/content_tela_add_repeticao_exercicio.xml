@@ -14,7 +14,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignBottom="@+id/Divisor1"
         android:background="@color/corActionBarPretoEscuro"
-        android:windowSoftInputMode="stateHidden|adjustPan"
     >
 
         <TextView
@@ -56,7 +55,8 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/textView3"
             android:textColor="@color/corTextoBranco"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:enabled="false"
+        />
 
         <Button
             android:layout_width="50dp"
@@ -102,6 +102,8 @@
         android:id="@+id/lvRepeticoes"
         android:layout_below="@+id/Divisor1"
         android:layout_alignBottom="@+id/Divisor2"
-        android:descendantFocusability="afterDescendants"
+        android:descendantFocusability="beforeDescendants"
+        android:focusable="false"
     />
+
 </RelativeLayout>

@@ -7,7 +7,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -38,10 +40,18 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
                    idTreino;
     private Integer idLinha;
     private ArrayList<String> results;
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED); // Para não iniciar o teclado quando abrir a tela
+//        //getMenuInflater().inflate(R.menu.tela_principal_ficha, menu);
+//        return true;
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_add_repeticao_exercicio);
+        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED); // Para não iniciar o teclado quando abrir a tela
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
         //
@@ -76,6 +86,9 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
         txtNomeGrupoExercicio.setText(nmGrupo + "/" + nmExercicio);
         //
         controleList("iniciar");
+        //
+        if(edtSerie.getText().toString() == "" || TextUtils.isEmpty(edtSerie.getText().toString()) || edtSerie.getText().toString() == null)
+            edtSerie.setText("1");
     }
 
     @Override
@@ -95,21 +108,25 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
 
     private void controleList(String comando)
     {
+        boolean novaLinha = false;
         if(comando.equals("iniciar")) {
             results = new ArrayList<String>();
             results.add("0");
         }
-        else if(comando.equals("+"))
+        else if(comando.equals("+")) {
             results.add("0");
+            novaLinha = true;
+        }
         else if(comando.equals("-"))
         {
             int indice = results.size();
-            results.remove(indice-1);
+            if(indice > 0)
+                results.remove(indice-1);
+            novaLinha = true;
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
-        lvRepeticoes.setAdapter(adapter);
         ArrayList<String> image_details2 = results;
-        lvRepeticoes.setAdapter(new BaseAdapterRepeticoes(this, image_details2));
+        lvRepeticoes.setAdapter(new BaseAdapterRepeticoes(this, image_details2, novaLinha));
     }
     private String controleNumberPickerHorizontal(String comando, String numero)
     {
@@ -121,6 +138,7 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
                 qtdRepeticoes --;
         if(comando.equals("+"))
             qtdRepeticoes ++;
+
         return String.valueOf(qtdRepeticoes);
     }
     private int salvarRepeticoes()

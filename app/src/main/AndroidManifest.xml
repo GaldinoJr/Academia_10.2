@@ -51,7 +51,10 @@
         <activity
             android:name=".Telas.TelaAddRepeticaoExercicio"
             android:label="@string/title_activity_tela_add_repeticao_exercicio"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustPan"
+            >
         </activity>
     </application>
 

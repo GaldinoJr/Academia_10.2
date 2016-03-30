@@ -28,13 +28,16 @@ public class BaseAdapterRepeticoes extends BaseAdapter{
     private static ArrayList<String> ALlistaTreino;
     private LayoutInflater l_Inflater;
     private Context context;
+    boolean teste;
     // Construtor 1
-    public BaseAdapterRepeticoes(Context context, ArrayList<String> results)
+    public BaseAdapterRepeticoes(Context context, ArrayList<String> results, boolean teste)
     {
         ALlistaTreino = results;
         l_Inflater = LayoutInflater.from(context);
         //this.listEntDomTreinos = listEntDomTreinos;
         this.context = context;
+        notifyDataSetChanged();
+        this.teste = teste;
     }
     // Construtor 2
     public BaseAdapterRepeticoes()
@@ -99,39 +102,30 @@ public class BaseAdapterRepeticoes extends BaseAdapter{
         //
         //holder.edtRepeticoes.setId(position);
         holder.id = position;
-        String repeticao = holder.edtRepeticoes.getText().toString();
-        String body = (String) getItem(position);
-        if(!TextUtils.isEmpty(repeticao) && repeticao != null && !repeticao.equals(""))
-        {
-            ALlistaTreino.set(position, repeticao);
-        }
-        else
-        {
-            if (ALlistaTreino != null && ALlistaTreino.get(position) != null) {
-                holder.edtRepeticoes.setText(ALlistaTreino.get(position));
-            } else {
-                holder.edtRepeticoes.setText(null);
-            }
-        }
+        //String body = (String) getItem(position);
         holder.edtRepeticoes.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
                 // TODO Auto-generated method stub
-
+                ALlistaTreino.set(holder.id, arg0.toString());
             }
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
                                           int arg3) {
                 // TODO Auto-generated method stub
-
+                ALlistaTreino.set(holder.id, arg0.toString());
+//                if(!teste)
+//                    if(!holder.edtRepeticoes.requestFocus())
+//                        holder.edtRepeticoes.requestFocus();
             }
 
             @Override
             public void afterTextChanged(Editable arg0) {
                 // TODO Auto-generated method stub
-                ALlistaTreino.set(holder.id,arg0.toString());
+                String test = arg0.toString();
+                //Integer aux =
             }
         });
         holder.btnMaisRepeticaoList.setId(Integer.parseInt(ALlistaTreino.get(position)));
@@ -156,6 +150,7 @@ public class BaseAdapterRepeticoes extends BaseAdapter{
 //                });
 
         //
+        teste = false;
         return convertView;
     }
 }
