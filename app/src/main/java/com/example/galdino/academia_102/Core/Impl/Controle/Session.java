@@ -3,6 +3,8 @@ package com.example.galdino.academia_102.Core.Impl.Controle;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by Galdino on 29/08/2015.
@@ -16,6 +18,7 @@ public class Session {
 //    private Configuracao configuracaoSistema;
     private Intent servico;
     private String nameInstanceClass;
+    private  ArrayList<String> results;
 
     // Construtor privado (suprime o construtor público padrão).
     private Session() {}
@@ -32,6 +35,9 @@ public class Session {
         return context;
     }
 
+    public ArrayList<String> getResults() {
+        return results;
+    }
 
     public String getNameInstanceClass() {
         return nameInstanceClass;
@@ -56,7 +62,12 @@ public class Session {
     public void setNameInstanceClass(String nameInstanceClass) {
         this.nameInstanceClass = nameInstanceClass;
     }
-//
+
+    public void setResults(ArrayList<String> results) {
+        this.results = results;
+    }
+
+    //
 //    public void setServico(Intent servico) {
 //        this.servico = servico;
 //    }

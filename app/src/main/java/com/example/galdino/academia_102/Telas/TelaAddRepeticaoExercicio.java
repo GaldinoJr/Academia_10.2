@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.galdino.academia_102.BaseAdapter.BaseAdapterRepeticoes;
 import com.example.galdino.academia_102.BaseAdapter.ListaTreinosBaseAdapter;
+import com.example.galdino.academia_102.Core.Impl.Controle.Session;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
 
@@ -39,7 +40,8 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
                    nmExercicio,
                    idTreino;
     private Integer idLinha;
-    private ArrayList<String> results;
+    private Session session;
+    //private ArrayList<String> results;
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Inflate the menu; this adds items to the action bar if it is present.
 //        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED); // Para não iniciar o teclado quando abrir a tela
@@ -85,6 +87,7 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
         idLinha = dados.getIntExtra("linha", 0);
         txtNomeGrupoExercicio.setText(nmGrupo + "/" + nmExercicio);
         //
+        session = Session.getInstance();
         controleList("iniciar");
         //
         if(edtSerie.getText().toString() == "" || TextUtils.isEmpty(edtSerie.getText().toString()) || edtSerie.getText().toString() == null)
@@ -110,23 +113,23 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
     {
         boolean novaLinha = false;
         if(comando.equals("iniciar")) {
-            results = new ArrayList<String>();
-            results.add("0");
+            session.setResults(new ArrayList<String>());
+            session.getResults().add("0");
         }
         else if(comando.equals("+")) {
-            results.add("0");
+            session.getResults().add("0");
             novaLinha = true;
         }
         else if(comando.equals("-"))
         {
-            int indice = results.size();
+            int indice = session.getResults().size();
             if(indice > 0)
-                results.remove(indice-1);
+                session.getResults().remove(indice - 1);
             novaLinha = true;
         }
         else if(comando.equals("nada"))
             novaLinha = true;
-        ArrayList<String> image_details2 = results;
+        ArrayList<String> image_details2 = session.getResults();
         BaseAdapterRepeticoes bs = new BaseAdapterRepeticoes(this, image_details2, novaLinha);
         lvRepeticoes.setAdapter(bs);
        // bs.mudarFlaf(false);
@@ -151,16 +154,15 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
     public void click_btnMenosRepeticaoList(View v)
     {
         int linha = (Integer) v.getTag();
-        int repeticao = (Integer) v.getId();
-        results.set(linha,controleNumberPickerHorizontal("-",String.valueOf(repeticao)));
+        int repeticao = Integer.parseInt(session.getResults().get(linha));
+        session.getResults().set(linha, controleNumberPickerHorizontal("-", String.valueOf(repeticao)));
         controleList("nada");
     }
     public void click_btnMaisRepeticaoList(View v)
     {
-        //EditText edtRepeticoes = (EditText) v.findViewById(R.id.edtRepeticoes1);
         int linha = (Integer) v.getTag();
-        int repeticao = (Integer) v.getId();
-        results.set(linha,controleNumberPickerHorizontal("+",String.valueOf(repeticao)));
+        int repeticao = Integer.parseInt(session.getResults().get(linha));
+        session.getResults().set(linha, controleNumberPickerHorizontal("+", String.valueOf(repeticao)));
         controleList("nada");
     }
     public void onBackPressed() // voltar?

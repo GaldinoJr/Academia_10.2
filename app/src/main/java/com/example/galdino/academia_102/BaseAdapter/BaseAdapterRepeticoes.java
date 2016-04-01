@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.galdino.academia_102.Core.Impl.Controle.Session;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
@@ -25,19 +26,21 @@ import java.util.List;
  */
 public class BaseAdapterRepeticoes extends BaseAdapter{
 
-    private static ArrayList<String> ALlistaTreino;
+    //private static ArrayList<String> ALlistaTreino;
     private LayoutInflater l_Inflater;
     private Context context;
-    boolean teste;
+    private boolean teste;
+    private Session session;
     // Construtor 1
     public BaseAdapterRepeticoes(Context context, ArrayList<String> results, boolean teste)
     {
-        ALlistaTreino = results;
+        //ALlistaTreino = results;
         l_Inflater = LayoutInflater.from(context);
         //this.listEntDomTreinos = listEntDomTreinos;
         this.context = context;
         notifyDataSetChanged();
         this.teste = teste;
+        session = Session.getInstance();
     }
     // Construtor 2
     public BaseAdapterRepeticoes()
@@ -50,13 +53,13 @@ public class BaseAdapterRepeticoes extends BaseAdapter{
     // Conta quantos registros tem no array
     public int getCount()
     {
-        return ALlistaTreino.size();
+        return session.getResults().size();
     }
 
     // Encontra a pocição no array
     public Object getItem(int position)
     {
-        return ALlistaTreino.get(position);
+        return session.getResults().get(position);
     }
 
     // Devolve a posição
@@ -97,7 +100,7 @@ public class BaseAdapterRepeticoes extends BaseAdapter{
         //holder.txt_itemName.setText(ALlistaTreino.get(position).getNome());
         holder.edtRepeticoes.setTag(position);
        // holder.edtRepeticoes.setId(position);
-        holder.edtRepeticoes.setText(ALlistaTreino.get(position));
+        holder.edtRepeticoes.setText(session.getResults().get(position));
         holder.btnMenosRepeticaoList.setTag(position);
         holder.btnMaisRepeticaoList.setTag(position);
 
@@ -111,16 +114,17 @@ public class BaseAdapterRepeticoes extends BaseAdapter{
             @Override
             public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
                 // TODO Auto-generated method stub
-                if(!teste)
-                    ALlistaTreino.set(holder.id, arg0.toString());
+               // if(!teste)
+                session.getResults().set(Integer.parseInt(holder.edtRepeticoes.getTag().toString()), holder.edtRepeticoes.getText().toString());
+                    //String a = holder.edtRepeticoes.getText().toString();
             }
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
                                           int arg3) {
                 // TODO Auto-generated method stub
-                if(!teste)
-                    ALlistaTreino.set(holder.id, arg0.toString());
+//                if(!teste)
+//                    session.getResults().set(holder.id, arg0.toString());
 //                if(!teste)
 //                    if(!holder.edtRepeticoes.requestFocus())
 //                        holder.edtRepeticoes.requestFocus();
@@ -153,9 +157,6 @@ public class BaseAdapterRepeticoes extends BaseAdapter{
 //                });
 
         //
-
-        holder.btnMaisRepeticaoList.setId(Integer.parseInt(ALlistaTreino.get(position)));
-        holder.btnMenosRepeticaoList.setId(Integer.parseInt(ALlistaTreino.get(position)));
         return convertView;
     }
 }
