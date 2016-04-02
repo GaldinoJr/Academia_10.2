@@ -3,9 +3,11 @@ package com.example.galdino.academia_102.Core.Impl.SqlDAO;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.MusculoExercicio;
 import com.example.galdino.academia_102.Dominio.TreinoExercicio;
+import com.example.galdino.academia_102.Dominio.TreinoExercicioRepeticao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +27,7 @@ public class SQLTreinoExercicio extends AbsSQL {
     private static final String[] colunas = {Col_cd_treino,Col_cd_exercicio};
     private static final String[] colunasBusca = {Col_cd_treino_exercicio,Col_cd_treino,Col_cd_exercicio};
     private SQL db;
-
+    private Context context;
     private TreinoExercicio treinoExercicio;
     @Override
     protected void iniciar() {
@@ -39,6 +41,7 @@ public class SQLTreinoExercicio extends AbsSQL {
 
     public SQLTreinoExercicio(Context context)
     {
+        this.context = context;
         iniciar();
         db  = SQL.getInstance(context, DATABASE_NAME );
         db.popularInfo(nomeTabela, colunas, sqlCriarTabela);
@@ -74,24 +77,36 @@ public class SQLTreinoExercicio extends AbsSQL {
         treinoExercicio = (TreinoExercicio)entidade;
         if(treinoExercicio != null)
         {
-            String[] colunas;
-            String query = "";
-            ArrayList<String> arrayColunas = new ArrayList<>();
-            if(treinoExercicio.getIdTreino() != null) {
-                query += Col_cd_treino + " = ? ";
-                arrayColunas.add(treinoExercicio.getIdTreino().toString());
-            }
-            if(treinoExercicio.getIdExercicio() != null) {
-                query += " AND " + Col_cd_exercicio + " = ?";
-                arrayColunas.add(treinoExercicio.getIdExercicio().toString());
-            }
+            List<EntidadeDominio> ledTe = treinoExercicio.operar(context,true,Controler.DF_CONSULTAR,treinoExercicio);
+            if (ledTe != null)
+            {
+                String[] colunas;
+                String query = "";
+                ArrayList<String> arrayColunas = new ArrayList<>();
+                if (treinoExercicio.getIdTreino() != null) {
+                    query += Col_cd_treino + " = ? ";
+                    arrayColunas.add(treinoExercicio.getIdTreino().toString());
+                }
+                if (treinoExercicio.getIdExercicio() != null) {
+                    query += " AND " + Col_cd_exercicio + " = ?";
+                    arrayColunas.add(treinoExercicio.getIdExercicio().toString());
+                }
 
-            colunas = new String[arrayColunas.size()];
-            for(int i = 0; i < arrayColunas.size(); i++)
-                colunas[i] = arrayColunas.get(i);
+                colunas = new String[arrayColunas.size()];
+                for (int i = 0; i < arrayColunas.size(); i++)
+                    colunas[i] = arrayColunas.get(i);
 
-            db.deletarComClausula(query, colunas);
-            //db.close();
+                db.deletarComClausula(query, colunas);
+                //db.close();
+
+                // Deleta as repetições do exercício naquele treino.
+                for(EntidadeDominio ent : ledTe)
+                {
+                    TreinoExercicioRepeticao ter = new TreinoExercicioRepeticao();
+                    ter.setID(ent.getID());
+                    ter.operar(context, true, Controler.DF_EXCLUIR, ter);
+                }
+            }
         }
     }
 

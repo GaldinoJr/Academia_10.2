@@ -152,7 +152,7 @@ public class SQL extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         // 2. delete
-        db.delete(nomeTabela, //table name
+        int qtdRegistrosDeletados = db.delete(nomeTabela, //table name
                 colunaID +" = ?",  // selections
                 new String[] {sId }); //selections args
 
@@ -262,7 +262,7 @@ public class SQL extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         // 2. delete
-        db.delete(nomeTabela, //table name
+        int qtdRegistrosDeletados = db.delete(nomeTabela, //table name
                 clausula,  // selections
                 args); //selections args
 

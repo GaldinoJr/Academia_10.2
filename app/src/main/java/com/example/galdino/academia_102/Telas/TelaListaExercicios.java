@@ -112,7 +112,7 @@ public class TelaListaExercicios extends AppCompatActivity {
 
         final ListView lvExercicio = (ListView)findViewById(id.lvExercicios);
 
-        lvExercicio.setAdapter(new ExercicioBaseAdapter(this, image_details2, itemChecked, indTela, vetIDExe));
+        lvExercicio.setAdapter(new ExercicioBaseAdapter(this, image_details2, itemChecked, indTela, vetIDExe, null));
 
         lvExercicio.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {

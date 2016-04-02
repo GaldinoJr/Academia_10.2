@@ -128,11 +128,13 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
             treinoExercicioRepeticao.setID(idTreinoExercicio);
             List<EntidadeDominio> ledTer = treinoExercicioRepeticao.operar(this,true,Controler.DF_CONSULTAR, treinoExercicioRepeticao);
             if(ledTer != null)
-                for(EntidadeDominio edT : ledTer)
-                {
-                    TreinoExercicioRepeticao ter = (TreinoExercicioRepeticao)edT;
+            {
+                edtSerie.setText(String.valueOf(ledTer.size()));
+                for (EntidadeDominio edT : ledTer) {
+                    TreinoExercicioRepeticao ter = (TreinoExercicioRepeticao) edT;
                     session.getResults().add(String.valueOf(ter.getNrRepeticoes()));
                 }
+            }
             else
                 session.getResults().add("");
         }
@@ -173,11 +175,15 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
                 treinoExercicioRepeticao.operar(this, true, Controler.DF_EXCLUIR, treinoExercicioRepeticao);
                 if(qtd>0)
                 {
-                    for (int i = 0; i < qtd; i++) {
-                        TreinoExercicioRepeticao ter = new TreinoExercicioRepeticao();
-                        ter.setID(idTreinoExercicio);
-                        ter.setNrRepeticoes(Integer.parseInt(session.getResults().get(i)));
-                        ter.operar(this, true, Controler.DF_SALVAR, ter);
+                    for (int i = 0; i < qtd; i++)
+                    {
+                        if(!session.getResults().get(i).equals(""))
+                        {
+                            TreinoExercicioRepeticao ter = new TreinoExercicioRepeticao();
+                            ter.setID(idTreinoExercicio);
+                            ter.setNrRepeticoes(Integer.parseInt(session.getResults().get(i)));
+                            ter.operar(this, true, Controler.DF_SALVAR, ter);
+                        }
                     }
                 }
             }

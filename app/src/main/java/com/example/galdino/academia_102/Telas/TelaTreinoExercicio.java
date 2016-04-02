@@ -21,6 +21,7 @@ import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.Dominio.RetornarInfoExercicioNaList;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.Dominio.TreinoExercicio;
+import com.example.galdino.academia_102.Dominio.TreinoExercicioRepeticao;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
 
@@ -36,6 +37,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
                    idTreino;
     private TextView lblNmTreino;
     private ArrayList<String> vetIDExe;
+    private ArrayList<String> vetRepeticoesExe;
     private ArrayList<Exercicio> results;
     private RetornarInfoExercicioNaList retornarInfoExercicioNaList;
     @Override
@@ -119,6 +121,24 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         return true;
     }
 
+    private String carregarRepeticaoExercicio(String idTreinoExercicio)
+    {
+        TreinoExercicioRepeticao treinoExercicioRepeticao = new TreinoExercicioRepeticao();
+        treinoExercicioRepeticao.setID(idTreinoExercicio);
+        List<EntidadeDominio> ledTer = treinoExercicioRepeticao.operar(this,true,Controler.DF_CONSULTAR,treinoExercicioRepeticao);
+        if(ledTer != null)
+        {
+            String repeticoes = ledTer.size() + " x ";
+            for(EntidadeDominio ent : ledTer)
+            {
+                TreinoExercicioRepeticao ter = (TreinoExercicioRepeticao)ent;
+                repeticoes += ter.getNrRepeticoes() + " - ";
+            }
+            return repeticoes.substring(0,repeticoes.length()-3);
+        }
+        else
+            return null;
+    }
     private void carregarExerciciosTreino()
     {
         List<EntidadeDominio> listEntDomTreinoExercicio;
@@ -128,6 +148,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         results = new ArrayList<Exercicio>();
         listEntDomExercicio = new LinkedList<>();
         vetIDExe = new ArrayList<>();
+        vetRepeticoesExe = new ArrayList<>();
         if(listEntDomTreinoExercicio != null)
         {
 
@@ -141,6 +162,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
                 results.add(exercicio);
                 listEntDomExercicio.add(exercicio);
                 vetIDExe.add(exercicio.getID());
+                vetRepeticoesExe.add(carregarRepeticaoExercicio(te.getID()));
             }
             retornarInfoExercicioNaList = new RetornarInfoExercicioNaList(listEntDomExercicio);
         }
@@ -185,8 +207,8 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         carregarExerciciosTreino();
         if(listEntDomExercicio != null)
         {
-            int indTela = 3;
-            lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(this, results, null, indTela, vetIDExe));
+            int indTela = 3; //TelaTreino
+            lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(this, results, null, indTela, vetIDExe,vetRepeticoesExe));
         }
         else
         {

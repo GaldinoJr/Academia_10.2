@@ -28,8 +28,14 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 	private Context context;
 	//private String[] vetIDExe;
 	private	ArrayList<String> vetIDExe;
+	private ArrayList<String> vetRepeticaoExercicio;
+	// Construtor 2
+	public ExercicioBaseAdapter()
+	{
+
+	}
 	// Construtor 1
-	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, boolean[] selecionados, Integer indTela, ArrayList<String> vetIDExe)
+	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, boolean[] selecionados, Integer indTela, ArrayList<String> vetIDExe, ArrayList<String> vetRepeticaoExercicio)
 	{
 		ExercicioArrayList = results;
 		this.selecionados = selecionados;
@@ -37,11 +43,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		l_Inflater = LayoutInflater.from(context);
 		this.context = context;
 		this.vetIDExe = vetIDExe;
-	}
-	// Construtor 2
-	public ExercicioBaseAdapter()
-	{
-		
+		this.vetRepeticaoExercicio = vetRepeticaoExercicio;
 	}
 //	private Integer[] orderAlfabeticamenteIdImagem(Integer[]imgid)
 //	{
@@ -134,6 +136,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		if(indTela == 3) // Tela de treino?
 		{
 			holder.txtSerie.setVisibility(View.VISIBLE);
+			holder.txtSerie.setText(vetRepeticaoExercicio.get(position));
 			holder.imgExcluirExercicioTreino.setVisibility(View.VISIBLE);
 			holder.imgExcluirExercicioTreino.setTag(position); // para pegar a linha quando for executado o click do botão
 			holder.imgAddRepeticaoExercicio.setVisibility(View.VISIBLE);
