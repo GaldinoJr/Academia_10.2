@@ -21,9 +21,9 @@ public class SQLTreinoExercicio extends AbsSQL {
     private static final String Col_cd_treino_exercicio = "cd_treino_exercicio";
     private static final String Col_cd_treino = "f_cd_treino";
     private static final String Col_cd_exercicio = "f_cd_exercicio";
-    private static final String Col_nr_repeticoes = "nr_repeticoes";
-    private static final String[] colunas = {Col_cd_treino,Col_cd_exercicio,Col_nr_repeticoes};
-    private static final String[] colunasBusca = {Col_cd_treino_exercicio,Col_cd_treino,Col_cd_exercicio,Col_nr_repeticoes};
+
+    private static final String[] colunas = {Col_cd_treino,Col_cd_exercicio};
+    private static final String[] colunasBusca = {Col_cd_treino_exercicio,Col_cd_treino,Col_cd_exercicio};
     private SQL db;
 
     private TreinoExercicio treinoExercicio;
@@ -34,8 +34,7 @@ public class SQLTreinoExercicio extends AbsSQL {
         sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela + " ( " +
                 Col_cd_treino_exercicio + " INTEGER PRIMARY KEY, " +
                 Col_cd_treino + " INTEGER, "+ //FOREIGN KEY
-                Col_cd_exercicio + " INTEGER, "+ //FOREIGN KEY ** Não funciona sa desgraça, ja me fodeu TRES vezes
-                Col_nr_repeticoes + " INTEGER )";
+                Col_cd_exercicio + " INTEGER )";
     }
 
     public SQLTreinoExercicio(Context context)
@@ -53,7 +52,6 @@ public class SQLTreinoExercicio extends AbsSQL {
 
             mapSql.put(Col_cd_treino, String.valueOf(treinoExercicio.getIdTreino()));
             mapSql.put(Col_cd_exercicio, String.valueOf(treinoExercicio.getIdExercicio()));
-            mapSql.put(Col_nr_repeticoes, String.valueOf(treinoExercicio.getNrRepeticoes()));
             long id = db.addRegistro(mapSql);
             //db.close();
             treinoExercicio.setID(String.valueOf(id));
@@ -129,8 +127,6 @@ public class SQLTreinoExercicio extends AbsSQL {
                 te.setID(listMapSql.get(i).get(colunasBusca[0]));
                 te.setIdTreino(Integer.parseInt(listMapSql.get(i).get(colunasBusca[1])));
                 te.setIdExercicio(Integer.parseInt(listMapSql.get(i).get(colunasBusca[2])));
-                if(!listMapSql.get(i).get(colunasBusca[3]).equals("null"))
-                    te.setNrRepeticoes(Integer.parseInt(listMapSql.get(i).get(colunasBusca[3])));
 
                 listSql.add(te);
             }

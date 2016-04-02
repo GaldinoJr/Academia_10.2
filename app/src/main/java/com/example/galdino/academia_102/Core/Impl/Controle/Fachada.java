@@ -10,6 +10,7 @@ import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLConfiguracao;
 import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLMusculo;
 import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLMusculoExercicio;
 import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLTreinoExercicio;
+import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLTreinoExercicioRepeticao;
 import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLexercicio;
 import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLGrupoMuscular;
 import com.example.galdino.academia_102.Core.Impl.SqlDAO.SQLtreino;
@@ -21,6 +22,7 @@ import com.example.galdino.academia_102.Dominio.Musculo;
 import com.example.galdino.academia_102.Dominio.MusculoExercicio;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.Dominio.TreinoExercicio;
+import com.example.galdino.academia_102.Dominio.TreinoExercicioRepeticao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,6 +94,10 @@ public class Fachada  implements IFachada {
                 if (session.getNameInstanceClass() == TreinoExercicio.class.getName()) {
                     SQLTreinoExercicio sqltreinoExercicio = new SQLTreinoExercicio(session.getContext());
                     daos.put(TreinoExercicio.class.getName(), sqltreinoExercicio);
+                }
+                if (session.getNameInstanceClass() == TreinoExercicioRepeticao.class.getName()) {
+                    SQLTreinoExercicioRepeticao sqlTreinoExercicioRepeticao = new SQLTreinoExercicioRepeticao(session.getContext());
+                    daos.put(TreinoExercicioRepeticao.class.getName(), sqlTreinoExercicioRepeticao);
                 }
             }
         }

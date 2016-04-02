@@ -20,13 +20,18 @@ import android.widget.Toast;
 
 import com.example.galdino.academia_102.BaseAdapter.BaseAdapterRepeticoes;
 import com.example.galdino.academia_102.BaseAdapter.ListaTreinosBaseAdapter;
+import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Core.Impl.Controle.Session;
+import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Treino;
+import com.example.galdino.academia_102.Dominio.TreinoExercicio;
+import com.example.galdino.academia_102.Dominio.TreinoExercicioRepeticao;
 import com.example.galdino.academia_102.R;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View.OnClickListener {
     private Button btnMaisRepeticao,
@@ -38,9 +43,12 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
     private String nmTreino,
                    nmGrupo,
                    nmExercicio,
-                   idTreino;
-    private Integer idLinha;
+                   idTreinoExercicio;
+    private Integer idLinha,
+                    idExercicio,
+                    idTreino;
     private Session session;
+    private TreinoExercicioRepeticao treinoExercicioRepeticao;
     //private ArrayList<String> results;
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Inflate the menu; this adds items to the action bar if it is present.
@@ -83,9 +91,12 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
         nmTreino = dados.getStringExtra("nomeTreino");
         nmGrupo = dados.getStringExtra("nomeGrupo");
         nmExercicio = dados.getStringExtra("nomeExercicio");
-        idTreino = dados.getStringExtra("idTreino");
+        idTreino = dados.getIntExtra("idTreino", 0);
         idLinha = dados.getIntExtra("linha", 0);
+        idExercicio = dados.getIntExtra("idExercicio", 0);
         txtNomeGrupoExercicio.setText(nmGrupo + "/" + nmExercicio);
+        //
+        carregarIDTreinoExercicio();
         //
         session = Session.getInstance();
         controleList("iniciar");
@@ -111,28 +122,31 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
 
     private void controleList(String comando)
     {
-        boolean novaLinha = false;
         if(comando.equals("iniciar")) {
             session.setResults(new ArrayList<String>());
-            session.getResults().add("0");
+            treinoExercicioRepeticao = new TreinoExercicioRepeticao();
+            treinoExercicioRepeticao.setID(idTreinoExercicio);
+            List<EntidadeDominio> ledTer = treinoExercicioRepeticao.operar(this,true,Controler.DF_CONSULTAR, treinoExercicioRepeticao);
+            if(ledTer != null)
+                for(EntidadeDominio edT : ledTer)
+                {
+                    TreinoExercicioRepeticao ter = (TreinoExercicioRepeticao)edT;
+                    session.getResults().add(String.valueOf(ter.getNrRepeticoes()));
+                }
+            else
+                session.getResults().add("");
         }
         else if(comando.equals("+")) {
-            session.getResults().add("0");
-            novaLinha = true;
+            session.getResults().add("");
         }
         else if(comando.equals("-"))
         {
             int indice = session.getResults().size();
             if(indice > 0)
                 session.getResults().remove(indice - 1);
-            novaLinha = true;
         }
-        else if(comando.equals("nada"))
-            novaLinha = true;
-        ArrayList<String> image_details2 = session.getResults();
-        BaseAdapterRepeticoes bs = new BaseAdapterRepeticoes(this, image_details2, novaLinha);
+        BaseAdapterRepeticoes bs = new BaseAdapterRepeticoes(this);
         lvRepeticoes.setAdapter(bs);
-       // bs.mudarFlaf(false);
     }
     private String controleNumberPickerHorizontal(String comando, String numero)
     {
@@ -149,20 +163,52 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
     }
     private int salvarRepeticoes()
     {
-        return -1;
+        int qtd = session.getResults().size();
+        try
+        {
+            if(idTreinoExercicio != null)
+            {
+                treinoExercicioRepeticao = new TreinoExercicioRepeticao();
+                treinoExercicioRepeticao.setID(idTreinoExercicio);
+                treinoExercicioRepeticao.operar(this, true, Controler.DF_EXCLUIR, treinoExercicioRepeticao);
+                if(qtd>0)
+                {
+                    for (int i = 0; i < qtd; i++) {
+                        TreinoExercicioRepeticao ter = new TreinoExercicioRepeticao();
+                        ter.setID(idTreinoExercicio);
+                        ter.setNrRepeticoes(Integer.parseInt(session.getResults().get(i)));
+                        ter.operar(this, true, Controler.DF_SALVAR, ter);
+                    }
+                }
+            }
+            return 0;
+        }
+        catch(Exception e)
+        {
+            return -1;
+        }
+    }
+    private void carregarIDTreinoExercicio()
+    {
+        TreinoExercicio te = new TreinoExercicio();
+        te.setIdTreino(idTreino);
+        te.setIdExercicio(idExercicio);
+        List<EntidadeDominio> lte = te.operar(this,true,Controler.DF_CONSULTAR,te);
+        if(lte != null) {
+            te = (TreinoExercicio) lte.get(0);
+            idTreinoExercicio = te.getID();
+        }
     }
     public void click_btnMenosRepeticaoList(View v)
     {
         int linha = (Integer) v.getTag();
-        int repeticao = Integer.parseInt(session.getResults().get(linha));
-        session.getResults().set(linha, controleNumberPickerHorizontal("-", String.valueOf(repeticao)));
+        session.getResults().set(linha, controleNumberPickerHorizontal("-", session.getResults().get(linha)));
         controleList("nada");
     }
     public void click_btnMaisRepeticaoList(View v)
     {
         int linha = (Integer) v.getTag();
-        int repeticao = Integer.parseInt(session.getResults().get(linha));
-        session.getResults().set(linha, controleNumberPickerHorizontal("+", String.valueOf(repeticao)));
+        session.getResults().set(linha, controleNumberPickerHorizontal("+", session.getResults().get(linha)));
         controleList("nada");
     }
     public void onBackPressed() // voltar?
@@ -171,7 +217,7 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
         intent.setClass(TelaAddRepeticaoExercicio.this, TelaTreinoExercicio.class);
         intent.putExtra("nomeTreino", nmTreino);
-        intent.putExtra("idTreino", idTreino);
+        intent.putExtra("idTreino", String.valueOf(idTreino));
         startActivity(intent); // chama a próxima tela(tela anterior)
         finish();
     }

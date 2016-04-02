@@ -173,8 +173,9 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         intent.putExtra("linha", linha);
         intent.putExtra("nomeTreino", nmTreino);
         intent.putExtra("nomeExercicio", retornarInfoExercicioNaList.getNome(linha));
+        intent.putExtra("idExercicio",Integer.parseInt(retornarInfoExercicioNaList.getId(linha)));
         intent.putExtra("nomeGrupo", descobrirGrupo(retornarInfoExercicioNaList.getIdGrupo(linha)));
-        intent.putExtra("idTreino", idTreino);
+        intent.putExtra("idTreino", Integer.parseInt(idTreino));
         startActivity(intent);
         finish();
     }

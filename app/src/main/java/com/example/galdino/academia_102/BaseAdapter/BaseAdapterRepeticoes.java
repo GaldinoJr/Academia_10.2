@@ -29,26 +29,20 @@ public class BaseAdapterRepeticoes extends BaseAdapter{
     //private static ArrayList<String> ALlistaTreino;
     private LayoutInflater l_Inflater;
     private Context context;
-    private boolean teste;
+
     private Session session;
     // Construtor 1
-    public BaseAdapterRepeticoes(Context context, ArrayList<String> results, boolean teste)
+    public BaseAdapterRepeticoes(Context context)
     {
-        //ALlistaTreino = results;
         l_Inflater = LayoutInflater.from(context);
-        //this.listEntDomTreinos = listEntDomTreinos;
         this.context = context;
         notifyDataSetChanged();
-        this.teste = teste;
         session = Session.getInstance();
     }
     // Construtor 2
     public BaseAdapterRepeticoes()
     {
 
-    }
-    public void mudarFlaf(boolean flag) {
-        teste = flag;
     }
     // Conta quantos registros tem no array
     public int getCount()
@@ -112,29 +106,18 @@ public class BaseAdapterRepeticoes extends BaseAdapter{
         holder.edtRepeticoes.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-                // TODO Auto-generated method stub
-               // if(!teste)
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3)
+            {
                 session.getResults().set(Integer.parseInt(holder.edtRepeticoes.getTag().toString()), holder.edtRepeticoes.getText().toString());
-                    //String a = holder.edtRepeticoes.getText().toString();
             }
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
                                           int arg3) {
-                // TODO Auto-generated method stub
-//                if(!teste)
-//                    session.getResults().set(holder.id, arg0.toString());
-//                if(!teste)
-//                    if(!holder.edtRepeticoes.requestFocus())
-//                        holder.edtRepeticoes.requestFocus();
             }
 
             @Override
             public void afterTextChanged(Editable arg0) {
-                // TODO Auto-generated method stub
-                String test = arg0.toString();
-                //Integer aux =
             }
         });
         // Add listener for edit text
