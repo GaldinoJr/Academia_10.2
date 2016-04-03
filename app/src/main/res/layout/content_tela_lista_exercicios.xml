@@ -13,14 +13,12 @@
         >
 
         <ImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_alignParentLeft="true"
-            android:layout_gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
             android:scaleType="centerCrop"
             android:background="@color/corActionBarPretoEscuro"
+            android:layout_marginLeft="10dp"
             android:id="@+id/imgPrincipal"
             android:src="@drawable/icone_triceps"
             />
@@ -31,17 +29,16 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/imgPrincipal"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="8dp"
+            android:layout_centerVertical="true"
             android:text="teste"
-            android:textSize="@dimen/tamanho25"
+            android:textSize="20dp"
             android:textColor="#C0C0C0"/>
     </RelativeLayout>
     <View
         android:id="@+id/Divisor1"
         android:layout_width="fill_parent"
         android:layout_height="2dip"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="80dp"
         android:background="@color/corDetalhesAmarelos" />
 
     <ListView

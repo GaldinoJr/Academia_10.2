@@ -24,7 +24,7 @@
         android:id="@+id/fBtnConfirmarExercicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
+        android:layout_gravity="top|right"
         android:layout_margin="@dimen/fab_margin"
         android:tint="@color/corActionBarPretoEscuro"
         android:backgroundTint="@color/corDetalhesAmarelos"
