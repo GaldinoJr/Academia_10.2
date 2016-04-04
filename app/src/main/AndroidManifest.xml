@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:windowSoftInputMode="adjustPan">
+        android:windowSoftInputMode="adjustPan" >
         <activity
             android:name=".Telas.TelaPrincipalExercicio"
             android:label="@string/title_activity_tela_principal"
@@ -51,10 +51,29 @@
         <activity
             android:name=".Telas.TelaAddRepeticaoExercicio"
             android:label="@string/title_activity_tela_add_repeticao_exercicio"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustPan"
-            >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".Telas.TelaTesteAbas"
+            android:label="@string/title_activity_tela_teste_abas"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".Telas.TelaExercicioAba1"
+            android:label="Aba 1"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".Telas.TelaExercicioAba2"
+            android:label="Aba 2"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".Telas.TelaExercicioAba3"
+            android:label="Aba 3"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 
