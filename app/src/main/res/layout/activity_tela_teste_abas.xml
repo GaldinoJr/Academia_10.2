@@ -1,27 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@android:id/tabhost">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
 
-    <LinearLayout
-        android:id="@+id/LinearLayout01"
-        android:orientation="vertical"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent">
+    tools:context=".TelaExercicio" >
+    <RelativeLayout
+        android:id="@+id/relativeBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/Divisor1"
+        android:background="@color/corActionBarPretoEscuro"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <ImageView
+            android:id="@+id/imgCorTelaExer"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/icone_peito"
+            android:scaleType="centerCrop"
+            />
 
-        <TabWidget
-            android:id="@android:id/tabs"
+        <TextView
+            android:id="@+id/txtNomeGrupo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="fill_parent">
-        </TabWidget>
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/imgCorTelaExer"
+            android:text="@string/noInfo"
+            android:textColor="@color/corTextoBranco"
+            android:textSize="@dimen/Titulotamanho25"
+            />
+    </RelativeLayout>
+        <View
+            android:id="@+id/Divisor1"
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:layout_marginTop="80dp"
+            android:background="@color/corDetalhesAmarelos" />
 
-        <FrameLayout
-            android:id="@android:id/tabcontent"
+    <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@android:id/tabhost"
+        android:layout_below="@+id/Divisor1">
+
+        <LinearLayout
+            android:id="@+id/LinearLayout01"
+            android:orientation="vertical"
             android:layout_height="fill_parent"
             android:layout_width="fill_parent">
-        </FrameLayout>
 
-    </LinearLayout>
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent">
+            </TabWidget>
 
-</TabHost>
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent">
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </TabHost>
+</RelativeLayout>

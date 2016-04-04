@@ -1,93 +1,77 @@
 package com.example.galdino.academia_102.Telas;
 
+import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.example.galdino.academia_102.AndroidItens.RoundAdapter;
 import com.example.galdino.academia_102.Dominio.Documento;
 import com.example.galdino.academia_102.R;
 
-public class TelaExercicio extends AppCompatActivity {
+public class TelaExercicio extends TabActivity {
 
-    private TextView txtNomeExe,
-            txtNomeGrupo,
-            txtPrimario,
-            txtSecundario,
-            txtDescricao;
+    private TextView txtNomeGrupo;
     private String nome,
             exe,
-            CaminhoGif,
-            grupo,
-            primario,
-            secundario,
-            descricao,
-            aux;
-    private WebView wvExercicio;
+            grupo;
     private ImageView imgCorTelaExer;
-    //private String[] vetExe;
-    //private Integer idCor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_exercicio);
+        setContentView(R.layout.activity_tela_teste_abas);
         // Associa o objeto
-        txtNomeExe = (TextView)findViewById(R.id.txtDescriExe);
         txtNomeGrupo = (TextView)findViewById(R.id.txtNomeGrupo);
-        txtPrimario =(TextView)findViewById(R.id.txtPrimario2);
-        txtSecundario = (TextView)findViewById(R.id.txtSecundario);
-        txtDescricao =(TextView)findViewById(R.id.txtDescricao);
-        //
-        wvExercicio = (WebView)findViewById(R.id.wvExercicio);
         imgCorTelaExer = (ImageView)findViewById(R.id.imgCorTelaExer);
         // cria a intenção que vai receber os dados da tela 1
         Intent dados = getIntent();
         // Recebe os dados da tela anterior
-        nome = dados.getStringExtra("nome");
-        exe = dados.getStringExtra("exe");
-        //idCor = dados.getIntExtra("idCor", 0);
-
-        // Recebe o conteudo do vetor que vai ser devolvido
-//        vetExe = (String[])dados.getSerializableExtra("exercicios");
-//        Bundle b=this.getIntent().getExtras();
-//        vetExe = b.getStringArray("vetExe");
-        //
         grupo = dados.getStringExtra("grupo");
-        // Define o caminho do gif
-        CaminhoGif = "file:///android_asset/" + grupo +"/"+ nome + ".gif";
-
-        // Devolve os conteudos
-        txtNomeExe.setText(exe);
         txtNomeGrupo.setText(grupo);
-        // imgCor.setImageResource(idCor);
+
         //arredonda a imagem
         RoundAdapter ra = new RoundAdapter();
         imgCorTelaExer.setImageDrawable(ra.RoundImageGrupo(grupo, this));
-        // Exibe a animação em gif
-        wvExercicio.loadUrl(CaminhoGif);
-        //
-        Documento documento = new Documento(this);
-        primario =  documento.carregarArquivoTxt(grupo, nome, "Princ");
-        if(primario == null)
-            primario = txtPrimario.getText().toString();
-        secundario = documento.carregarArquivoTxt(grupo, nome, "Sec");
-        if(secundario == null)
-            secundario = txtSecundario.getText().toString();
-        aux = documento.carregarArquivoTxt(grupo, nome, "Descr");
-        descricao = txtDescricao.getText().toString() + " ";
-        if(aux != null)
-            descricao += aux;
-        else
-            descricao += "Sem informações";
-        //
-        txtPrimario.setText(primario);
-        txtSecundario.setText(secundario);
-        txtDescricao.setText(descricao);
+        // para mandar na aba 1
+        exe = dados.getStringExtra("exe");
+        nome = dados.getStringExtra("nome");
+
+        // ABAS
+        // create the TabHost that will contain the Tabs
+        TabHost tabHost = (TabHost)findViewById(android.R.id.tabhost);
+
+
+        TabHost.TabSpec tab1 = tabHost.newTabSpec("First Tab");
+        TabHost.TabSpec tab2 = tabHost.newTabSpec("Second Tab");
+        TabHost.TabSpec tab3 = tabHost.newTabSpec("Third tab");
+
+        // Set the Tab name and Activity
+        // that will be opened when particular Tab will be selected
+        tab1.setIndicator("Exercício");
+        Intent intentTelaExercicioAba1 = new Intent();
+        intentTelaExercicioAba1.setClass(TelaExercicio.this, TelaExercicioAba1.class);
+        intentTelaExercicioAba1.putExtra("grupo", grupo);
+        intentTelaExercicioAba1.putExtra("nome",nome);
+        intentTelaExercicioAba1.putExtra("exe", exe);
+        tab1.setContent(intentTelaExercicioAba1);
+
+        tab2.setIndicator("Músculo");
+        tab2.setContent(new Intent(this,TelaExercicioAba2.class));
+
+        tab3.setIndicator("Vídeo");
+        tab3.setContent(new Intent(this,TelaExercicioAba3.class));
+
+        /** Add the tabs  to the TabHost to display. */
+        tabHost.addTab(tab1);
+        tabHost.addTab(tab2);
+        tabHost.addTab(tab3);
+
     }
 
 
@@ -100,19 +84,7 @@ public class TelaExercicio extends AppCompatActivity {
 
     public void onBackPressed()
     {
-       // Bundle b;
-        //Intent intent;
-
-//        b=new Bundle();
-//        b.putStringArray("exe", vetExe);
-        //intent = new Intent();
-        // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-        //intent.setClass(TelaExercicio.this, TelaListaExercicios.class);
-       // intent.putExtras(b);
-        //intent.putExtra("grupo", grupo);
-        //startActivity(intent); // chama a próxima tela
         finish();
-
     }
 
 }

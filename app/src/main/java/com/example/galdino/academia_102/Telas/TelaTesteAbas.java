@@ -32,13 +32,13 @@ public class TelaTesteAbas extends TabActivity
 
             // Set the Tab name and Activity
             // that will be opened when particular Tab will be selected
-            tab1.setIndicator("Tab1");
+            tab1.setIndicator("Exercício");
             tab1.setContent(new Intent(this,TelaExercicioAba1.class));
 
-            tab2.setIndicator("Tab2");
+            tab2.setIndicator("Músculo");
             tab2.setContent(new Intent(this,TelaExercicioAba2.class));
 
-            tab3.setIndicator("Tab3");
+            tab3.setIndicator("Vídeo");
             tab3.setContent(new Intent(this,TelaExercicioAba3.class));
 
             /** Add the tabs  to the TabHost to display. */
