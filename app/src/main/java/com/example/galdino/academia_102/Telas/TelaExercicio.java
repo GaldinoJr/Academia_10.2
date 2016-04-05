@@ -3,15 +3,12 @@ package com.example.galdino.academia_102.Telas;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.example.galdino.academia_102.AndroidItens.RoundAdapter;
-import com.example.galdino.academia_102.Dominio.Documento;
 import com.example.galdino.academia_102.R;
 
 public class TelaExercicio extends TabActivity {
@@ -25,7 +22,7 @@ public class TelaExercicio extends TabActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_teste_abas);
+        setContentView(R.layout.activity_tela_exercicio_abas);
         // Associa o objeto
         txtNomeGrupo = (TextView)findViewById(R.id.txtNomeGrupo);
         imgCorTelaExer = (ImageView)findViewById(R.id.imgCorTelaExer);

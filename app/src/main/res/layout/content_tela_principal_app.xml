@@ -31,15 +31,5 @@
         android:layout_marginTop="20dp"
         android:text="@string/ficha" />
 
-    <Button
-        android:id="@+id/btnTesteAbas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnTelaExe"
-        android:layout_below="@+id/btnTelaFicha"
-        android:background="@color/corDetalhesAmarelos"
-        android:textColor="@color/corActionBarPretoEscuro"
-        android:layout_marginTop="20dp"
-        android:text="Abas" />
 
 </RelativeLayout>
