@@ -56,11 +56,6 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
-            android:name=".Telas.TelaTesteAbas"
-            android:label="@string/title_activity_tela_teste_abas"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
             android:name=".Telas.TelaExercicioAba1"
             android:label="Aba 1"
             android:theme="@style/AppTheme.NoActionBar" >

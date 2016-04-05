@@ -54,12 +54,16 @@ public class TelaExercicio extends TabActivity {
         Intent intentTelaExercicioAba1 = new Intent();
         intentTelaExercicioAba1.setClass(TelaExercicio.this, TelaExercicioAba1.class);
         intentTelaExercicioAba1.putExtra("grupo", grupo);
-        intentTelaExercicioAba1.putExtra("nome",nome);
+        intentTelaExercicioAba1.putExtra("nome", nome);
         intentTelaExercicioAba1.putExtra("exe", exe);
         tab1.setContent(intentTelaExercicioAba1);
 
         tab2.setIndicator("Músculo");
-        tab2.setContent(new Intent(this,TelaExercicioAba2.class));
+        Intent intentTelaExercicioAba2 = new Intent();
+        intentTelaExercicioAba2.setClass(TelaExercicio.this, TelaExercicioAba2.class);
+        intentTelaExercicioAba2.putExtra("grupo", grupo);
+        intentTelaExercicioAba2.putExtra("nome", nome);
+        tab2.setContent(intentTelaExercicioAba2);
 
         tab3.setIndicator("Vídeo");
         tab3.setContent(new Intent(this,TelaExercicioAba3.class));

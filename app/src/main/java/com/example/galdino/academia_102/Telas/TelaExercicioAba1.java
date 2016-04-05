@@ -33,15 +33,12 @@ public class TelaExercicioAba1  extends AppCompatActivity
 //    }
     private TextView txtNomeExe,
            // txtNomeGrupo,
-            txtPrimario,
-            txtSecundario,
             txtDescricao;
     private String nome,
             exe,
             CaminhoGif,
             grupo,
-            primario,
-            secundario,
+           
             descricao,
             aux;
     private WebView wvExercicio;
@@ -56,8 +53,6 @@ public class TelaExercicioAba1  extends AppCompatActivity
         // Associa o objeto
         txtNomeExe = (TextView)findViewById(R.id.txtDescriExe);
        // txtNomeGrupo = (TextView)findViewById(R.id.txtNomeGrupo);
-        txtPrimario =(TextView)findViewById(R.id.txtPrimario2);
-        txtSecundario = (TextView)findViewById(R.id.txtSecundario);
         txtDescricao =(TextView)findViewById(R.id.txtDescricao);
         //
         wvExercicio = (WebView)findViewById(R.id.wvExercicio);
@@ -89,12 +84,7 @@ public class TelaExercicioAba1  extends AppCompatActivity
         wvExercicio.loadUrl(CaminhoGif);
         //
         Documento documento = new Documento(this);
-        primario =  documento.carregarArquivoTxt(grupo, nome, "Princ");
-        if(primario == null)
-            primario = txtPrimario.getText().toString();
-        secundario = documento.carregarArquivoTxt(grupo, nome, "Sec");
-        if(secundario == null)
-            secundario = txtSecundario.getText().toString();
+
         aux = documento.carregarArquivoTxt(grupo, nome, "Descr");
         descricao = txtDescricao.getText().toString() + " ";
         if(aux != null)
@@ -102,8 +92,6 @@ public class TelaExercicioAba1  extends AppCompatActivity
         else
             descricao += "Sem informações";
         //
-        txtPrimario.setText(primario);
-        txtSecundario.setText(secundario);
         txtDescricao.setText(descricao);
     }
 
