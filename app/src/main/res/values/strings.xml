@@ -35,4 +35,7 @@
     <string name="title_activity_tela_add_repeticao">TelaAddRepeticao</string>
     <string name="title_activity_tela_add_repeticao_exercicio">TelaAddRepeticaoExercicio</string>
     <string name="title_activity_tela_teste_abas">TelaTesteAbas</string>
+    <string name ="aba1">Exercício</string>
+    <string name ="aba2">Músculo</string>
+    <string name ="aba3">Vídeo</string>
 </resources>
