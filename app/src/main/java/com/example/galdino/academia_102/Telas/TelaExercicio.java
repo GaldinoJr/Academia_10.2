@@ -21,6 +21,7 @@ public class TelaExercicio extends TabActivity {
             exe,
             grupo;
     private ImageView imgCorTelaExer;
+    private TabHost tabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class TelaExercicio extends TabActivity {
         // Associa o objeto
         txtNomeGrupo = (TextView)findViewById(R.id.txtNomeGrupo);
         imgCorTelaExer = (ImageView)findViewById(R.id.imgCorTelaExer);
+        tabHost = (TabHost)findViewById(android.R.id.tabhost);
         // cria a intenção que vai receber os dados da tela 1
         Intent dados = getIntent();
         // Recebe os dados da tela anterior
@@ -42,79 +44,59 @@ public class TelaExercicio extends TabActivity {
         exe = dados.getStringExtra("exe");
         nome = dados.getStringExtra("nome");
 
-        // ABAS
-        // create the TabHost that will contain the Tabs
-        TabHost tabHost = (TabHost)findViewById(android.R.id.tabhost);
-
-
-        TabHost.TabSpec tab1 = tabHost.newTabSpec("First Tab");
-        TabHost.TabSpec tab2 = tabHost.newTabSpec("Second Tab");
-        TabHost.TabSpec tab3 = tabHost.newTabSpec("Third tab");
-
-        // Set the Tab name and Activity
-        // that will be opened when particular Tab will be selected
-        //tab1.setIndicator("Exercício");
-
-//        View view = LayoutInflater.from(this).inflate(R.layout.activity_tela_exercicio, null);
-//        TextView tv = (TextView) view.findViewById(R.id.tabsText);
-//        tv.setText(text);
-//        ImageView iv = (ImageView) view.findViewById(R.id.tabsImage);
-//        iv.setImageResource(image);
-//
-//        TabHost.TabSpec setContent = mTabHost.newTabSpec(tag).setIndicator(view)
-//                .setContent(new Intent(this, activity));
-//        mTabHost.addTab(setContent);
-
-        //tab1.setIndicator("",getResources().getDrawable(R.drawable.ic_edit_repeticao_amarelo));
-        //tab1 = tabHost.newTabSpec("tab_name").setIndicator("Tab Text", getResources().getDrawable(R.drawable.tab_selector)).setContent(intent);
-        //tabHost.addTab(spec);
-
-
-        Intent intentTelaExercicioAba1 = new Intent();
-        intentTelaExercicioAba1.setClass(TelaExercicio.this, TelaExercicioAba1.class);
-        intentTelaExercicioAba1.putExtra("grupo", grupo);
-        intentTelaExercicioAba1.putExtra("nome", nome);
-        intentTelaExercicioAba1.putExtra("exe", exe);
-        //tab1.setContent(intentTelaExercicioAba1);
-
+        // ABA 1
+        Intent intentTelaExercicioAba1 = criarAbas(TelaExercicioAba1.class);
         tabHost.addTab(
                 tabHost.newTabSpec("tab1")
                         .setIndicator(createTabIndicator(LayoutInflater.from(this), tabHost, R.string.aba1, R.drawable.ic_halter_aba_amarelo))
                         .setContent(intentTelaExercicioAba1)
         );
-
-        //tab2.setIndicator("Músculo");
-        Intent intentTelaExercicioAba2 = new Intent();
-        intentTelaExercicioAba2.setClass(TelaExercicio.this, TelaExercicioAba2.class);
-        intentTelaExercicioAba2.putExtra("grupo", grupo);
-        intentTelaExercicioAba2.putExtra("nome", nome);
-        //tab2.setContent(intentTelaExercicioAba2);
+        // ABA 2
+        Intent intentTelaExercicioAba2 = criarAbas(TelaExercicioAba2.class);
         tabHost.addTab(
                 tabHost.newTabSpec("tab2")
                         .setIndicator(createTabIndicator(LayoutInflater.from(this), tabHost, R.string.aba2, R.drawable.ic_aba_musculo2))
                         .setContent(intentTelaExercicioAba2)
         );
-
-//        tab3.setIndicator("Vídeo");
-//        tab3.setContent(new Intent(this,TelaExercicioAba3.class));
+        // ABA 3
         tabHost.addTab(
                 tabHost.newTabSpec("tab3")
                         .setIndicator(createTabIndicator(LayoutInflater.from(this), tabHost, R.string.aba3, R.drawable.ic_aba_video))
                         .setContent(new Intent(this,TelaExercicioAba3.class))
         );
-
-        /** Add the tabs  to the TabHost to display. */
-       // tabHost.addTab(tab1);
-        //tabHost.addTab(tab2);
-        //tabHost.addTab(tab3);
-
+        mudarCorAba(tabHost);
+        // Add o listener para quando trocar a aba mudar a cor da aba selecionada, e as outras descelecionadas
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener(){
+            @Override
+            public void onTabChanged(String tabId) {
+                mudarCorAba(tabHost);
+            }});
     }
 
-    public View createTabIndicator(LayoutInflater inflater, TabHost tabHost, int textResource, int iconResource) {
+    private Intent criarAbas(Class classe)
+    {
+        Intent intentNovaAba = new Intent();
+        intentNovaAba.setClass(TelaExercicio.this, classe);
+        intentNovaAba.putExtra("grupo", grupo);
+        intentNovaAba.putExtra("nome", nome);
+        intentNovaAba.putExtra("exe", exe);
+        return intentNovaAba;
+    }
+    // Função: Cria as abas personalizadas com descrição e foto
+    private View createTabIndicator(LayoutInflater inflater, TabHost tabHost, int textResource, int iconResource)
+    {
         View tabIndicator = inflater.inflate(R.layout.xml_exercicio_aba, tabHost.getTabWidget(), false);
         ((TextView) tabIndicator.findViewById(android.R.id.title)).setText(textResource);
         ((ImageView) tabIndicator.findViewById(android.R.id.icon)).setImageResource(iconResource);
         return tabIndicator;
+    }
+    // Função: Quando trocar a aba mudar a cor da aba selecionada, e as outras descelecionadas
+    private static void mudarCorAba(TabHost tabhost) {
+        for(int i=0;i<tabhost.getTabWidget().getChildCount();i++)
+        {
+            tabhost.getTabWidget().getChildAt(i).setBackgroundResource(R.color.corActionBarPretoEscuro); //unselected
+        }
+        tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundResource(R.color.corListaPretoClaro); // selected
     }
 
     @Override

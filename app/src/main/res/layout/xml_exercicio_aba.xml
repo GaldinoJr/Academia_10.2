@@ -18,7 +18,6 @@
         android:id="@android:id/icon"
         android:src="@drawable/ic_halter_aba_amarelo"
         android:layout_gravity="center_vertical"
-
     />
     <!--NÃO PODE TIRAR O ID DO ANDROID POR ALGUM MOTIVO-->
     <!--android:id="@android:id/icon"-->
@@ -29,6 +28,7 @@
         android:layout_marginLeft="10dp"
         android:id="@android:id/title"
         android:text="Exercício"
+        android:textColor="@color/corTextoBranco"
         style="@android:style/Widget.Holo.ActionBar.TabText"
     />
 </LinearLayout>

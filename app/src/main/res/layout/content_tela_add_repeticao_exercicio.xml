@@ -7,6 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_tela_add_repeticao_exercicio"
     tools:context="com.example.galdino.academia_102.Telas.TelaAddRepeticaoExercicio"
+    android:screenOrientation="sensorPortrait"
     >
     <RelativeLayout
         android:layout_width="match_parent"
@@ -50,8 +51,9 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:id="@+id/edtSerie"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:ems="10"
+            android:singleLine="true"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/textView3"
             android:textColor="@color/corTextoBranco"
