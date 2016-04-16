@@ -24,7 +24,14 @@ public class Documento {
 		texto = lerArquivo(context, nomeArquivo);
 		return texto;
 	}
-	
+
+	public String carregarArquivoTxt(String nomeSubPasta, String nmArquivo, String nomePasta, String iniciar)
+	{
+		String nomeArquivo, texto;
+		nomeArquivo = "DocumentosTxt/" + nomePasta + "/" + nomeSubPasta + "/txt" + nmArquivo + ".txt";
+		texto = lerArquivo(context, nomeArquivo);
+		return texto;
+	}
 	
 	private String montarNomeArquivo(String nomeExercicio)
 	{

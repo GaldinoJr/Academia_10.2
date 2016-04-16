@@ -27,6 +27,7 @@ public class IniciarBancoExercicios2 {
     {
         gravarGrupos(context);
         gravarExercicios(context);
+        gravarTreinos(context);
     }
     private void gravarGrupos(Context context)
     {
@@ -87,6 +88,67 @@ public class IniciarBancoExercicios2 {
         configuracao.operar(context,true,Controler.DF_SALVAR,configuracao);
     }
 
+    private void gravarTreinos(Context context)
+    {
+
+
+        String doc = "Treino";
+        GrupoMuscular grupoMuscular = new GrupoMuscular();
+        List<EntidadeDominio> lEntDom = grupoMuscular.operar(context,true,Controler.DF_CONSULTAR,grupoMuscular);
+        for(int i = 0; i < 1; i++)//mudar conforme add treino
+        {
+            int indice = i+1;
+            doc = doc + indice;
+            Documento documento = new Documento(context);
+            for(EntidadeDominio entDom : lEntDom ) {
+                GrupoMuscular g = (GrupoMuscular)entDom;
+                String nomeGrupo = g.getNome();
+                String exerciciosJuntos = documento.carregarArquivoTxt(nomeGrupo, doc, "Treinos","sim");
+                if (exerciciosJuntos != null)
+                {
+                    String[] exerciciosSeparados = exerciciosJuntos.split("@");
+                    Treino treino = new Treino();
+                    treino.setIdGrupo(Integer.parseInt(g.getID()));
+                    treino.setNome(doc);
+                    List<EntidadeDominio> lauxTreino = treino.operar(context,true,Controler.DF_SALVAR,treino);
+                    treino = (Treino)lauxTreino.get(0);
+                    if(treino.getID()!= null) {
+                        for (int j = 0; j < (exerciciosSeparados.length - 1); j++) {
+                            Exercicio exercicio = new Exercicio();
+                            String[] repeticoes = exerciciosSeparados[j].split(";");
+                            String nomeExe = repeticoes[0];
+                            encontrarNomes(nomeExe, nomeGrupo);
+                            exercicio.setNomeLogico(nomeGif);
+                            List<EntidadeDominio> laux = exercicio.operar(context, true, Controler.DF_CONSULTAR, exercicio);
+                            if (laux != null) {
+                                exercicio = (Exercicio) laux.get(0);
+                                TreinoExercicio te = new TreinoExercicio();
+                                te.setIdExercicio(Integer.parseInt(exercicio.getID()));
+                                te.setIdTreino(Integer.parseInt(treino.getID()));
+                                laux = te.operar(context, true, Controler.DF_SALVAR, te);
+                                if (laux != null)
+                                {
+                                    te = (TreinoExercicio)laux.get(0);
+                                    for (int k = 1; k < repeticoes.length; k++) {
+                                        TreinoExercicioRepeticao treinoExercicioRepeticao = new TreinoExercicioRepeticao();
+                                        treinoExercicioRepeticao.setNrRepeticoes(Integer.parseInt(repeticoes[k]));
+                                        treinoExercicioRepeticao.setID(te.getID());
+                                        treinoExercicioRepeticao.operar(context, true, Controler.DF_SALVAR, treinoExercicioRepeticao);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+//            primario = txtPrimario.getText().toString();
+//            secundario = documento.carregarArquivoTxt(grupo, nome, "Sec");
+//            if(secundario == null)
+//            secundario = txtSecundario.getText().toString();
+//            aux = documento.carregarArquivoTxt(grupo, nome, "Descr");
+    }
     private void encontrarNomes(String nome, String grupo)
     {
         int tamanho,

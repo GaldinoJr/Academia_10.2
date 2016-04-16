@@ -18,8 +18,9 @@ import java.util.Map;
 public class SQLtreino extends AbsSQL{
 	private static final String Col_cd_treino = "cd_treino";
 	private static final String Col_ds_treino = "ds_treino";
-	private static final String[] colunas = {Col_ds_treino};
-	private static final String[] colunasBusca = {Col_cd_treino,Col_ds_treino};
+	private static final String Col_cd_grupo = "f_cd_grupo";
+	private static final String[] colunas = {Col_ds_treino, Col_cd_grupo};
+	private static final String[] colunasBusca = {Col_cd_treino,Col_ds_treino, Col_cd_grupo};
 	private SQL db;
 	private Context context;
 	private Treino treino;
@@ -30,7 +31,8 @@ public class SQLtreino extends AbsSQL{
 		nomeTabela = "tb_treino";
 		sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela + " ( " +
 				Col_cd_treino + " INTEGER PRIMARY KEY, " +
-				Col_ds_treino + " TEXT )";
+				Col_ds_treino + " TEXT, " +
+				Col_cd_grupo + " INTEGER )";
 	}
 	
 	public SQLtreino(Context context){
@@ -40,29 +42,6 @@ public class SQLtreino extends AbsSQL{
 		db  = SQL.getInstance(context, DATABASE_NAME );
 		db.popularInfo(nomeTabela, colunas, sqlCriarTabela);
 	}
-	
-//	public void IncluirTreino(String nome)
-//	{
-//		mapTreino = new HashMap<String, String>();
-//		mapTreino.put(Col_ds_treino, nome);
-//		db.addRegistro(mapTreino);
-//	}
-//	
-//	public Treino pesquisarTreino(int id)
-//	{
-//		String[] colunasBusca = {Col_cd_treino, Col_ds_treino};
-//		sId = String.valueOf(id);
-//		Map<String, String> mapDados = new HashMap<String, String>();
-//		mapDados = db.buscarRegistro(Col_cd_treino,sId, colunasBusca);
-//		Treino treino = new Treino();
-//		if(mapDados == null) // não encontrou o treino?
-//			return treino = null; // retorna indicando que o treino não foi encontrado
-//
-//		treino.setID(mapDados.get(Col_cd_treino));
-//		treino.setNome(mapDados.get(Col_ds_treino));
-//	    return treino;
-//
-//	}
 
 	@Override
 	public EntidadeDominio salvar(EntidadeDominio entidade) {
@@ -71,6 +50,8 @@ public class SQLtreino extends AbsSQL{
 			mapSql = new HashMap<String, String>();
 
 			mapSql.put(Col_ds_treino, String.valueOf(treino.getNome()));
+			mapSql.put(Col_cd_grupo, String.valueOf(treino.getIdGrupo()));
+
 			long id = db.addRegistro(mapSql);
 			//db.close();
 			treino.setID(String.valueOf(id));
@@ -124,6 +105,7 @@ public class SQLtreino extends AbsSQL{
 				// ******************* TEM QUE SER A MESMA SEQUENCIA DA LISTA(colunasBusca)***********************
 				t.setID(listMapSql.get(i).get(colunasBusca[0]));
 				t.setNome(listMapSql.get(i).get(colunasBusca[1]));
+				t.setIdGrupo(Integer.parseInt(listMapSql.get(i).get(colunasBusca[2])));
 
 				listSql.add(t);
 			}

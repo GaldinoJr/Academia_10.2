@@ -48,24 +48,6 @@ public class SQLexercicio extends AbsSQL{
 		db.popularInfo( nomeTabela, colunas, sqlCriarTabela);
 	}
 
-	
-//	public Exercicio pesquisarExercicio(int id)
-//	{
-//		String[] colunasBusca = {Col_cd_exercicio, Col_ds_exercicio, Col_cd_grupo};
-//		sId = String.valueOf(id);
-//		Map<String, String> mapDados = new HashMap<String, String>();
-//		mapDados = db.buscarRegistro(Col_cd_exercicio,sId, colunasBusca);
-//		Exercicio exercicio = new Exercicio();
-//		if(mapDados == null) // não encontrou o exercício?
-//			return exercicio = null; // retorna indicando que o exercício não foi encontrado
-//
-//		exercicio.setID(mapDados.get(Col_cd_exercicio));
-//		exercicio.setNome(mapDados.get(Col_ds_exercicio));
-//		exercicio.setIdGrupo(mapDados.get(Col_cd_grupo));
-//	    return exercicio;
-//
-//	}
-
 	@Override
 	public EntidadeDominio salvar(EntidadeDominio entidade) {
 		try {
@@ -115,6 +97,8 @@ public class SQLexercicio extends AbsSQL{
 				query += " AND " + Col_cd_exercicio + " = '" + exercicio.getID() + "'";
 			if (exercicio.getIdGrupo() != null)
 				query += " AND " + Col_cd_grupo + " = '" + exercicio.getIdGrupo() + "'";
+			if (exercicio.getNomeLogico() != null)
+				query += " AND " + Col_ds_nome_logico_gif_exercicio + " = '" + exercicio.getNomeLogico() + "'";
 
 			query += " ORDER BY " + Col_ds_nome_exercicio + " ASC";
 			listSql = new ArrayList<EntidadeDominio>();
