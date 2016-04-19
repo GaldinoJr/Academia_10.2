@@ -105,7 +105,8 @@ public class SQLtreino extends AbsSQL{
 				// ******************* TEM QUE SER A MESMA SEQUENCIA DA LISTA(colunasBusca)***********************
 				t.setID(listMapSql.get(i).get(colunasBusca[0]));
 				t.setNome(listMapSql.get(i).get(colunasBusca[1]));
-				t.setIdGrupo(Integer.parseInt(listMapSql.get(i).get(colunasBusca[2])));
+				if(listMapSql.get(i).get(colunasBusca[2]) != null && !listMapSql.get(i).get(colunasBusca[2]).equals("null"))
+					t.setIdGrupo(Integer.parseInt(listMapSql.get(i).get(colunasBusca[2])));
 
 				listSql.add(t);
 			}
