@@ -38,4 +38,8 @@
     <string name ="aba1">Exercício</string>
     <string name ="aba2">Músculo</string>
     <string name ="aba3">Vídeo</string>
+    <string name="title_activity_tela_list_exercicio_nova">How to Train</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

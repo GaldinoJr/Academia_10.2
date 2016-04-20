@@ -18,7 +18,8 @@ import java.util.List;
 public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnTelaExe,
-            btnTelaFicha;
+            btnTelaFicha,
+            btnExemploMenu;
     private List<EntidadeDominio> listEntDom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +28,11 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
         //
         btnTelaExe = (Button)findViewById(id.btnTelaExe);
         btnTelaFicha = (Button)findViewById(id.btnTelaFicha);
+        btnExemploMenu = (Button)findViewById(id.btnExemploMenu);
         //
         btnTelaExe.setOnClickListener(this);
         btnTelaFicha.setOnClickListener(this);
+        btnExemploMenu.setOnClickListener(this);
         // Verifica se é a primeira execução do App no celular e cria o Banco de exercícios
         Configuracao configuracao = new Configuracao();
 
@@ -70,6 +73,13 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
         { // chama a tela principal de fichas
             Intent intent = new Intent();
             intent.setClass(TelaPrincipalApp.this, TelaPrincipalTreino.class);
+            startActivity(intent); // chama a próxima tela
+            finish(); // Encerra a tela atual
+        }
+        if(view == btnExemploMenu)
+        {
+            Intent intent = new Intent();
+            intent.setClass(TelaPrincipalApp.this, TelaListExercicioNova.class);
             startActivity(intent); // chama a próxima tela
             finish(); // Encerra a tela atual
         }

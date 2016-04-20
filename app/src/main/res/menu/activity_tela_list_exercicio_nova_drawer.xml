@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/icBtnAbdomen"
+            android:icon="@drawable/ic_abdomen_teste"
+            android:title="Abdomen" />
+        <item android:id="@+id/icBtnBiceps"
+            android:icon="@drawable/ic_biceps_teste"
+            android:title="Biceps" />
+        <item android:id="@+id/icBtnCostas"
+            android:icon="@drawable/ic_costas_teste"
+            android:title="Costas" />
+        <item android:id="@+id/icBtnCoxa"
+            android:icon="@drawable/ic_perna_teste"
+            android:title="Coxa" />
+        <item android:id="@+id/icBtnGluteo"
+            android:icon="@drawable/icone_gluteo"
+            android:title="Gluteo" />
+        <item android:id="@+id/icBtnOmbro"
+            android:icon="@drawable/ic_ombro_teste"
+            android:title="Ombro" />
+        <item android:id="@+id/icBtnPanturrilha"
+            android:icon="@drawable/ic_perna_teste"
+            android:title="Panturrilha" />
+        <item android:id="@+id/icBtnPeito"
+            android:icon="@drawable/ic_peito_teste"
+            android:title="Peito" />
+        <item android:id="@+id/icBtnTriceps"
+            android:icon="@drawable/icone_triceps"
+            android:title="Triceps" />
+    </group>
+</menu>
