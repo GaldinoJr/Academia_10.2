@@ -19,7 +19,8 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
 
     private Button btnTelaExe,
             btnTelaFicha,
-            btnExemploMenu;
+            btnExemploMenu,
+            btnExemploMenu2;
     private List<EntidadeDominio> listEntDom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +30,12 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
         btnTelaExe = (Button)findViewById(id.btnTelaExe);
         btnTelaFicha = (Button)findViewById(id.btnTelaFicha);
         btnExemploMenu = (Button)findViewById(id.btnExemploMenu);
+        btnExemploMenu2 = (Button)findViewById(id.btnExemploMenu2);
         //
         btnTelaExe.setOnClickListener(this);
         btnTelaFicha.setOnClickListener(this);
         btnExemploMenu.setOnClickListener(this);
+        btnExemploMenu2.setOnClickListener(this);
         // Verifica se é a primeira execução do App no celular e cria o Banco de exercícios
         Configuracao configuracao = new Configuracao();
 
@@ -80,6 +83,13 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
         {
             Intent intent = new Intent();
             intent.setClass(TelaPrincipalApp.this, TelaListExercicioNova.class);
+            startActivity(intent); // chama a próxima tela
+            finish(); // Encerra a tela atual
+        }
+        if(view == btnExemploMenu2)
+        {
+            Intent intent = new Intent();
+            intent.setClass(TelaPrincipalApp.this, TelaSideMenu2.class);
             startActivity(intent); // chama a próxima tela
             finish(); // Encerra a tela atual
         }
