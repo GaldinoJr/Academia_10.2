@@ -1,6 +1,7 @@
 package com.example.galdino.academia_102.Telas;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -37,7 +38,8 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     private List<SlideMenuItem> list = new ArrayList<>();
     private ContentFragment contentFragment;
     private ViewAnimator viewAnimator;
-    private int res = R.drawable.content_music;
+    private String res = "Abdomen";
+    //private int res = 1;
     private LinearLayout linearLayout;
 
 
@@ -45,7 +47,7 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_side_menu2);
-        contentFragment = ContentFragment.newInstance(R.drawable.content_music);
+        contentFragment = ContentFragment.newInstance(res);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, contentFragment)
                 .commit();
@@ -68,20 +70,24 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     private void createMenuList() {
         SlideMenuItem menuItem0 = new SlideMenuItem(ContentFragment.CLOSE, R.drawable.icn_close);
         list.add(menuItem0);
-        SlideMenuItem menuItem = new SlideMenuItem(ContentFragment.BUILDING, R.drawable.icn_1);
+        SlideMenuItem menuItem = new SlideMenuItem(ContentFragment.ABDOMEN, R.drawable.ic_abdomen_teste);
         list.add(menuItem);
-        SlideMenuItem menuItem2 = new SlideMenuItem(ContentFragment.BOOK, R.drawable.icn_2);
+        SlideMenuItem menuItem2 = new SlideMenuItem(ContentFragment.BICEPS, R.drawable.ic_biceps_teste);
         list.add(menuItem2);
-        SlideMenuItem menuItem3 = new SlideMenuItem(ContentFragment.PAINT, R.drawable.icn_3);
+        SlideMenuItem menuItem3 = new SlideMenuItem(ContentFragment.COSTAS, R.drawable.ic_costas_teste);
         list.add(menuItem3);
-        SlideMenuItem menuItem4 = new SlideMenuItem(ContentFragment.CASE, R.drawable.icn_4);
+        SlideMenuItem menuItem4 = new SlideMenuItem(ContentFragment.COXA, R.drawable.ic_perna_teste);
         list.add(menuItem4);
-        SlideMenuItem menuItem5 = new SlideMenuItem(ContentFragment.SHOP, R.drawable.icn_5);
+        SlideMenuItem menuItem5 = new SlideMenuItem(ContentFragment.GLUTEO, R.drawable.icone_gluteo);
         list.add(menuItem5);
-        SlideMenuItem menuItem6 = new SlideMenuItem(ContentFragment.PARTY, R.drawable.icn_6);
+        SlideMenuItem menuItem6 = new SlideMenuItem(ContentFragment.OMBRO, R.drawable.ic_ombro_teste);
         list.add(menuItem6);
-        SlideMenuItem menuItem7 = new SlideMenuItem(ContentFragment.MOVIE, R.drawable.icn_7);
+        SlideMenuItem menuItem7 = new SlideMenuItem(ContentFragment.PANTURRILHA, R.drawable.ic_perna_teste);
         list.add(menuItem7);
+        SlideMenuItem menuItem8 = new SlideMenuItem(ContentFragment.PEITO, R.drawable.ic_peito_teste);
+        list.add(menuItem8);
+        SlideMenuItem menuItem9 = new SlideMenuItem(ContentFragment.TRICEPS, R.drawable.icone_triceps);
+        list.add(menuItem9);
     }
 
 
@@ -133,11 +139,11 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -153,7 +159,8 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     }
 
     private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition) {
-        this.res = this.res == R.drawable.content_music ? R.drawable.content_films : R.drawable.content_music;
+        //this.res = this.res == R.drawable.content_music ? R.drawable.content_films : R.drawable.content_music;
+        //this.res =
         View view = findViewById(R.id.content_frame);
         int finalRadius = Math.max(view.getWidth(), view.getHeight());
         SupportAnimator animator = ViewAnimationUtils.createCircularReveal(view, 0, topPosition, 0, finalRadius);
@@ -169,6 +176,7 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
 
     @Override
     public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position) {
+        res = slideMenuItem.getName();
         switch (slideMenuItem.getName()) {
             case ContentFragment.CLOSE:
                 return screenShotable;
@@ -193,6 +201,16 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     @Override
     public void addViewToContainer(View view) {
         linearLayout.addView(view);
+    }
+    public void onBackPressed()
+    {
+        Intent intent;
+        intent = new Intent();
+        // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
+        intent.setClass(TelaSideMenu2.this, TelaPrincipalApp.class);
+
+        startActivity(intent); // chama a próxima tela
+        finish();
     }
 }
 
