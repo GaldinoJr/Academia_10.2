@@ -39,9 +39,8 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     private ContentFragment contentFragment;
     private ViewAnimator viewAnimator;
     private String res = "Abdomen";
-    //private int res = 1;
     private LinearLayout linearLayout;
-
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +81,7 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
         list.add(menuItem5);
         SlideMenuItem menuItem6 = new SlideMenuItem(ContentFragment.OMBRO, R.drawable.ic_ombro_teste);
         list.add(menuItem6);
-        SlideMenuItem menuItem7 = new SlideMenuItem(ContentFragment.PANTURRILHA, R.drawable.ic_perna_teste);
+        SlideMenuItem menuItem7 = new SlideMenuItem(ContentFragment.PANTURRILHA, R.drawable.icone_panturilha);
         list.add(menuItem7);
         SlideMenuItem menuItem8 = new SlideMenuItem(ContentFragment.PEITO, R.drawable.ic_peito_teste);
         list.add(menuItem8);
@@ -92,7 +91,8 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
 
 
     private void setActionBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(res);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -177,6 +177,8 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     @Override
     public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position) {
         res = slideMenuItem.getName();
+        if(!res.equals(ContentFragment.CLOSE))
+            toolbar.setTitle(res);
         switch (slideMenuItem.getName()) {
             case ContentFragment.CLOSE:
                 return screenShotable;
