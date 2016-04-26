@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,8 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     private String res = "Abdomen";
     private LinearLayout linearLayout;
     private Toolbar toolbar;
+    //
+    private TextView txtTituloToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +62,8 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
                 drawerLayout.closeDrawers();
             }
         });
-
+        txtTituloToolbar = (TextView)findViewById(R.id.txtTituloToolbar);
+        txtTituloToolbar.setText(res);
 
         setActionBar();
         createMenuList();
@@ -69,21 +73,21 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     private void createMenuList() {
         SlideMenuItem menuItem0 = new SlideMenuItem(ContentFragment.CLOSE, R.drawable.icn_close);
         list.add(menuItem0);
-        SlideMenuItem menuItem = new SlideMenuItem(ContentFragment.ABDOMEN, R.drawable.ic_abdomen_teste);
+        SlideMenuItem menuItem = new SlideMenuItem(ContentFragment.ABDOMEN, R.drawable.ic_abdomen_teste_branco);
         list.add(menuItem);
-        SlideMenuItem menuItem2 = new SlideMenuItem(ContentFragment.BICEPS, R.drawable.ic_biceps_teste);
+        SlideMenuItem menuItem2 = new SlideMenuItem(ContentFragment.BICEPS, R.drawable.ic_biceps_teste_branco);
         list.add(menuItem2);
-        SlideMenuItem menuItem3 = new SlideMenuItem(ContentFragment.COSTAS, R.drawable.ic_costas_teste);
+        SlideMenuItem menuItem3 = new SlideMenuItem(ContentFragment.COSTAS, R.drawable.ic_costas_teste_branco);
         list.add(menuItem3);
-        SlideMenuItem menuItem4 = new SlideMenuItem(ContentFragment.COXA, R.drawable.ic_perna_teste);
+        SlideMenuItem menuItem4 = new SlideMenuItem(ContentFragment.COXA, R.drawable.ic_perna_teste_branco);
         list.add(menuItem4);
         SlideMenuItem menuItem5 = new SlideMenuItem(ContentFragment.GLUTEO, R.drawable.icone_gluteo);
         list.add(menuItem5);
-        SlideMenuItem menuItem6 = new SlideMenuItem(ContentFragment.OMBRO, R.drawable.ic_ombro_teste);
+        SlideMenuItem menuItem6 = new SlideMenuItem(ContentFragment.OMBRO, R.drawable.ic_ombro_teste_branco);
         list.add(menuItem6);
         SlideMenuItem menuItem7 = new SlideMenuItem(ContentFragment.PANTURRILHA, R.drawable.icone_panturilha);
         list.add(menuItem7);
-        SlideMenuItem menuItem8 = new SlideMenuItem(ContentFragment.PEITO, R.drawable.ic_peito_teste);
+        SlideMenuItem menuItem8 = new SlideMenuItem(ContentFragment.PEITO, R.drawable.ic_peito_teste_branco);
         list.add(menuItem8);
         SlideMenuItem menuItem9 = new SlideMenuItem(ContentFragment.TRICEPS, R.drawable.icone_triceps);
         list.add(menuItem9);
@@ -162,6 +166,7 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
         //this.res = this.res == R.drawable.content_music ? R.drawable.content_films : R.drawable.content_music;
         //this.res =
         View view = findViewById(R.id.content_frame);
+        txtTituloToolbar.setText(res);
         int finalRadius = Math.max(view.getWidth(), view.getHeight());
         SupportAnimator animator = ViewAnimationUtils.createCircularReveal(view, 0, topPosition, 0, finalRadius);
         animator.setInterpolator(new AccelerateInterpolator());
