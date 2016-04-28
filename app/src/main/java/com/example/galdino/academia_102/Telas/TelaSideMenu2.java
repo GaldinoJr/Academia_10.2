@@ -74,25 +74,25 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     }
 
     private void createMenuList() {
-        SlideMenuItem menuItem0 = new SlideMenuItem(ContentFragment.CLOSE, R.drawable.icn_close);
+        SlideMenuItem menuItem0 = new SlideMenuItem(ContentFragment.CLOSE, R.drawable.ic_voltar);
         list.add(menuItem0);
-        SlideMenuItem menuItem = new SlideMenuItem(ContentFragment.ABDOMEN, R.drawable.ic_abdomen_teste_branco);
+        SlideMenuItem menuItem = new SlideMenuItem(ContentFragment.ABDOMEN, R.drawable.ic_abdomen_lista_sm);
         list.add(menuItem);
-        SlideMenuItem menuItem2 = new SlideMenuItem(ContentFragment.BICEPS, R.drawable.ic_biceps_teste_branco);
+        SlideMenuItem menuItem2 = new SlideMenuItem(ContentFragment.BICEPS, R.drawable.ic_biceps_lista_sm);
         list.add(menuItem2);
-        SlideMenuItem menuItem3 = new SlideMenuItem(ContentFragment.COSTAS, R.drawable.ic_costas_teste_branco);
+        SlideMenuItem menuItem3 = new SlideMenuItem(ContentFragment.COSTAS, R.drawable.ic_costas_lista_sm);
         list.add(menuItem3);
-        SlideMenuItem menuItem4 = new SlideMenuItem(ContentFragment.COXA, R.drawable.ic_perna_teste_branco);
+        SlideMenuItem menuItem4 = new SlideMenuItem(ContentFragment.COXA, R.drawable.ic_coxa_lista_sm);
         list.add(menuItem4);
-        SlideMenuItem menuItem5 = new SlideMenuItem(ContentFragment.GLUTEO, R.drawable.icone_gluteo);
+        SlideMenuItem menuItem5 = new SlideMenuItem(ContentFragment.GLUTEO, R.drawable.ic_perna_sm);
         list.add(menuItem5);
-        SlideMenuItem menuItem6 = new SlideMenuItem(ContentFragment.OMBRO, R.drawable.ic_ombro_teste_branco);
+        SlideMenuItem menuItem6 = new SlideMenuItem(ContentFragment.OMBRO, R.drawable.ic_ombro_lista_sm);
         list.add(menuItem6);
-        SlideMenuItem menuItem7 = new SlideMenuItem(ContentFragment.PANTURRILHA, R.drawable.icone_panturilha);
+        SlideMenuItem menuItem7 = new SlideMenuItem(ContentFragment.PANTURRILHA, R.drawable.ic_panturrilha_lista_sm);
         list.add(menuItem7);
-        SlideMenuItem menuItem8 = new SlideMenuItem(ContentFragment.PEITO, R.drawable.ic_peito_teste_branco);
+        SlideMenuItem menuItem8 = new SlideMenuItem(ContentFragment.PEITO, R.drawable.ic_peito_lista_sm);
         list.add(menuItem8);
-        SlideMenuItem menuItem9 = new SlideMenuItem(ContentFragment.TRICEPS, R.drawable.icone_triceps);
+        SlideMenuItem menuItem9 = new SlideMenuItem(ContentFragment.TRICEPS, R.drawable.ic_triceps_lista_sm);
         list.add(menuItem9);
     }
 
@@ -113,8 +113,9 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
+                if(imgDesfocar.getVisibility() == View.VISIBLE)
+                    imgDesfocar.setVisibility(View.INVISIBLE);
                 super.onDrawerClosed(view);
-                imgDesfocar.setVisibility(View.INVISIBLE);
                 linearLayout.removeAllViews();
                 linearLayout.invalidate();
             }
@@ -187,6 +188,8 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
 
     @Override
     public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position) {
+        if(imgDesfocar.getVisibility() == View.VISIBLE)
+            imgDesfocar.setVisibility(View.INVISIBLE);
         res = slideMenuItem.getName();
         if(!res.equals(ContentFragment.CLOSE))
             toolbar.setTitle(res);

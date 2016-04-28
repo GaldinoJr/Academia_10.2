@@ -31,13 +31,12 @@
         android:layout_width="fill_parent"
         android:layout_height="2dip"
         android:layout_marginTop="80dp"
-        android:background="#EEEE00" />
+        android:background="@color/corDetalhesAmarelos" />
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/txtNomeTreino"
-        android:layout_alignLeft="@+id/textView1"
         android:textColor="@color/corTextoBranco"
         android:text="@string/novoTreino" />
 
@@ -69,7 +68,7 @@
         android:layout_height="2dip"
         android:layout_above="@+id/textView2"
         android:layout_alignLeft="@+id/textView2"
-        android:background="#EEEE00" />
+        android:background="@color/corDetalhesAmarelos" />
 
     <ListView
         android:id="@+id/listTreinos"

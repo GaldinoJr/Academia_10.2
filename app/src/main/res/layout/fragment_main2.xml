@@ -10,7 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
+        <View
+            android:id="@+id/Divisor2"
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:layout_marginTop="56dp"
+            android:background="@color/corDetalhesAmarelos" />
         <ListView
             android:id="@+id/lvExercicios2"
             android:layout_marginTop="58dp"

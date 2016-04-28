@@ -48,20 +48,20 @@ public class TelaExercicio extends TabActivity {
         Intent intentTelaExercicioAba1 = criarAbas(TelaExercicioAba1.class);
         tabHost.addTab(
                 tabHost.newTabSpec("tab1")
-                        .setIndicator(createTabIndicator(LayoutInflater.from(this), tabHost, R.string.aba1, R.drawable.ic_halter_aba_amarelo))
+                        .setIndicator(createTabIndicator(LayoutInflater.from(this), tabHost, R.string.aba1, R.drawable.ic_halter_aba_sm))
                         .setContent(intentTelaExercicioAba1)
         );
         // ABA 2
         Intent intentTelaExercicioAba2 = criarAbas(TelaExercicioAba2.class);
         tabHost.addTab(
                 tabHost.newTabSpec("tab2")
-                        .setIndicator(createTabIndicator(LayoutInflater.from(this), tabHost, R.string.aba2, R.drawable.ic_aba_musculo2))
+                        .setIndicator(createTabIndicator(LayoutInflater.from(this), tabHost, R.string.aba2, R.drawable.ic_aba_musculo_sm))
                         .setContent(intentTelaExercicioAba2)
         );
         // ABA 3
         tabHost.addTab(
                 tabHost.newTabSpec("tab3")
-                        .setIndicator(createTabIndicator(LayoutInflater.from(this), tabHost, R.string.aba3, R.drawable.ic_aba_video))
+                        .setIndicator(createTabIndicator(LayoutInflater.from(this), tabHost, R.string.aba3, R.drawable.ic_aba_video_sm))
                         .setContent(new Intent(this,TelaExercicioAba3.class))
         );
         mudarCorAba(tabHost);
