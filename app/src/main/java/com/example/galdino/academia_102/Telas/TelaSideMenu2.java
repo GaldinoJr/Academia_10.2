@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -42,6 +43,7 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     private String res = "Abdomen";
     private LinearLayout linearLayout;
     private Toolbar toolbar;
+    private ImageView imgDesfocar;
     //
     private TextView txtTituloToolbar;
 
@@ -64,6 +66,7 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
         });
         txtTituloToolbar = (TextView)findViewById(R.id.txtTituloToolbar);
         txtTituloToolbar.setText(res);
+        imgDesfocar = (ImageView)findViewById(R.id.imgDesfocar);
 
         setActionBar();
         createMenuList();
@@ -111,6 +114,7 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
+                imgDesfocar.setVisibility(View.INVISIBLE);
                 linearLayout.removeAllViews();
                 linearLayout.invalidate();
             }
@@ -118,8 +122,10 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
-                if (slideOffset > 0.6 && linearLayout.getChildCount() == 0)
+                if (slideOffset > 0.6 && linearLayout.getChildCount() == 0) {
+                    imgDesfocar.setVisibility(View.VISIBLE);
                     viewAnimator.showMenuContent();
+                }
             }
 
             /** Called when a drawer has settled in a completely open state. */

@@ -42,8 +42,15 @@
                 android:text="Seu titulo"
                 android:textSize="16sp" />
             </android.support.v7.widget.Toolbar>
-
         </android.support.design.widget.AppBarLayout>
+        <ImageView
+            android:id="@+id/imgDesfocar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#99363636"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:visibility="invisible"/>
     </io.codetail.widget.RevealFrameLayout>
 
     <ScrollView
