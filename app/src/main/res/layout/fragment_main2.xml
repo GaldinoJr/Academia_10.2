@@ -15,7 +15,7 @@
             android:layout_width="fill_parent"
             android:layout_height="2dip"
             android:layout_marginTop="56dp"
-            android:background="@color/corDetalhesAmarelos" />
+            android:background="@color/corTextoBranco" />
         <ListView
             android:id="@+id/lvExercicios2"
             android:layout_marginTop="58dp"
