@@ -26,7 +26,7 @@
         <android.support.design.widget.AppBarLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:theme="@style/AppTheme.temaTeste">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -41,6 +41,7 @@
                 android:gravity="center"
                 android:id="@+id/txtTituloToolbar"
                 android:text="Seu titulo"
+                android:textColor="@color/corActionBarPretoEscuro"
                 android:textSize="@dimen/Titulotamanho25"
                 android:textStyle="bold"/>
             </android.support.v7.widget.Toolbar>
