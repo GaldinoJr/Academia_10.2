@@ -2,9 +2,5 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true"
         android:drawable="@drawable/item_down_laranja_borda_branca2"/>
-    <item android:state_selected="true"
-        android:drawable="@drawable/item_down"/>
-    <item android:state_focused="true"
-         android:drawable="@drawable/item_down"/>
     <item android:drawable="@drawable/item_up_preto_borda_branca2"/>
 </selector>

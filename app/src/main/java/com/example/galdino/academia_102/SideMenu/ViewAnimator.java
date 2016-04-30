@@ -60,14 +60,16 @@ public class ViewAnimator<T extends Resourceble> {
                     switchItem(list.get(finalI), location[1] + v.getHeight() / 2);
                 }
             });
-            ((ImageView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(list.get(i).getImageRes());
+            ImageView iconeLista = ((ImageView) viewMenu.findViewById(R.id.menu_item_image));
+            iconeLista.setImageResource(list.get(i).getImageRes());
             viewMenu.setVisibility(View.GONE);
             viewMenu.setEnabled(false);
             //viewMenu.setPressed(vetItemPressionado[i]);  // da merda, usa não
-            if(vetItemPressionado[i])
+            if(vetItemPressionado[i]) // Muda a cor dos icones clicados
             {
                 RelativeLayout layoutTeste = (RelativeLayout)viewMenu.findViewById(R.id.menu_item_container);
-                layoutTeste.setBackgroundResource(R.drawable.item_down_laranja_borda_branca2);
+                layoutTeste.setBackgroundResource(R.drawable.item_down_laranja_borda_branca2); // Muda o item de fundo
+                iconeLista.setColorFilter(R.color.corActionBarPretoEscuro); // Muda a cor do icone
             }
             viewList.add(viewMenu);
             animatorListener.addViewToContainer(viewMenu);
