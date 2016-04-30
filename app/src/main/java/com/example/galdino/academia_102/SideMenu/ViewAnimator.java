@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,12 @@ public class ViewAnimator<T extends Resourceble> {
             ((ImageView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(list.get(i).getImageRes());
             viewMenu.setVisibility(View.GONE);
             viewMenu.setEnabled(false);
-            viewMenu.setPressed(vetItemPressionado[i]);
+            //viewMenu.setPressed(vetItemPressionado[i]);  // da merda, usa não
+            if(vetItemPressionado[i])
+            {
+                RelativeLayout layoutTeste = (RelativeLayout)viewMenu.findViewById(R.id.menu_item_container);
+                layoutTeste.setBackgroundResource(R.drawable.item_down_laranja_borda_branca2);
+            }
             viewList.add(viewMenu);
             animatorListener.addViewToContainer(viewMenu);
             final double position = i;
@@ -106,6 +112,7 @@ public class ViewAnimator<T extends Resourceble> {
         boolean fgVoltar = false;
         boolean[] vetAux = new boolean[tamanho];
         boolean[] vetCopiaItensPressionados = vetItemPressionado.clone(); // Copia o vetor antes de modificar
+        int qtdItensClicados = 0;
 
         for (View view : viewList) {
             view.setEnabled(clickable);
@@ -126,9 +133,12 @@ public class ViewAnimator<T extends Resourceble> {
                     vetAux[i] = false;
                     if (vetItemPressionado[i] != vetCopiaItensPressionados[i])
                         vetAux[i] = true;
+                    if(vetItemPressionado[i])
+                        qtdItensClicados ++;
                 }
             }
-            vetItemPressionado = vetAux.clone(); // copia o vetor atualizado
+            if(qtdItensClicados > 1) // Clicou em um icone diferente do anterior?
+                vetItemPressionado = vetAux.clone(); // copia o vetor atualizado
         }
     }
 
