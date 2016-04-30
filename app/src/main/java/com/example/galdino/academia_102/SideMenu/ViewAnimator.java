@@ -26,11 +26,13 @@ public class ViewAnimator<T extends Resourceble> {
 
     private Activity activity;
     private List<T> list;
+    private boolean[] vetItemPressionado;
 
     private List<View> viewList = new ArrayList<>();
     private ScreenShotable screenShotable;
     private DrawerLayout drawerLayout;
     private ViewAnimatorListener animatorListener;
+
 
     public ViewAnimator(Activity activity, List<T> items,ScreenShotable screenShotable, final DrawerLayout drawerLayout, ViewAnimatorListener animatorListener){
         this.activity = activity;
@@ -38,11 +40,12 @@ public class ViewAnimator<T extends Resourceble> {
         this.screenShotable = screenShotable;
         this.drawerLayout = drawerLayout;
         this.animatorListener = animatorListener;
+        vetItemPressionado = new boolean[list.size()];
     }
 
 
     public void showMenuContent() {
-        setViewsClickable(false);
+        //setViewsClickable(false);
         viewList.clear();
         double size = list.size();
         for (int i = 0; i < size; i++) {
@@ -59,6 +62,7 @@ public class ViewAnimator<T extends Resourceble> {
             ((ImageView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(list.get(i).getImageRes());
             viewMenu.setVisibility(View.GONE);
             viewMenu.setEnabled(false);
+            viewMenu.setPressed(vetItemPressionado[i]);
             viewList.add(viewMenu);
             animatorListener.addViewToContainer(viewMenu);
             final double position = i;
@@ -97,8 +101,34 @@ public class ViewAnimator<T extends Resourceble> {
 
     private void setViewsClickable(boolean clickable) {
         animatorListener.disableHomeButton();
+        int i = 0;
+        int tamanho = list.size();
+        boolean fgVoltar = false;
+        boolean[] vetAux = new boolean[tamanho];
+        boolean[] vetCopiaItensPressionados = vetItemPressionado.clone(); // Copia o vetor antes de modificar
+
         for (View view : viewList) {
             view.setEnabled(clickable);
+            if(i == 0 && view.isPressed())
+                fgVoltar = true;
+            if(!clickable) {
+                if (i > 0)
+                    vetItemPressionado[i] = view.isPressed();
+            }
+            i++;
+        }
+        // Acerta o item que foi clicado
+        if(!clickable && (!fgVoltar)) {
+            for (i = 0; i < tamanho; i++)
+            {
+                if(i > 0)
+                {
+                    vetAux[i] = false;
+                    if (vetItemPressionado[i] != vetCopiaItensPressionados[i])
+                        vetAux[i] = true;
+                }
+            }
+            vetItemPressionado = vetAux.clone(); // copia o vetor atualizado
         }
     }
 
