@@ -76,8 +76,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".Telas.TelaSideMenu2"
-            android:label="@string/title_activity_tela_list_exercicio_nova"
+            android:name=".Telas.TelaSideMenu"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>

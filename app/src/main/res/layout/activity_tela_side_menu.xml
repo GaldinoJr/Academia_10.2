@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -35,17 +36,18 @@
                 android:minHeight="?attr/actionBarSize"
                 android:background="@color/corDetalhesAmarelos"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:id="@+id/txtTituloToolbar"
-                android:text="Seu titulo"
-                android:textColor="@color/corActionBarPretoEscuro"
-                android:textSize="@dimen/Titulotamanho25"
-                android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/txtTituloToolbar"
+                    android:text="Seu titulo"
+                    android:textColor="@color/corActionBarPretoEscuro"
+                    android:textSize="@dimen/Titulotamanho25"
+                    android:textStyle="bold"/>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
+        <!--O textView foi colocado pois, sem ele nao é possível centralizar o Título.-->
         <ImageView
             android:id="@+id/imgDesfocar"
             android:layout_width="match_parent"
@@ -54,6 +56,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:visibility="invisible"/>
+        <!--Imagem que faz a função de sombra ao abrir o menu-->
     </io.codetail.widget.RevealFrameLayout>
 
     <ScrollView

@@ -39,10 +39,11 @@
     <string name ="aba2">Músculo</string>
     <string name ="aba3">Vídeo</string>
     <string name="title_activity_tela_list_exercicio_nova">How to Train</string>
-
+    <string name="nomeApp">How to Train</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_tela_side_menu2">TelaSideMenu2</string>
     <string name="drawer_open">Abrir</string>
     <string name="drawer_close">Fechar</string>
+    <string name="title_activity_tela_side_menu">TelaSideMenu</string>
 </resources>

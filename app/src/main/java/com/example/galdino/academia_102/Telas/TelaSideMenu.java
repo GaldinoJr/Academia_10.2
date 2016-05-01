@@ -1,6 +1,5 @@
 package com.example.galdino.academia_102.Telas;
 
-import android.animation.Animator;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -10,19 +9,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.codetail.animation.SupportAnimator;
-import io.codetail.animation.ViewAnimationUtils;
 
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.SideMenu.Resourceble;
@@ -31,10 +23,16 @@ import com.example.galdino.academia_102.SideMenu.SlideMenuItem;
 import com.example.galdino.academia_102.SideMenu.ViewAnimator;
 import com.example.galdino.academia_102.Telas.Fragment.ContentFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.codetail.animation.SupportAnimator;
+import io.codetail.animation.ViewAnimationUtils;
 
 
 
-public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.ViewAnimatorListener {
+
+public class TelaSideMenu extends ActionBarActivity implements ViewAnimator.ViewAnimatorListener {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private List<SlideMenuItem> list = new ArrayList<>();
@@ -50,7 +48,7 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_side_menu2);
+        setContentView(R.layout.activity_tela_side_menu);
         contentFragment = ContentFragment.newInstance(res);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, contentFragment)
@@ -99,7 +97,7 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
 
     private void setActionBar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(res);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -170,8 +168,6 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
     }
 
     private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition) {
-        //this.res = this.res == R.drawable.content_music ? R.drawable.content_films : R.drawable.content_music;
-        //this.res =
         View view = findViewById(R.id.content_frame);
         txtTituloToolbar.setText(res);
         int finalRadius = Math.max(view.getWidth(), view.getHeight());
@@ -191,8 +187,6 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
         if(imgDesfocar.getVisibility() == View.VISIBLE)
             imgDesfocar.setVisibility(View.INVISIBLE);
         res = slideMenuItem.getName();
-        if(!res.equals(ContentFragment.CLOSE))
-            toolbar.setTitle(res);
         switch (slideMenuItem.getName()) {
             case ContentFragment.CLOSE:
                 return screenShotable;
@@ -223,7 +217,7 @@ public class TelaSideMenu2 extends ActionBarActivity implements ViewAnimator.Vie
         Intent intent;
         intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaSideMenu2.this, TelaPrincipalApp.class);
+        intent.setClass(TelaSideMenu.this, TelaPrincipalApp.class);
 
         startActivity(intent); // chama a próxima tela
         finish();

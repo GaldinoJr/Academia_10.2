@@ -89,7 +89,7 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
         if(view == btnExemploMenu2)
         {
             Intent intent = new Intent();
-            intent.setClass(TelaPrincipalApp.this, TelaSideMenu2.class);
+            intent.setClass(TelaPrincipalApp.this, TelaSideMenu.class);
             startActivity(intent); // chama a próxima tela
             finish(); // Encerra a tela atual
         }
