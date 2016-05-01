@@ -1,55 +1,71 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/corListaPretoClaro"
+    android:orientation="vertical"
+
+    android:paddingBottom="2dp"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
+    android:paddingTop="4dp"
+
+    android:background="@color/corTextoBranco"
     tools:context=".TelaPrincipal02" >
 
-    <Button
-        android:id="@+id/btnTelaExe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/corDetalhesAmarelos"
-        android:textColor="@color/corActionBarPretoEscuro"
-        android:text="@string/exe" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="2">
 
-    <Button
-        android:id="@+id/btnTelaFicha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnTelaExe"
-        android:layout_below="@+id/btnTelaExe"
-        android:background="@color/corDetalhesAmarelos"
-        android:textColor="@color/corActionBarPretoEscuro"
-        android:layout_marginTop="20dp"
-        android:text="@string/ficha" />
+        <ImageButton
+            android:id="@+id/btnExemploMenu2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:layout_marginTop="2dp"
+            android:background="@color/corActionBarPretoEscuro"
+            android:src="@drawable/ic_halter_aba_sm"/>
 
-    <Button
-        android:id="@+id/btnExemploMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnTelaExe"
-        android:layout_below="@+id/btnTelaFicha"
-        android:background="@color/corDetalhesAmarelos"
-        android:textColor="@color/corActionBarPretoEscuro"
-        android:layout_marginTop="20dp"
-        android:text="Exemplo menu" />
+        <ImageButton
+            android:id="@+id/btnTelaFicha"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:layout_marginTop="2dp"
+            android:background="@color/corActionBarPretoEscuro"
+            android:src="@drawable/ic_ficha_laranja"
+            />
 
-    <Button
-        android:id="@+id/btnExemploMenu2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnTelaExe"
-        android:layout_below="@+id/btnExemploMenu"
-        android:background="@color/corDetalhesAmarelos"
-        android:textColor="@color/corActionBarPretoEscuro"
-        android:layout_marginTop="20dp"
-        android:text="Exemplo menu 2" />
-</RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="2">
+        <Button
+            android:id="@+id/btnTelaExe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:layout_marginTop="2dp"
+            android:background="@color/corActionBarPretoEscuro"
+            android:textColor="@color/corDetalhesAmarelos"
+            android:text="@string/exe" />
+
+        <Button
+            android:id="@+id/btnExemploMenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/corActionBarPretoEscuro"
+            android:textColor="@color/corDetalhesAmarelos"
+            android:layout_marginTop="2dp"
+            android:text="Exemplo menu" />
+    </LinearLayout>
+
+</LinearLayout>

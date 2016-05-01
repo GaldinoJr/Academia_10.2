@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Dominio.Configuracao;
@@ -18,8 +19,8 @@ import java.util.List;
 public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnTelaExe,
-            btnTelaFicha,
-            btnExemploMenu,
+            btnExemploMenu;
+    private ImageButton btnTelaFicha,
             btnExemploMenu2;
     private List<EntidadeDominio> listEntDom;
     @Override
@@ -27,10 +28,10 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal_app);
         //
+        btnExemploMenu2 = (ImageButton)findViewById(id.btnExemploMenu2);
+        btnTelaFicha = (ImageButton)findViewById(id.btnTelaFicha);
         btnTelaExe = (Button)findViewById(id.btnTelaExe);
-        btnTelaFicha = (Button)findViewById(id.btnTelaFicha);
         btnExemploMenu = (Button)findViewById(id.btnExemploMenu);
-        btnExemploMenu2 = (Button)findViewById(id.btnExemploMenu2);
         //
         btnTelaExe.setOnClickListener(this);
         btnTelaFicha.setOnClickListener(this);
