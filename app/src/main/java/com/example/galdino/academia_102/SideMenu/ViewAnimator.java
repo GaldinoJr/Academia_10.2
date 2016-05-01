@@ -49,7 +49,17 @@ public class ViewAnimator<T extends Resourceble> {
         //setViewsClickable(false);
         viewList.clear();
         double size = list.size();
-        for (int i = 0; i < size; i++) {
+        boolean fgPrimeiraVez = true;
+        int i;
+        for(i = 0; i < size; i++)
+        {
+            if(vetItemPressionado[i])
+                fgPrimeiraVez = false;
+        }
+        if(fgPrimeiraVez)
+            vetItemPressionado[1] = true;
+        for (i = 0; i < size; i++)
+        {
             View viewMenu = activity.getLayoutInflater().inflate(R.layout.menu_list_item, null);
             final int finalI = i;
             viewMenu.setOnClickListener(new View.OnClickListener() {
@@ -83,11 +93,9 @@ public class ViewAnimator<T extends Resourceble> {
                     if (position == viewList.size() - 1) {
                         screenShotable.takeScreenShot();
                         setViewsClickable(true);
-                    }
-                }
+                    }                }
             }, (long) delay);
         }
-
     }
 
     private void hideMenuContent() {
