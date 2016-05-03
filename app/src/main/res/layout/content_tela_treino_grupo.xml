@@ -1,0 +1,59 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/corActionBarPretoEscuro"
+    tools:context=".TelaPrincipalFicha"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true" >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtNomeTreino"
+        android:textColor="@color/corTextoBranco"
+        android:text="@string/novoTreino" />
+
+    <Button
+        android:id="@+id/btnAddTreino"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtNomeTreino"
+        android:layout_alignParentRight="true"
+        android:background="@color/corDetalhesAmarelos"
+        android:textColor="@color/corActionBarPretoEscuro"
+        android:text="@string/add"
+        android:layout_marginBottom="9dp"
+        />
+
+    <EditText
+        android:id="@+id/txtNomeTreino"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_toLeftOf="@+id/btnAddTreino"
+        android:textColor="@color/corTextoBranco"
+        android:layout_alignParentBottom="true"/>
+
+
+    <View
+        android:id="@+id/Divisor1"
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:layout_above="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:background="@color/corDetalhesAmarelos" />
+
+    <ListView
+        android:id="@+id/listTreinos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Divisor1"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dp" >
+
+    </ListView>
+
+</RelativeLayout>

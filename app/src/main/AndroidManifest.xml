@@ -79,6 +79,16 @@
             android:name=".Telas.TelaSideMenu"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".Telas.TelaCorpoTreino"
+            android:label="@string/title_activity_tela_corpo_treino"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".Telas.TelaTreinoGrupo"
+            android:label="@string/title_activity_tela_treino"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

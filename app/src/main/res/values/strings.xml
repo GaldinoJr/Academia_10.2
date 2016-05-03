@@ -46,4 +46,6 @@
     <string name="drawer_open">Abrir</string>
     <string name="drawer_close">Fechar</string>
     <string name="title_activity_tela_side_menu">TelaSideMenu</string>
+    <string name="title_activity_tela_corpo_treino">TelaCorpoTreino</string>
+    <string name="title_activity_tela_treino">TelaTreino</string>
 </resources>

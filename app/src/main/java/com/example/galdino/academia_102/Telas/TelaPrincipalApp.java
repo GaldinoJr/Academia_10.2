@@ -19,24 +19,27 @@ import java.util.List;
 public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnTelaExe,
-            btnExemploMenu;
-    private ImageButton btnTelaFicha,
-            btnExemploMenu2;
+            btnTelaFicha;
+            //btnExemploMenu;
+    private ImageButton iBtnExercicio,
+                        iBtnTreino;
     private List<EntidadeDominio> listEntDom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal_app);
         //
-        btnExemploMenu2 = (ImageButton)findViewById(id.btnExemploMenu2);
-        btnTelaFicha = (ImageButton)findViewById(id.btnTelaFicha);
+        iBtnExercicio= (ImageButton)findViewById(id.iBtnExercicio);
+        iBtnTreino = (ImageButton)findViewById(id.iBtnTreino);
+        btnTelaFicha = (Button)findViewById(id.btnTelaFicha);
         btnTelaExe = (Button)findViewById(id.btnTelaExe);
-        btnExemploMenu = (Button)findViewById(id.btnExemploMenu);
+        //btnExemploMenu = (Button)findViewById(id.btnExemploMenu); // Desativado, deixado apenas de exemplo
         //
         btnTelaExe.setOnClickListener(this);
         btnTelaFicha.setOnClickListener(this);
-        btnExemploMenu.setOnClickListener(this);
-        btnExemploMenu2.setOnClickListener(this);
+        //btnExemploMenu.setOnClickListener(this);
+        iBtnExercicio.setOnClickListener(this);
+        iBtnTreino.setOnClickListener(this);
         // Verifica se é a primeira execução do App no celular e cria o Banco de exercícios
         Configuracao configuracao = new Configuracao();
 
@@ -65,6 +68,20 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
+        if(view == iBtnExercicio)
+        {
+            Intent intent = new Intent();
+            intent.setClass(TelaPrincipalApp.this, TelaSideMenu.class);
+            startActivity(intent); // chama a próxima tela
+            finish(); // Encerra a tela atual
+        }
+        if(view == iBtnTreino)
+        {
+            Intent intent = new Intent();
+            intent.setClass(TelaPrincipalApp.this, TelaCorpoTreino.class);
+            startActivity(intent); // chama a próxima tela
+            finish(); // Encerra a tela atual
+        }
         if(view == btnTelaExe)
         { // chama a tela principal de exercicios
             Intent intent = new Intent();
@@ -80,20 +97,13 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
             startActivity(intent); // chama a próxima tela
             finish(); // Encerra a tela atual
         }
-        if(view == btnExemploMenu)
-        {
-            Intent intent = new Intent();
-            intent.setClass(TelaPrincipalApp.this, TelaListExercicioNova.class);
-            startActivity(intent); // chama a próxima tela
-            finish(); // Encerra a tela atual
-        }
-        if(view == btnExemploMenu2)
-        {
-            Intent intent = new Intent();
-            intent.setClass(TelaPrincipalApp.this, TelaSideMenu.class);
-            startActivity(intent); // chama a próxima tela
-            finish(); // Encerra a tela atual
-        }
+//        if(view == btnExemploMenu)
+//        {
+//            Intent intent = new Intent();
+//            intent.setClass(TelaPrincipalApp.this, TelaListExercicioNova.class);
+//            startActivity(intent); // chama a próxima tela
+//            finish(); // Encerra a tela atual
+//        }
     }
 
 }
