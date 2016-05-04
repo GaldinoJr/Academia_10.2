@@ -124,6 +124,8 @@ public class SQLtreino extends AbsSQL{
 		String clausula = " WHERE 1 = 1";
 		if (!TextUtils.isEmpty(t.getID()))
 			clausula += " AND " + Col_cd_treino + "= '" + t.getID() + "'";
+		if (t.getIdGrupo() != null)
+			clausula += " AND " + Col_cd_grupo + "= '" + t.getIdGrupo() + "'";
 		return clausula;
 	}
 }

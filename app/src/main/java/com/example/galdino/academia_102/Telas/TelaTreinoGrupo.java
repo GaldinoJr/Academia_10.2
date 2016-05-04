@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.galdino.academia_102.BaseAdapter.ListaTreinosBaseAdapter;
 import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
+import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
 
@@ -31,7 +32,8 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
     private ListView listTreinos;
     private List<EntidadeDominio> listEntDomTreinos;
     private Treino treino;
-
+    private GrupoMuscular grupoMuscular;
+    private List<EntidadeDominio> listEntDom;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -57,6 +59,18 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         //
         btnAddTreino.setOnClickListener(this);
         //
+        Intent dados = getIntent();
+        String grupo = dados.getStringExtra("grupo");
+        grupoMuscular = new GrupoMuscular();
+        grupoMuscular.setNome(grupo);
+        listEntDom = grupoMuscular.operar(this,true,Controler.DF_CONSULTAR,grupoMuscular);
+        if(listEntDom != null)
+            grupoMuscular = (GrupoMuscular)listEntDom.get(0);
+        else
+        {
+            Toast.makeText(TelaTreinoGrupo.this, "Grupo Muscular não encontrado.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         atualizarListTreinos();
         //
         listTreinos.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -84,9 +98,9 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
 
     private List<EntidadeDominio> carregarTreinos()
     {
-
         List<EntidadeDominio> listEntDom;
         treino = new Treino();
+        treino.setIdGrupo(Integer.parseInt(grupoMuscular.getID()));
         //List<Treino> lTreino = new LinkedList<Treino>();
         //lTreino = treino.converteEntidadeEmClasse(treino.operar(this,true, Controler.DF_CONSULTAR,treino), Treino.class);
         //if(lTreino == null)
