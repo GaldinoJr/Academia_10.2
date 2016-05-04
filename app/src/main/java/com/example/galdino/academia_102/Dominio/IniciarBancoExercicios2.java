@@ -90,8 +90,6 @@ public class IniciarBancoExercicios2 {
 
     private void gravarTreinos(Context context)
     {
-
-
         String doc = "Treino";
         GrupoMuscular grupoMuscular = new GrupoMuscular();
         List<EntidadeDominio> lEntDom = grupoMuscular.operar(context,true,Controler.DF_CONSULTAR,grupoMuscular);
@@ -100,7 +98,8 @@ public class IniciarBancoExercicios2 {
             int indice = i+1;
             doc = doc + indice;
             Documento documento = new Documento(context);
-            for(EntidadeDominio entDom : lEntDom ) {
+            for(EntidadeDominio entDom : lEntDom )
+            {
                 GrupoMuscular g = (GrupoMuscular)entDom;
                 String nomeGrupo = g.getNome();
                 String exerciciosJuntos = documento.carregarArquivoTxt(nomeGrupo, doc, "Treinos","sim");
@@ -110,10 +109,13 @@ public class IniciarBancoExercicios2 {
                     Treino treino = new Treino();
                     treino.setIdGrupo(Integer.parseInt(g.getID()));
                     treino.setNome(doc);
+                    treino.setFgCarga(1); // Indica que o treino veio através de carga.
                     List<EntidadeDominio> lauxTreino = treino.operar(context,true,Controler.DF_SALVAR,treino);
                     treino = (Treino)lauxTreino.get(0);
-                    if(treino.getID()!= null) {
-                        for (int j = 0; j < (exerciciosSeparados.length - 1); j++) {
+                    if(treino.getID()!= null)
+                    {
+                        for (int j = 0; j < (exerciciosSeparados.length - 1); j++)
+                        {
                             Exercicio exercicio = new Exercicio();
                             String[] repeticoes = exerciciosSeparados[j].split(";");
                             String nomeExe = repeticoes[0];

@@ -19,8 +19,9 @@ public class SQLtreino extends AbsSQL{
 	private static final String Col_cd_treino = "cd_treino";
 	private static final String Col_ds_treino = "ds_treino";
 	private static final String Col_cd_grupo = "f_cd_grupo";
-	private static final String[] colunas = {Col_ds_treino, Col_cd_grupo};
-	private static final String[] colunasBusca = {Col_cd_treino,Col_ds_treino, Col_cd_grupo};
+	private static final String Col_fg_carga = "fg_carga";
+	private static final String[] colunas = {Col_ds_treino, Col_fg_carga, Col_cd_grupo};
+	private static final String[] colunasBusca = {Col_cd_treino,Col_ds_treino, Col_fg_carga, Col_cd_grupo};
 	private SQL db;
 	private Context context;
 	private Treino treino;
@@ -32,6 +33,7 @@ public class SQLtreino extends AbsSQL{
 		sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela + " ( " +
 				Col_cd_treino + " INTEGER PRIMARY KEY, " +
 				Col_ds_treino + " TEXT, " +
+				Col_fg_carga + " INTEGER, " +
 				Col_cd_grupo + " INTEGER )";
 	}
 	
@@ -50,6 +52,7 @@ public class SQLtreino extends AbsSQL{
 			mapSql = new HashMap<String, String>();
 
 			mapSql.put(Col_ds_treino, String.valueOf(treino.getNome()));
+			mapSql.put(Col_fg_carga, String.valueOf(treino.getFgCarga()));
 			mapSql.put(Col_cd_grupo, String.valueOf(treino.getIdGrupo()));
 
 			long id = db.addRegistro(mapSql);
@@ -106,8 +109,9 @@ public class SQLtreino extends AbsSQL{
 				t.setID(listMapSql.get(i).get(colunasBusca[0]));
 				t.setNome(listMapSql.get(i).get(colunasBusca[1]));
 				if(listMapSql.get(i).get(colunasBusca[2]) != null && !listMapSql.get(i).get(colunasBusca[2]).equals("null"))
-					t.setIdGrupo(Integer.parseInt(listMapSql.get(i).get(colunasBusca[2])));
-
+					t.setFgCarga(Integer.parseInt(listMapSql.get(i).get(colunasBusca[2])));
+				if(listMapSql.get(i).get(colunasBusca[3]) != null && !listMapSql.get(i).get(colunasBusca[3]).equals("null"))
+					t.setIdGrupo(Integer.parseInt(listMapSql.get(i).get(colunasBusca[3])));
 				listSql.add(t);
 			}
 			if(listSql.size() > 0)
@@ -126,6 +130,8 @@ public class SQLtreino extends AbsSQL{
 			clausula += " AND " + Col_cd_treino + "= '" + t.getID() + "'";
 		if (t.getIdGrupo() != null)
 			clausula += " AND " + Col_cd_grupo + "= '" + t.getIdGrupo() + "'";
+		if (t.getFgCarga() != null)
+			clausula += " AND " + Col_fg_carga + "= '" + t.getFgCarga() + "'";
 		return clausula;
 	}
 }

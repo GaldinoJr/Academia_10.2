@@ -171,11 +171,11 @@ public class TelaListaExercicios extends AppCompatActivity {
         Intent intent;
         intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaListaExercicios.this, TelaPrincipalExercicio.class);
+        //intent.setClass(TelaListaExercicios.this, TelaPrincipalExercicio.class);
+        intent.setClass(TelaListaExercicios.this, TelaTreinoExercicio.class);
         intent.putExtra("nmTelaCorrespondente", telaAnterior);
         intent.putExtra("idTreino", idTreino);
-        intent.putExtra("nmTreino",nmTreino);
-        intent.putStringArrayListExtra("exe", (ArrayList<String>) vetIDExe);
+//        intent.putStringArrayListExtra("exe", (ArrayList<String>) vetIDExe);
 //        Bundle b=new Bundle();
 //        b.putStringArray("exe", vetIDExe);
 //        intent.putExtras(b);
