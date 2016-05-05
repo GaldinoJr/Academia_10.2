@@ -83,8 +83,6 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
                 // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
                 intent.setClass(TelaTreinoGrupo.this, TelaTreinoExercicio.class);
                 intent.putExtra("idTreino", retornarInfoTreino(position, 0));
-                intent.putExtra("nomeTreino", retornarInfoTreino(position, 1));
-                intent.putExtra("fgCarga", retornarInfoTreino(position, 2));
                 intent.putExtra("nmGrupo", grupoMuscular.getNome());
                 startActivity(intent); // chama a próxima tela
                 finish();

@@ -33,8 +33,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
     private ListView lvTreinoExercicio;
     private List<EntidadeDominio> listEntDomExercicio;
     private FloatingActionButton fBtnAddEx;
-    private String //nmGrupo,
-                    idTreino;
+    private String idTreino;
     private TextView lblNmTreino;
     private ArrayList<String> vetIDExe;
     private ArrayList<String> vetRepeticoesExe;
@@ -85,7 +84,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
             Toast.makeText(this,"ERRO: Grupo muscular não encontrado.",Toast.LENGTH_LONG).show();
             return;
         }
-        if(treino.getFgCarga().equals("1"))
+        if(treino.getFgCarga() == 1)
             fBtnAddEx.setVisibility(View.INVISIBLE);
         //
         lblNmTreino.setText(treino.getNome());
@@ -270,7 +269,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         if(listEntDomExercicio != null)
         {
             int indTela = 3; //TelaTreino
-            lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(this, results, null, indTela, vetIDExe,vetRepeticoesExe));
+            lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(this, results, null, indTela, vetIDExe,vetRepeticoesExe, treino.getFgCarga()));
         }
         else
         {

@@ -133,15 +133,11 @@ public class ContentFragment extends Fragment implements ScreenShotable {
             //return;
         }
 
-
-        // Devolve os conteudos
-        //txtNomeGrupo.setText(grupo);
-
         ArrayList<Exercicio> image_details2 = GetSearchResults();
 
         final ListView lvExercicio2 = (ListView)rootView.findViewById(R.id.lvExercicios2);
 
-        lvExercicio2.setAdapter(new ExercicioBaseAdapter(getActivity(), image_details2, itemChecked, indTela, vetIDExe, null));
+        lvExercicio2.setAdapter(new ExercicioBaseAdapter(getActivity(), image_details2, itemChecked, indTela, vetIDExe, null, null));
 
         lvExercicio2.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -158,8 +154,6 @@ public class ContentFragment extends Fragment implements ScreenShotable {
                 nome = encontrarNome(exe);
                 Intent intent = new Intent(getActivity(), TelaExercicio.class);
 
-                // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-                //intent.setClass(new Intent(getActivity()), TelaExercicio.class);
                 intent.putExtra("grupo", grupo);
                 intent.putExtra("nome",nome);
                 intent.putExtra("exe", exe);

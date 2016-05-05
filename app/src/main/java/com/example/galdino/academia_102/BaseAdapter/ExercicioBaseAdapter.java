@@ -25,6 +25,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 	// 1 = TelaListaExercicio
 	// 2 = Tela para add exercício no treino
 	// 3 = TelaTreino
+	private Integer fgCarga; // Indica se o treino é de carga ou não(para habilitar o excluir/editar
 	private Context context;
 	//private String[] vetIDExe;
 	private	ArrayList<String> vetIDExe;
@@ -35,7 +36,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 
 	}
 	// Construtor 1
-	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, boolean[] selecionados, Integer indTela, ArrayList<String> vetIDExe, ArrayList<String> vetRepeticaoExercicio)
+	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, boolean[] selecionados, Integer indTela, ArrayList<String> vetIDExe, ArrayList<String> vetRepeticaoExercicio, Integer fgCarga)
 	{
 		ExercicioArrayList = results;
 		this.selecionados = selecionados;
@@ -44,30 +45,8 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		this.context = context;
 		this.vetIDExe = vetIDExe;
 		this.vetRepeticaoExercicio = vetRepeticaoExercicio;
+		this.fgCarga = fgCarga;
 	}
-//	private Integer[] orderAlfabeticamenteIdImagem(Integer[]imgid)
-//	{
-//		int aux,
-//			nTamanho,
-//			i;
-//		Boolean flgHouveTroca = false;
-//		nTamanho = imgid.length;
-//		do
-//		{
-//			flgHouveTroca = false;
-//			for(i = 0; i < nTamanho-1; i++)
-//			{
-//				if(imgid[i] > imgid[i+1]) // Atual é maior que o próximo?
-//				{ // sim, ent�o troca
-//					aux = imgid[i];
-//					imgid[i] = imgid[i+1];
-//					imgid[i+1] = aux;
-//					flgHouveTroca = true; // indica que houve troca
-//				}
-//			}
-//		}while(flgHouveTroca);
-//		return imgid;
-//	}
 
 	// Conta quantos registros tem no array
 	public int getCount() 
@@ -137,10 +116,13 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		{
 			holder.txtSerie.setVisibility(View.VISIBLE);
 			holder.txtSerie.setText(vetRepeticaoExercicio.get(position));
-			holder.imgExcluirExercicioTreino.setVisibility(View.VISIBLE);
-			holder.imgExcluirExercicioTreino.setTag(position); // para pegar a linha quando for executado o click do botão
-			holder.imgAddRepeticaoExercicio.setVisibility(View.VISIBLE);
-			holder.imgAddRepeticaoExercicio.setTag(position); // para pegar a linha quando for executado o click do botão
+			if(fgCarga == 0) // Só habilita edição se não for carga
+			{
+				holder.imgExcluirExercicioTreino.setVisibility(View.VISIBLE);
+				holder.imgExcluirExercicioTreino.setTag(position); // para pegar a linha quando for executado o click do botão
+				holder.imgAddRepeticaoExercicio.setVisibility(View.VISIBLE);
+				holder.imgAddRepeticaoExercicio.setTag(position); // para pegar a linha quando for executado o click do botão
+			}
 		}
 		// 
 		holder.txt_itemName.setText(ExercicioArrayList.get(position).getNome());
