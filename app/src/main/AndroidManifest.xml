@@ -89,6 +89,11 @@
             android:label="@string/title_activity_tela_treino"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".Telas.TelaFloatActionMenu"
+            android:label="@string/title_activity_tela_float_action_menu"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

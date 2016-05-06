@@ -48,4 +48,5 @@
     <string name="title_activity_tela_side_menu">TelaSideMenu</string>
     <string name="title_activity_tela_corpo_treino">TelaCorpoTreino</string>
     <string name="title_activity_tela_treino">TelaTreino</string>
+    <string name="title_activity_tela_float_action_menu">TelaFloatActionMenu</string>
 </resources>

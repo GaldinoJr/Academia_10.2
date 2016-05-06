@@ -12,7 +12,13 @@
         <item name="windowNoTitle">true</item>
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay"
+            parent="ThemeOverlay.AppCompat.Light">
+            <item name="android:textColor">@color/corDetalhesAmarelos</item>
+            <item name="android:background">@color/corActionBarPretoEscuro</item>
+            <item name="android:textStyle">bold</item>
+            <item name="android:textSize">17sp</item>
+    </style>
     <style name="AppTheme.temaTeste" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:textColorSecondary">@color/corActionBarPretoEscuro</item>
     </style>

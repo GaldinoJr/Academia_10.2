@@ -1,10 +1,13 @@
 package com.example.galdino.academia_102.Telas;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -40,6 +43,9 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_treino_grupo);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //funciona
+        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_menu_options_preto2);
+        toolbar.setOverflowIcon(drawable);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 //        FloatingActionButton fBtnClick = (FloatingActionButton) findViewById(R.id.fBtnClick);
@@ -93,8 +99,29 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED); // Para não iniciar o teclado quando abrir a tela
+        getMenuInflater().inflate(R.menu.tela_treino_grupo, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuIniciante:
+                Toast.makeText(TelaTreinoGrupo.this, "Iniciante", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menuIntermediario:
+                Toast.makeText(TelaTreinoGrupo.this, "Intermediário", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menuAvancado:
+                Toast.makeText(TelaTreinoGrupo.this, "Avançado", Toast.LENGTH_SHORT).show();
+                // do whatever
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     private List<EntidadeDominio> carregarTreinos()
     {
