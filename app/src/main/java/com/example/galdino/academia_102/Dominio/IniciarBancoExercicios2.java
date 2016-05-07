@@ -90,18 +90,20 @@ public class IniciarBancoExercicios2 {
 
     private void gravarTreinos(Context context)
     {
-        String doc = "Treino";
         GrupoMuscular grupoMuscular = new GrupoMuscular();
         List<EntidadeDominio> lEntDom = grupoMuscular.operar(context,true,Controler.DF_CONSULTAR,grupoMuscular);
-        for(int i = 0; i < 1; i++)//mudar conforme add treino
+        for(EntidadeDominio entDom : lEntDom )
         {
-            int indice = i+1;
-            doc = doc + indice;
-            Documento documento = new Documento(context);
-            for(EntidadeDominio entDom : lEntDom )
+            //*******************************************************************************************************
+            //mudar conforme add treino, sempre colocar o indice do grupo com maior número de execícios
+            //*******************************************************************************************************
+            GrupoMuscular g = (GrupoMuscular)entDom;
+            String nomeGrupo = g.getNome();
+            for(int i = 0; i < 3; i++)
             {
-                GrupoMuscular g = (GrupoMuscular)entDom;
-                String nomeGrupo = g.getNome();
+                int indice = i+1;
+                String doc = "Treino" + indice;
+                Documento documento = new Documento(context);
                 String exerciciosJuntos = documento.carregarArquivoTxt(nomeGrupo, doc, "Treinos","sim");
                 if (exerciciosJuntos != null)
                 {
@@ -159,8 +161,8 @@ public class IniciarBancoExercicios2 {
                         }
                     }
                 }
-            }
-        }
+            } // End for Exercicios
+        } // End For grupos
 
 //            primario = txtPrimario.getText().toString();
 //            secundario = documento.carregarArquivoTxt(grupo, nome, "Sec");
