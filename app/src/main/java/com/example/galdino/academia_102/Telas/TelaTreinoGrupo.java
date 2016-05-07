@@ -99,22 +99,24 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED); // Para não iniciar o teclado quando abrir a tela
-        getMenuInflater().inflate(R.menu.tela_treino_grupo, menu);
+        getMenuInflater().inflate(R.menu.menu_tela_treino_grupo, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuIniciante:
-                Toast.makeText(TelaTreinoGrupo.this, "Iniciante", Toast.LENGTH_SHORT).show();
+            case R.id.menuDefinicao:
+                Toast.makeText(TelaTreinoGrupo.this, "Definição", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.menuIntermediario:
-                Toast.makeText(TelaTreinoGrupo.this, "Intermediário", Toast.LENGTH_SHORT).show();
+            case R.id.menuForca:
+                Toast.makeText(TelaTreinoGrupo.this, "Força", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.menuAvancado:
-                Toast.makeText(TelaTreinoGrupo.this, "Avançado", Toast.LENGTH_SHORT).show();
-                // do whatever
+            case R.id.menuHipertrofia:
+                Toast.makeText(TelaTreinoGrupo.this, "Hipertrofia", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menuResistencia:
+                Toast.makeText(TelaTreinoGrupo.this, "Resistencia", Toast.LENGTH_SHORT).show();
                 return true;
 
             default:

@@ -105,10 +105,27 @@ public class IniciarBancoExercicios2 {
                 String exerciciosJuntos = documento.carregarArquivoTxt(nomeGrupo, doc, "Treinos","sim");
                 if (exerciciosJuntos != null)
                 {
-                    String[] exerciciosSeparados = exerciciosJuntos.split("@");
                     Treino treino = new Treino();
+                    String[] treinoCarga = exerciciosJuntos.split("&");
+                    // Primeiro pega o nome
+                    String nomeTreino = treinoCarga[0];
+                    treino.setNome(nomeTreino);
+                    // Tipo
+                    String tipoTreino = treinoCarga[1];
+                    if(tipoTreino != null || tipoTreino != "")
+                        treino.setIndTipoTreino(Integer.parseInt(tipoTreino));
+                    // Nível
+                    String nivelTreino = treinoCarga[2];
+                    if(nivelTreino != null || nivelTreino != "")
+                        treino.setIndNivel(Integer.parseInt(nivelTreino));
+                    // Descrição
+                    String descricao = treinoCarga[3];
+                    treino.setDescricao(descricao);
+                    // Exercícios
+                    String exercicios = treinoCarga[4];
+                    String[] exerciciosSeparados = exercicios.split("@");
+
                     treino.setIdGrupo(Integer.parseInt(g.getID()));
-                    treino.setNome(doc);
                     treino.setFgCarga(1); // Indica que o treino veio através de carga.
                     List<EntidadeDominio> lauxTreino = treino.operar(context,true,Controler.DF_SALVAR,treino);
                     treino = (Treino)lauxTreino.get(0);

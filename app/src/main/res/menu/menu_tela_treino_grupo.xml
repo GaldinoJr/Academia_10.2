@@ -3,19 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity"
     >
-    <item android:id="@+id/menuIniciante"
-        android:title="Iniciante"
+    <item android:id="@+id/menuDefinicao"
+        android:title="Definição"
         android:orderInCategory="100"
         app:showAsAction="never"
     />
-    <item android:id="@+id/menuIntermediario"
-        android:title="Intermediário"
+    <item android:id="@+id/menuForca"
+        android:title="Força"
         android:orderInCategory="100"
         app:showAsAction="never"
     />
-    <item android:id="@+id/menuAvancado"
-        android:title="Avançado"
+    <item android:id="@+id/menuHipertrofia"
+        android:title="Hipertrofia"
         android:orderInCategory="100"
         app:showAsAction="never"
-    />
+        />
+    <item android:id="@+id/menuResistencia"
+        android:title="Resistência"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        />
 </menu>

@@ -17,11 +17,23 @@ import java.util.Map;
 
 public class SQLtreino extends AbsSQL{
 	private static final String Col_cd_treino = "cd_treino";
+	private static final String Col_ds_nome = "ds_nome";
 	private static final String Col_ds_treino = "ds_treino";
 	private static final String Col_cd_grupo = "f_cd_grupo";
 	private static final String Col_fg_carga = "fg_carga";
-	private static final String[] colunas = {Col_ds_treino, Col_fg_carga, Col_cd_grupo};
-	private static final String[] colunasBusca = {Col_cd_treino,Col_ds_treino, Col_fg_carga, Col_cd_grupo};
+	// Tipo Treino - indice
+	// Definição   - 0
+	// Força	   - 1
+	// Hipertrofia - 2
+	// Resistencia - 3
+	private static final String Col_ind_tipo_treino = "ind_tipo_treino";
+	// Nivel	 	 - indice
+	// Iniciante 	 - 0
+	// Intermediario - 1
+	// Avançado 	 - 2
+	private static final String Col_ind_nivel = "ind_nivel";
+	private static final String[] colunas = {Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel};
+	private static final String[] colunasBusca = {Col_cd_treino,Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel};
 	private SQL db;
 	private Context context;
 	private Treino treino;
@@ -32,9 +44,12 @@ public class SQLtreino extends AbsSQL{
 		nomeTabela = "tb_treino";
 		sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela + " ( " +
 				Col_cd_treino + " INTEGER PRIMARY KEY, " +
+				Col_ds_nome + " TEXT, " +
 				Col_ds_treino + " TEXT, " +
 				Col_fg_carga + " INTEGER, " +
-				Col_cd_grupo + " INTEGER )";
+				Col_cd_grupo + " INTEGER, " +
+				Col_ind_tipo_treino + " INTEGER, " +
+				Col_ind_nivel + " INTEGER )";
 	}
 	
 	public SQLtreino(Context context){
@@ -47,13 +62,17 @@ public class SQLtreino extends AbsSQL{
 
 	@Override
 	public EntidadeDominio salvar(EntidadeDominio entidade) {
-		try {
+		try
+		{
 			treino =  (Treino)entidade;
 			mapSql = new HashMap<String, String>();
 
-			mapSql.put(Col_ds_treino, String.valueOf(treino.getNome()));
+			mapSql.put(Col_ds_nome, String.valueOf(treino.getNome()));
+			mapSql.put(Col_ds_treino, String.valueOf(treino.getDescricao()));
 			mapSql.put(Col_fg_carga, String.valueOf(treino.getFgCarga()));
 			mapSql.put(Col_cd_grupo, String.valueOf(treino.getIdGrupo()));
+			mapSql.put(Col_ind_tipo_treino, String.valueOf(treino.getIndTipoTreino()));
+			mapSql.put(Col_ind_nivel, String.valueOf(treino.getIndNivel()));
 
 			long id = db.addRegistro(mapSql);
 			//db.close();
@@ -99,7 +118,7 @@ public class SQLtreino extends AbsSQL{
 
 			listSql = new ArrayList<EntidadeDominio>();
 
-			listMapSql = new LinkedList<Map<String, String>>(); // talvez seja redundante, testar e tirar se for*****
+			//listMapSql = new LinkedList<Map<String, String>>(); // talvez seja redundante, testar e tirar se for*****
 			listMapSql = db.pesquisarComSelect(query, colunasBusca);
 			//db.close();
 			for(i = 0; i< listMapSql.size();i++)
@@ -108,10 +127,15 @@ public class SQLtreino extends AbsSQL{
 				// ******************* TEM QUE SER A MESMA SEQUENCIA DA LISTA(colunasBusca)***********************
 				t.setID(listMapSql.get(i).get(colunasBusca[0]));
 				t.setNome(listMapSql.get(i).get(colunasBusca[1]));
-				if(listMapSql.get(i).get(colunasBusca[2]) != null && !listMapSql.get(i).get(colunasBusca[2]).equals("null"))
-					t.setFgCarga(Integer.parseInt(listMapSql.get(i).get(colunasBusca[2])));
+				t.setDescricao(listMapSql.get(i).get(colunasBusca[2]));
 				if(listMapSql.get(i).get(colunasBusca[3]) != null && !listMapSql.get(i).get(colunasBusca[3]).equals("null"))
-					t.setIdGrupo(Integer.parseInt(listMapSql.get(i).get(colunasBusca[3])));
+					t.setFgCarga(Integer.parseInt(listMapSql.get(i).get(colunasBusca[3])));
+				if(listMapSql.get(i).get(colunasBusca[4]) != null && !listMapSql.get(i).get(colunasBusca[4]).equals("null"))
+					t.setIdGrupo(Integer.parseInt(listMapSql.get(i).get(colunasBusca[4])));
+				if(listMapSql.get(i).get(colunasBusca[5]) != null && !listMapSql.get(i).get(colunasBusca[5]).equals("null"))
+					t.setIndTipoTreino(Integer.parseInt(listMapSql.get(i).get(colunasBusca[5])));
+				if(listMapSql.get(i).get(colunasBusca[6]) != null && !listMapSql.get(i).get(colunasBusca[6]).equals("null"))
+					t.setIndNivel(Integer.parseInt(listMapSql.get(i).get(colunasBusca[6])));
 				listSql.add(t);
 			}
 			if(listSql.size() > 0)
@@ -128,10 +152,17 @@ public class SQLtreino extends AbsSQL{
 		String clausula = " WHERE 1 = 1";
 		if (!TextUtils.isEmpty(t.getID()))
 			clausula += " AND " + Col_cd_treino + "= '" + t.getID() + "'";
+		if (!TextUtils.isEmpty(t.getNome()))
+			clausula += " AND " + Col_ds_nome + "= '" + t.getNome() + "'";
 		if (t.getIdGrupo() != null)
 			clausula += " AND " + Col_cd_grupo + "= '" + t.getIdGrupo() + "'";
 		if (t.getFgCarga() != null)
 			clausula += " AND " + Col_fg_carga + "= '" + t.getFgCarga() + "'";
+		if (t.getIndTipoTreino() != null)
+			clausula += " AND " + Col_ind_tipo_treino + "= '" + t.getIndTipoTreino() + "'";
+		if (t.getIndNivel() != null)
+			clausula += " AND " + Col_ind_nivel + "= '" + t.getIndNivel() + "'";
+
 		return clausula;
 	}
 }
