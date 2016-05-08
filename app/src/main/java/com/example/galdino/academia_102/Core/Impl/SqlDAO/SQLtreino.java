@@ -163,6 +163,30 @@ public class SQLtreino extends AbsSQL{
 		if (t.getIndNivel() != null)
 			clausula += " AND " + Col_ind_nivel + "= '" + t.getIndNivel() + "'";
 
+		String codigosIndTipoTreino = montarClausulaComList(t.getListaCodigosObjParaBusca());
+		if (codigosIndTipoTreino != null)
+			clausula += " AND " + Col_ind_tipo_treino + " IN (" + codigosIndTipoTreino + ")";
+
+		String codigosIndNivel = montarClausulaComList(t.getListaCodigosNivelParaBusca());
+		if (codigosIndNivel != null)
+			clausula += " AND " + Col_ind_nivel + " IN (" +codigosIndNivel + ")";
+
 		return clausula;
+	}
+	private String montarClausulaComList(List<String> lista)
+	{
+		String codigos = "";
+		if(lista == null)
+			return null;
+		int tamanho = lista.size();
+		if(tamanho == 0)
+			return null;
+		for(int i = 0; i < tamanho; i++)
+		{
+			codigos += lista.get(i);
+			if(i < (tamanho-1)) // não é ultimo registro da lista?
+				codigos += ", ";
+		}
+		return codigos;
 	}
 }

@@ -49,4 +49,5 @@
     <string name="title_activity_tela_corpo_treino">TelaCorpoTreino</string>
     <string name="title_activity_tela_treino">TelaTreino</string>
     <string name="title_activity_tela_float_action_menu">TelaFloatActionMenu</string>
+    <string name="title_activity_tela_fitro_de_treino">TelaFitroDeTreino</string>
 </resources>

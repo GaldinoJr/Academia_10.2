@@ -22,6 +22,7 @@ import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.Dominio.TreinoExercicio;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
+import com.example.galdino.academia_102.Telas.TelaExercicio.TelaExercicio;
 
 import java.util.ArrayList;
 import java.util.List;

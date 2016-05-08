@@ -1,4 +1,4 @@
-package com.example.galdino.academia_102.Telas;
+package com.example.galdino.academia_102.Telas.Testes;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,9 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.galdino.academia_102.R;
-import com.example.galdino.academia_102.R.id;
-
-import java.util.ArrayList;
+import com.example.galdino.academia_102.Telas.TelaPrincipalApp;
 
 public class TelaListExercicioNova extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

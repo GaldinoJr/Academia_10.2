@@ -1,6 +1,18 @@
 package com.example.galdino.academia_102.Dominio;
 
-public class Treino extends EntidadeDominio {
+import java.util.List;
+
+public class Treino extends EntidadeDominio
+{
+	// Definição do código dos objetivos do treino
+	public static final String DF_CD_OBJ_DEFINICAO 		= "0";
+	public static final String DF_CD_OBJ_FORCA 			= "1";
+	public static final String DF_CD_OBJ_HIPERTROFIA 	= "2";
+	public static final String DF_CD_OBJ_RESISTENCIA	= "3";
+	// Definição do codigo dos níveis do treino
+	public static final String DF_CD_NIVEL_INICIANTE 	= "0";
+	public static final String DF_CD_NIVEL_INTERMEDIARIO= "1";
+	public static final String DF_CD_NIVEL_AVANCADO 	= "2";
 
 	private String nome,
 					Descricao;
@@ -8,7 +20,9 @@ public class Treino extends EntidadeDominio {
 					fgCarga,
 					indTipoTreino,
 					indNivel;
-
+	// Parametros utilizados apenas para consultas
+	private List<String> listaCodigosObjParaBusca,
+						listaCodigosNivelParaBusca;
 	// Gets
 	public String getNome() {
 		return nome;
@@ -27,6 +41,12 @@ public class Treino extends EntidadeDominio {
 	}
 	public Integer getIndNivel() {
 		return indNivel;
+	}
+	public List<String> getListaCodigosObjParaBusca() {
+		return listaCodigosObjParaBusca;
+	}
+	public List<String> getListaCodigosNivelParaBusca() {
+		return listaCodigosNivelParaBusca;
 	}
 
 	// Sets
@@ -47,5 +67,11 @@ public class Treino extends EntidadeDominio {
 	}
 	public void setIndNivel(Integer indNivel) {
 		this.indNivel = indNivel;
+	}
+	public void setListaCodigosObjParaBusca(List<String> listaCodigosObjParaBusca) {
+		this.listaCodigosObjParaBusca = listaCodigosObjParaBusca;
+	}
+	public void setListaCodigosNivelParaBusca(List<String> listaCodigosNivelParaBusca) {
+		this.listaCodigosNivelParaBusca = listaCodigosNivelParaBusca;
 	}
 }

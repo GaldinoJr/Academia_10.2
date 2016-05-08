@@ -30,13 +30,19 @@ import java.util.List;
 public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickListener
 {
     private int i;
-    private Button btnAddTreino;
+    private Button btnAddTreino,
+                    btnFiltroTreino;
     private EditText txtNomeTreino;
     private ListView listTreinos;
     private List<EntidadeDominio> listEntDomTreinos;
     private Treino treino;
     private GrupoMuscular grupoMuscular;
     private List<EntidadeDominio> listEntDom;
+    private String grupo;
+    // Dados da tela de filtro
+    private String fgTelaFiltro;
+    private ArrayList<String> listaCodigosObj;
+    private ArrayList<String> listaCodigosNivel;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -48,25 +54,23 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         toolbar.setOverflowIcon(drawable);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-//        FloatingActionButton fBtnClick = (FloatingActionButton) findViewById(R.id.fBtnClick);
-//        fBtnClick.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         //
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED); // Para não iniciar o teclado quando abrir a tela
-        //
+        // Vincula os dados da tela
         btnAddTreino = (Button)findViewById(R.id.btnAddTreino);
+        btnFiltroTreino = (Button)findViewById(R.id.btnFiltroTreino);
         txtNomeTreino = (EditText)findViewById(R.id.txtNomeTreino);
         listTreinos = (ListView)findViewById(R.id.listTreinos);
-        //
+        // Add o listenner nos botões
         btnAddTreino.setOnClickListener(this);
-        //
+        btnFiltroTreino.setOnClickListener(this);
+        // pega os dados da tela anterior
         Intent dados = getIntent();
-        String grupo = dados.getStringExtra("grupo");
+        grupo = dados.getStringExtra("grupo");
+        fgTelaFiltro = dados.getStringExtra("fgTelaFiltro");
+        listaCodigosObj = dados.getStringArrayListExtra("listaCodigosObj");
+        listaCodigosNivel = dados.getStringArrayListExtra("listaCodigosNivel");
+        //
         grupoMuscular = new GrupoMuscular();
         grupoMuscular.setNome(grupo);
         listEntDom = grupoMuscular.operar(this,true,Controler.DF_CONSULTAR,grupoMuscular);
@@ -90,41 +94,49 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
                 intent.setClass(TelaTreinoGrupo.this, TelaTreinoExercicio.class);
                 intent.putExtra("idTreino", retornarInfoTreino(position, 0));
                 intent.putExtra("nmGrupo", grupoMuscular.getNome());
+                if("1".equals(fgTelaFiltro)) // já foi para a tela de filtro?
+                {
+                    intent.putStringArrayListExtra("listaCodigosObj", (ArrayList<String>) listaCodigosObj);
+                    intent.putStringArrayListExtra("listaCodigosNivel", (ArrayList<String>) listaCodigosNivel);
+                }
                 startActivity(intent); // chama a próxima tela
                 finish();
 
             }
         });
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED); // Para não iniciar o teclado quando abrir a tela
-        getMenuInflater().inflate(R.menu.menu_tela_treino_grupo, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED); // Para não iniciar o teclado quando abrir a tela
+//        getMenuInflater().inflate(R.menu.menu_tela_treino_grupo, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.menuDefinicao:
+//                Toast.makeText(TelaTreinoGrupo.this, "Definição", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.menuForca:
+//                Toast.makeText(TelaTreinoGrupo.this, "Força", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.menuHipertrofia:
+//                Toast.makeText(TelaTreinoGrupo.this, "Hipertrofia", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.menuResistencia:
+//                Toast.makeText(TelaTreinoGrupo.this, "Resistencia", Toast.LENGTH_SHORT).show();
+//                return true;
+//
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuDefinicao:
-                Toast.makeText(TelaTreinoGrupo.this, "Definição", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.menuForca:
-                Toast.makeText(TelaTreinoGrupo.this, "Força", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.menuHipertrofia:
-                Toast.makeText(TelaTreinoGrupo.this, "Hipertrofia", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.menuResistencia:
-                Toast.makeText(TelaTreinoGrupo.this, "Resistencia", Toast.LENGTH_SHORT).show();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
+    // Nome - carregarTreinos
+    // Função - Método que carrega os treinos de acordo com os filtros, se vier da tela de filtros,
+    //se não, deve carregar todos os treinos
+    // Retorno - Lista de treinos filtrados
     private List<EntidadeDominio> carregarTreinos()
     {
         List<EntidadeDominio> listEntDom;
@@ -134,6 +146,11 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         //lTreino = treino.converteEntidadeEmClasse(treino.operar(this,true, Controler.DF_CONSULTAR,treino), Treino.class);
         //if(lTreino == null)
         //return;
+        if("1".equals(fgTelaFiltro))
+        {
+            treino.setListaCodigosObjParaBusca(listaCodigosObj);
+            treino.setListaCodigosNivelParaBusca(listaCodigosNivel);
+        }
         listEntDom = treino.operar(this,true, Controler.DF_CONSULTAR,treino);
         if(listEntDom == null)
             return null;
@@ -185,18 +202,22 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
             atualizarListTreinos();
             txtNomeTreino.setText("");
         }
-
+        if(view == btnFiltroTreino)
+        {
+            Intent intent = new Intent();
+            intent.putExtra("grupo",grupo);
+            if("1".equals(fgTelaFiltro)) // já foi para a tela de filtro?
+            {
+                intent.putExtra("fgSegundaVez","1");
+                intent.putStringArrayListExtra("listaCodigosObj", (ArrayList<String>) listaCodigosObj);
+                intent.putStringArrayListExtra("listaCodigosNivel", (ArrayList<String>) listaCodigosNivel);
+            }
+            intent.setClass(TelaTreinoGrupo.this, TelaFitroDeTreino.class);
+            startActivity(intent); // chama a próxima tela(tela anterior)
+            finish();
+        }
     }
-    public void onBackPressed() // voltar?
-    {
 
-        Intent intent = new Intent();
-        // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaTreinoGrupo.this, TelaCorpoTreino.class);
-        startActivity(intent); // chama a próxima tela(tela anterior)
-        finish();
-
-    }
     public void BtnExclui(View v)
     {
         int linha = (Integer) v.getTag(); // linha clicada da list(foi setado no ListaTreinosbaseAdapter - > holder.itemImage.setTag(position);
@@ -223,5 +244,16 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
                 return treino.getFgCarga().toString();
         }
         return "Sem informação";
+    }
+
+    public void onBackPressed() // voltar?
+    {
+
+        Intent intent = new Intent();
+        // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
+        intent.setClass(TelaTreinoGrupo.this, TelaCorpoTreino.class);
+        startActivity(intent); // chama a próxima tela(tela anterior)
+        finish();
+
     }
 }

@@ -1,9 +1,8 @@
-package com.example.galdino.academia_102.Telas;
+package com.example.galdino.academia_102.Telas.TelaExercicio;
 
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;

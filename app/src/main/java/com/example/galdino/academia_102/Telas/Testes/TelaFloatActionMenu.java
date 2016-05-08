@@ -1,4 +1,4 @@
-package com.example.galdino.academia_102.Telas;
+package com.example.galdino.academia_102.Telas.Testes;
 
 import android.content.Context;
 import android.os.Bundle;

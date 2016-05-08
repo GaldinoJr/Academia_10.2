@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:fitsSystemWindows="true"
+    tools:context="com.example.galdino.academia_102.Telas.TelaFitroDeTreino">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/corDetalhesAmarelos"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:id="@+id/iBtnVoltarDaTelaFiltro"
+                android:textSize="12sp"
+                android:layout_marginRight="5dp"
+                android:background="@null"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/corActionBarPretoEscuro"
+                android:src="@drawable/ic_voltar_padrao_android_pretoescuro_25"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtTituloToolbarFiltroTreino"
+                android:text="Filtrar Busca"
+                android:textColor="@color/corActionBarPretoEscuro"
+                android:textSize="@dimen/Titulotamanho25"
+                android:textStyle="bold"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:id="@+id/btnToolbarLimpar"
+                android:textSize="12sp"
+                android:background="@null"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/corActionBarPretoEscuro"
+                android:text="Limpar"/>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+        <include layout="@layout/content_tela_fitro_de_treino" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

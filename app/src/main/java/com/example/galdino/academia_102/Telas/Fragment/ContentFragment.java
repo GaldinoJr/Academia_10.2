@@ -12,10 +12,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.galdino.academia_102.AndroidItens.RoundAdapter;
 import com.example.galdino.academia_102.BaseAdapter.ExercicioBaseAdapter;
 import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
@@ -24,8 +22,7 @@ import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.R;
 
 import com.example.galdino.academia_102.SideMenu.ScreenShotable;
-import com.example.galdino.academia_102.Telas.TelaExercicio;
-import com.example.galdino.academia_102.Telas.TelaTreinoExercicio;
+import com.example.galdino.academia_102.Telas.TelaExercicio.TelaExercicio;
 
 import java.util.ArrayList;
 import java.util.List;

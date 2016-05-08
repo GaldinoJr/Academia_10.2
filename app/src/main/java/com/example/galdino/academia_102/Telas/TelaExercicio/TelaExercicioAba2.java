@@ -1,4 +1,4 @@
-package com.example.galdino.academia_102.Telas;
+package com.example.galdino.academia_102.Telas.TelaExercicio;
 
 import android.app.Activity;
 import android.content.Intent;
