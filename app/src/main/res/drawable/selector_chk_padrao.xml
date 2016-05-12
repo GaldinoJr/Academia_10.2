@@ -1,4 +1,4 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:drawable="@drawable/check_box_precionada_laranja_25_v2" />
-    <item android:state_checked="false" android:drawable="@drawable/check_box_nao_precionada_laranja_25" />
+    <item android:state_checked="true" android:drawable="@drawable/check_box_precionada_branco_laranja_25_v2" />
+    <item android:state_checked="false" android:drawable="@drawable/check_box_nao_precionada_branca_inteira_25" />
 </selector>

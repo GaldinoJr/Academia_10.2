@@ -13,6 +13,7 @@ import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.IniciarBancoExercicios2;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
+import com.example.galdino.academia_102.Telas.Testes.slideTab.MainActivity;
 
 import java.util.List;
 
@@ -85,8 +86,9 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
         if(view == btnTelaExe)
         { // chama a tela principal de exercicios
             Intent intent = new Intent();
-            intent.setClass(TelaPrincipalApp.this, TelaPrincipalExercicio.class);
-            intent.putExtra("exe", "");
+            intent.setClass(TelaPrincipalApp.this, MainActivity.class);
+            //intent.setClass(TelaPrincipalApp.this, TelaPrincipalExercicio.class);
+            //intent.putExtra("exe", "");
             startActivity(intent); // chama a próxima tela
             finish(); // Encerra a tela atual
         }
