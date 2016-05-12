@@ -1,5 +1,6 @@
 package com.example.galdino.academia_102.Telas.Testes.slideTab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.SlidingTab.SlidingTabLayout;
 import com.example.galdino.academia_102.SlidingTab.ViewPagerAdapter;
+import com.example.galdino.academia_102.Telas.TelaPrincipalApp;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -82,5 +84,15 @@ public class MainActivity extends ActionBarActivity {
             }
 
             return super.onOptionsItemSelected(item);
+        }
+        public void onBackPressed() // voltar?
+        {
+
+            Intent intent = new Intent();
+            // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
+            intent.setClass(MainActivity.this, TelaPrincipalApp.class);
+            startActivity(intent); // chama a próxima tela(tela anterior)
+            finish();
+
         }
     }

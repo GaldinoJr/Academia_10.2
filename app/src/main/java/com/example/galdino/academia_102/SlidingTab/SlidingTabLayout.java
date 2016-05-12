@@ -33,6 +33,7 @@ package com.example.galdino.academia_102.SlidingTab;
  * limitations under the License.
  */
 
+        import com.example.galdino.academia_102.R;
         import com.example.galdino.academia_102.SlidingTab.SlidingTabStrip;
 
 /**
@@ -216,6 +217,11 @@ public class SlidingTabLayout extends HorizontalScrollView {
             }
 
             tabTitleView.setText(adapter.getPageTitle(i));
+
+            // Muda a cor da letra da aba e o tamanho
+            tabTitleView.setTextColor(getResources().getColorStateList(R.color.tab_selector));
+            tabTitleView.setTextSize(14);
+
             tabView.setOnClickListener(tabClickListener);
             String desc = mContentDescriptions.get(i, null);
             if (desc != null) {
