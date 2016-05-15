@@ -19,7 +19,10 @@
             <item name="android:textStyle">bold</item>
             <item name="android:textSize">17sp</item>
     </style>
-    <style name="AppTheme.temaTeste" parent="ThemeOverlay.AppCompat.Light">
+    <style name="AppTheme.temaActionBar" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:textColorSecondary">@color/corActionBarPretoEscuro</item>
+        <item name="android:background">@color/corDetalhesAmarelos</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
     </style>
 </resources>

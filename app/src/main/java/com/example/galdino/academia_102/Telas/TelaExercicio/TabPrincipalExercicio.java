@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Exercicio;
@@ -46,8 +47,10 @@ public class TabPrincipalExercicio  extends ActionBarActivity {
         // para mandar na aba 1
 
         // Creating The Toolbar and setting it as the Toolbar for the activity
+        TextView txtTituloToolbarPadrao = (TextView)findViewById(R.id.txtTituloToolbarPadrao);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        toolbar.setTitle(dados.getStringExtra("nmExercicio"));
+        toolbar.setTitle("");
+        txtTituloToolbarPadrao.setText(dados.getStringExtra("nmExercicio"));
         setSupportActionBar(toolbar);
         //
 
