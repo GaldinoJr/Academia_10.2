@@ -8,6 +8,6 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_tela_exercicio"
-    tools:context="com.example.galdino.academia_102.Telas.TelaExercicio.TelaExercicio">
+    tools:context="com.example.galdino.academia_102.Telas.TelaExercicioAntiga.TelaExercicio">
 
 </RelativeLayout>

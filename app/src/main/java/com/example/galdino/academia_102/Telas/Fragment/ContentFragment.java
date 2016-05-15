@@ -22,7 +22,8 @@ import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.R;
 
 import com.example.galdino.academia_102.SideMenu.ScreenShotable;
-import com.example.galdino.academia_102.Telas.TelaExercicio.TelaExercicio;
+import com.example.galdino.academia_102.Telas.TelaExercicio.TabPrincipalExercicio;
+import com.example.galdino.academia_102.Telas.TelaExercicioAntiga.TelaExercicio;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,11 +150,11 @@ public class ContentFragment extends Fragment implements ScreenShotable {
                 Exercicio obj_itemDetails = (Exercicio)o;
                 exe = obj_itemDetails.getNome();
                 nome = encontrarNome(exe);
-                Intent intent = new Intent(getActivity(), TelaExercicio.class);
+                Intent intent = new Intent(getActivity(), TabPrincipalExercicio.class);
 
-                intent.putExtra("grupo", grupo);
-                intent.putExtra("nome",nome);
-                intent.putExtra("exe", exe);
+                intent.putExtra("nmGrupo", grupo);
+                intent.putExtra("nmGifExercicio",nome);
+                intent.putExtra("nmExercicio", exe);
                 startActivity(intent); // chama a próxima tela
                 //finish(); // Não faz para não perder as info nem precisar carregar de novo.
             }

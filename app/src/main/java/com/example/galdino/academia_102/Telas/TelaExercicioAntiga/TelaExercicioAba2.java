@@ -1,9 +1,8 @@
-package com.example.galdino.academia_102.Telas.TelaExercicio;
+package com.example.galdino.academia_102.Telas.TelaExercicioAntiga;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.TextView;
 
 import com.example.galdino.academia_102.Dominio.Documento;

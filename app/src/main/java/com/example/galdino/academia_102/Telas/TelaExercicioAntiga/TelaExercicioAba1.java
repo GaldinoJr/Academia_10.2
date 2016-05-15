@@ -1,16 +1,11 @@
-package com.example.galdino.academia_102.Telas.TelaExercicio;
+package com.example.galdino.academia_102.Telas.TelaExercicioAntiga;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
-import android.view.Menu;
 import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.galdino.academia_102.AndroidItens.RoundAdapter;
 import com.example.galdino.academia_102.Dominio.Documento;
 import com.example.galdino.academia_102.R;
 

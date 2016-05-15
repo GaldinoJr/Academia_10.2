@@ -74,7 +74,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 //        return sb;
         ////Drawable image = mContext.getResources().getDrawable (R.drawable.ic_launcher);
         Drawable image = mContext.getResources().getDrawable(drawablesIds[position]);
-        image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
+       // image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight()); // Ultilizar quanto as fotos estiverem certas em pastas por tamanho*****
+        image.setBounds(0, 0, 64, 64);
         //SpannableString sb = new SpannableString(" \n"+Titles[position]); // ***TÍTULO DA ABA*** FICA CENTRALIZADO EM BAIXO DO ICONE
         SpannableString sb = new SpannableString(" ");
         ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);

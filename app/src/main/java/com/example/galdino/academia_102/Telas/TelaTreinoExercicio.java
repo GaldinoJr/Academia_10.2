@@ -23,7 +23,8 @@ import com.example.galdino.academia_102.Dominio.TreinoExercicio;
 import com.example.galdino.academia_102.Dominio.TreinoExercicioRepeticao;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
-import com.example.galdino.academia_102.Telas.TelaExercicio.TelaExercicio;
+import com.example.galdino.academia_102.Telas.TelaExercicio.TabPrincipalExercicio;
+import com.example.galdino.academia_102.Telas.TelaExercicioAntiga.TelaExercicio;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -108,10 +109,10 @@ public class TelaTreinoExercicio extends AppCompatActivity {
                     }
                     Intent intent = new Intent();
                     // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-                    intent.setClass(TelaTreinoExercicio.this, TelaExercicio.class);
-                    intent.putExtra("grupo", grupo);
-                    intent.putExtra("nome", NomeLogico);
-                    intent.putExtra("exe", exe);
+                    intent.setClass(TelaTreinoExercicio.this, TabPrincipalExercicio.class);
+                    intent.putExtra("nmGrupo", grupo);
+                    intent.putExtra("nmGifExercicio", NomeLogico);
+                    intent.putExtra("nmExercicio", exe);
 
                     startActivity(intent); // chama a próxima tela
                     //finish();
