@@ -24,6 +24,8 @@ import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
 import com.example.galdino.academia_102.Telas.TelaExercicio.TabPrincipalExercicio;
 import com.example.galdino.academia_102.Telas.TelaExercicioAntiga.TelaExercicio;
+import com.example.galdino.academia_102.Telas.TelaTreinoPorGrupo.FragTab2Exercicios;
+import com.example.galdino.academia_102.Telas.TelaTreinoPorGrupo.TabPrincipalTreinoPorGrupo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +73,7 @@ public class TelaListaExercicios extends AppCompatActivity {
         // Recebe os dados da tela anterior
         grupo = dados.getStringExtra("grupo");
         telaAnterior = dados.getStringExtra("nmTelaCorrespondente");
-        if(TelaTreinoExercicio.class.toString().equals(telaAnterior)) {
+        if(FragTab2Exercicios.class.toString().equals(telaAnterior)) {
             indTela = 2;
             idTreino = dados.getStringExtra("idTreino");
             nmTreino = dados.getStringExtra("nmTreino");
@@ -169,22 +171,6 @@ public class TelaListaExercicios extends AppCompatActivity {
         return gifNome;
     }
 
-    public void onBackPressed() {
-        Intent intent;
-        intent = new Intent();
-        // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-        //intent.setClass(TelaListaExercicios.this, TelaPrincipalExercicio.class);
-        intent.setClass(TelaListaExercicios.this, TelaTreinoExercicio.class);
-        intent.putExtra("nmTelaCorrespondente", telaAnterior);
-        intent.putExtra("idTreino", idTreino);
-//        intent.putStringArrayListExtra("exe", (ArrayList<String>) vetIDExe);
-//        Bundle b=new Bundle();
-//        b.putStringArray("exe", vetIDExe);
-//        intent.putExtras(b);
-        startActivity(intent); // chama a próxima tela
-        finish();
-    }
-
     private ArrayList<Exercicio> GetSearchResults()
     {
         int i, qtdRegistro;
@@ -253,5 +239,19 @@ public class TelaListaExercicios extends AppCompatActivity {
             return -1;
         }
     }
-
+    public void onBackPressed() {
+        Intent intent;
+        intent = new Intent();
+        // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
+        //intent.setClass(TelaListaExercicios.this, TelaPrincipalExercicio.class);
+        intent.setClass(TelaListaExercicios.this, TabPrincipalTreinoPorGrupo.class);
+        intent.putExtra("nmTelaCorrespondente", telaAnterior);
+        intent.putExtra("idTreino", idTreino);
+//        intent.putStringArrayListExtra("exe", (ArrayList<String>) vetIDExe);
+//        Bundle b=new Bundle();
+//        b.putStringArray("exe", vetIDExe);
+//        intent.putExtras(b);
+        startActivity(intent); // chama a próxima tela
+        finish();
+    }
 }

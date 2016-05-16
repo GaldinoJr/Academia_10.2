@@ -1,12 +1,14 @@
-package com.example.galdino.academia_102.Telas;
+package com.example.galdino.academia_102.Telas.TelaTreinoPorGrupo;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,15 +24,19 @@ import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.Dominio.TreinoExercicio;
 import com.example.galdino.academia_102.Dominio.TreinoExercicioRepeticao;
 import com.example.galdino.academia_102.R;
-import com.example.galdino.academia_102.R.id;
+import com.example.galdino.academia_102.Telas.TelaAddRepeticaoExercicio;
 import com.example.galdino.academia_102.Telas.TelaExercicio.TabPrincipalExercicio;
-import com.example.galdino.academia_102.Telas.TelaExercicioAntiga.TelaExercicio;
+import com.example.galdino.academia_102.Telas.TelaListaExercicios;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TelaTreinoExercicio extends AppCompatActivity {
+/**
+ * Created by Galdino on 15/05/2016.
+ */
+public class FragTab2Exercicios extends Fragment
+{
     private ListView lvTreinoExercicio;
     private List<EntidadeDominio> listEntDomExercicio;
     private FloatingActionButton fBtnAddEx;
@@ -42,17 +48,15 @@ public class TelaTreinoExercicio extends AppCompatActivity {
     private RetornarInfoExercicioNaList retornarInfoExercicioNaList;
     private Treino treino;
     private GrupoMuscular grupoMuscular;
-    private ArrayList<String> listaCodigosObj;
-    private ArrayList<String> listaCodigosNivel;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_treino_exercicio);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v =inflater.inflate(R.layout.content_tela_treino_exercicio,container,false);
         // associa os objetos da tela
-        //lblNmTreino = (TextView)findViewById(id.lblNmTreino);
-        lvTreinoExercicio = (ListView)findViewById(id.lvTreinoExercicio);
-        fBtnAddEx = (FloatingActionButton) findViewById(R.id.fBtnAddExercicio
-        // FLOAT BUTTON
+        //lblNmTreino = (TextView)v.findViewById(R.id.lblNmTreino);
+        lvTreinoExercicio = (ListView)v.findViewById(R.id.lvTreinoExercicio);
+        fBtnAddEx = (FloatingActionButton)v.findViewById(R.id.fBtnAddExercicio
+                // FLOAT BUTTON
         );
         fBtnAddEx.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,21 +65,18 @@ public class TelaTreinoExercicio extends AppCompatActivity {
             }
         });
         // cria a intenção que vai receber os dados da tela 1
-        Intent dados = getIntent();
-        // Recebe os dados da tela anterior
-        listaCodigosObj = dados.getStringArrayListExtra("listaCodigosObj");
-        listaCodigosNivel = dados.getStringArrayListExtra("listaCodigosNivel");
+        Intent dados = getActivity().getIntent();
         //
         idTreino = dados.getStringExtra("idTreino");
         if(carregarTreino() == -1)
         {
-            Toast.makeText(this,"ERRO: Treino não encontrado.",Toast.LENGTH_LONG).show();
-            return;
+            Toast.makeText(getContext(), "ERRO: Treino não encontrado.", Toast.LENGTH_LONG).show();
+            //return;
         }
         if(carregarGrupoMuscular() == -1)
         {
-            Toast.makeText(this,"ERRO: Grupo muscular não encontrado.",Toast.LENGTH_LONG).show();
-            return;
+            Toast.makeText(getContext(),"ERRO: Grupo muscular não encontrado.",Toast.LENGTH_LONG).show();
+            //return;
         }
         if(treino.getFgCarga() == 1)
             fBtnAddEx.setVisibility(View.INVISIBLE);
@@ -85,7 +86,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         atualizarListExercicio();
         // monta a lista
         if(listEntDomExercicio != null) {
-            final Context context = this;
+            final Context context = getContext();
 
             lvTreinoExercicio.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -109,32 +110,26 @@ public class TelaTreinoExercicio extends AppCompatActivity {
                     }
                     Intent intent = new Intent();
                     // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-                    intent.setClass(TelaTreinoExercicio.this, TabPrincipalExercicio.class);
+                    intent.setClass(getActivity(), TabPrincipalExercicio.class);
                     intent.putExtra("nmGrupo", grupo);
                     intent.putExtra("nmGifExercicio", NomeLogico);
                     intent.putExtra("nmExercicio", exe);
 
                     startActivity(intent); // chama a próxima tela
-                    //finish();
+                    getActivity().finish();
                 }
             });
         }
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.tela_ficha_list_exercicios, menu);
-        return true;
+        return v;
     }
-
     public void chamarTelaCorrespondeteAoGrupo(String grupo)
     {
         Intent intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaTreinoExercicio.this, TelaListaExercicios.class);
+        intent.setClass(getActivity(), TelaListaExercicios.class);
         intent.putExtra("grupo", grupo);
-        intent.putExtra("nmTelaCorrespondente",TelaTreinoExercicio.class.toString());
+        intent.putExtra("nmTelaCorrespondente", FragTab2Exercicios.class.toString());
         //if(TelaTreinoExercicio.class.toString().equals(telaAnterior)) {
         intent.putExtra("idTreino", idTreino);
         intent.putExtra("nmTreino", treino.getNome());
@@ -144,13 +139,13 @@ public class TelaTreinoExercicio extends AppCompatActivity {
 //            intent.putExtras(b);
         //}
         startActivity(intent); // chama a próxima tela
-        finish(); // Encerra a tela atual
+        getActivity().finish(); // Encerra a tela atual*******************************************
     }
     private String carregarRepeticaoExercicio(String idTreinoExercicio)
     {
         TreinoExercicioRepeticao treinoExercicioRepeticao = new TreinoExercicioRepeticao();
         treinoExercicioRepeticao.setID(idTreinoExercicio);
-        List<EntidadeDominio> ledTer = treinoExercicioRepeticao.operar(this,true,Controler.DF_CONSULTAR,treinoExercicioRepeticao);
+        List<EntidadeDominio> ledTer = treinoExercicioRepeticao.operar(getContext(),true,Controler.DF_CONSULTAR,treinoExercicioRepeticao);
         if(ledTer != null)
         {
             String repeticoes = ledTer.size() + " x ";
@@ -169,7 +164,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         List<EntidadeDominio> listEntDomTreinoExercicio;
         TreinoExercicio treinoExercicio = new TreinoExercicio();
         treinoExercicio.setIdTreino(Integer.parseInt(idTreino));
-        listEntDomTreinoExercicio = treinoExercicio.operar(this,true,Controler.DF_CONSULTAR,treinoExercicio);
+        listEntDomTreinoExercicio = treinoExercicio.operar(getContext(),true,Controler.DF_CONSULTAR,treinoExercicio);
         results = new ArrayList<Exercicio>();
         listEntDomExercicio = new LinkedList<>();
         vetIDExe = new ArrayList<>();
@@ -182,7 +177,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
                 TreinoExercicio te = (TreinoExercicio)entDomTreinoExercico;
                 Exercicio exercicio = new Exercicio();
                 exercicio.setID(String.valueOf(te.getIdExercicio()));
-                List<EntidadeDominio> listEntDomExe = exercicio.operar(this,true,Controler.DF_CONSULTAR,exercicio);
+                List<EntidadeDominio> listEntDomExe = exercicio.operar(getContext(),true,Controler.DF_CONSULTAR,exercicio);
                 exercicio = (Exercicio)listEntDomExe.get(0);
                 results.add(exercicio);
                 listEntDomExercicio.add(exercicio);
@@ -202,13 +197,13 @@ public class TelaTreinoExercicio extends AppCompatActivity {
                 TreinoExercicio treinoExercicioExclui = new TreinoExercicio();
                 treinoExercicioExclui.setIdTreino(Integer.parseInt(idTreino));
                 treinoExercicioExclui.setIdExercicio(Integer.parseInt(retornarInfoExercicioNaList.getId(linha)));
-                treinoExercicioExclui.operar(this, true, Controler.DF_EXCLUIR, treinoExercicioExclui);
+                treinoExercicioExclui.operar(getContext(), true, Controler.DF_EXCLUIR, treinoExercicioExclui);
                 atualizarListExercicio();
-                Toast.makeText(this,"Exercício removido do treino.",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Exercício removido do treino.",Toast.LENGTH_LONG).show();
             }
             catch (Exception e)
             {
-                Toast.makeText(this,"Erro ao excluir o exercício.",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Erro ao excluir o exercício.",Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -216,7 +211,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
     {
         int linha = (Integer) v.getTag();
         Intent intent = new Intent();
-        intent.setClass(this, TelaAddRepeticaoExercicio.class);
+        intent.setClass(getContext(), TelaAddRepeticaoExercicio.class);
         intent.putExtra("linha", linha);
         intent.putExtra("nomeTreino", treino.getNome());
         intent.putExtra("nomeExercicio", retornarInfoExercicioNaList.getNome(linha));
@@ -225,14 +220,14 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         intent.putExtra("nomeGrupo",grupoMuscular.getNome());
         intent.putExtra("idTreino", Integer.parseInt(idTreino));
         startActivity(intent);
-        finish();
+        getActivity().finish();
     }
     private int carregarTreino()
     {
         List<EntidadeDominio> listEntDom;
         treino = new Treino();
         treino.setID(idTreino);
-        listEntDom = treino.operar(this,true,Controler.DF_CONSULTAR,treino);
+        listEntDom = treino.operar(getContext(),true,Controler.DF_CONSULTAR,treino);
         if(listEntDom != null)
         {
             treino = (Treino)listEntDom.get(0);
@@ -246,7 +241,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         List<EntidadeDominio> listEntDom;
         grupoMuscular = new GrupoMuscular();
         grupoMuscular.setID(treino.getIdGrupo().toString());
-        listEntDom = grupoMuscular.operar(this,true,Controler.DF_CONSULTAR,grupoMuscular);
+        listEntDom = grupoMuscular.operar(getContext(),true,Controler.DF_CONSULTAR,grupoMuscular);
         if(listEntDom != null)
         {
             grupoMuscular = (GrupoMuscular)listEntDom.get(0);
@@ -262,22 +257,11 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         if(listEntDomExercicio != null)
         {
             int indTela = 3; //TelaTreino
-            lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(this, results, null, indTela, vetIDExe,vetRepeticoesExe, treino.getFgCarga()));
+            lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(getContext(), results, null, indTela, vetIDExe,vetRepeticoesExe, treino.getFgCarga()));
         }
         else
         {
             lvTreinoExercicio.setAdapter(null);
         }
     }
-    public void onBackPressed() // voltar?
-    {
-        Intent intent = new Intent();
-        // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaTreinoExercicio.this, TelaTreinoGrupo.class);
-        intent.putExtra("grupo", grupoMuscular.getNome());
-        intent.putStringArrayListExtra("listaCodigosObj", (ArrayList<String>) listaCodigosObj);
-        intent.putStringArrayListExtra("listaCodigosNivel", (ArrayList<String>) listaCodigosNivel);
-        startActivity(intent); // chama a próxima tela(tela anterior)
-        finish();
-    }
-}//end Activity
+}

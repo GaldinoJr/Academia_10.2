@@ -5,6 +5,15 @@
     android:elevation="2dp"
     android:theme="@style/AppTheme.temaActionBar"
     xmlns:android="http://schemas.android.com/apk/res/android" >
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:id="@+id/imgIcone"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/icone_how_to_train_black_teste"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

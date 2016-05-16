@@ -41,13 +41,18 @@ public class ViewPagerAdapterPadrao extends FragmentStatePagerAdapter {
     // Este método cria cada aba(com foto e escrita)
     @Override
     public CharSequence getPageTitle(int position) {
-        Drawable image = mContext.getResources().getDrawable(icones[position]);
-        // image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight()); // Ultilizar quanto as fotos estiverem certas em pastas por tamanho*****
-        image.setBounds(0, 0, 64, 64);
-        //SpannableString sb = new SpannableString(" \n"+Titles[position]); // ***TÍTULO DA ABA*** FICA CENTRALIZADO EM BAIXO DO ICONE
-        SpannableString sb = new SpannableString(" ");
-        ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
-        sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        SpannableString sb;
+        if(icones[0] == -1)
+            sb = new SpannableString(" \n"+titulos[position]); // ***TÍTULO DA ABA*** FICA CENTRALIZADO EM BAIXO DO ICONE
+        else
+        {
+            Drawable image = mContext.getResources().getDrawable(icones[position]);
+            // image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight()); // Ultilizar quanto as fotos estiverem certas em pastas por tamanho*****
+            image.setBounds(0, 0, 64, 64);
+            sb = new SpannableString(" ");
+            ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+            sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
         return sb;
         //return Titles[position];
     }

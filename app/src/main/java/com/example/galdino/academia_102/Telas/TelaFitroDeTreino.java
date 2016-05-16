@@ -58,12 +58,12 @@ public class TelaFitroDeTreino extends AppCompatActivity implements View.OnClick
         Intent dados = getIntent();
         grupo = dados.getStringExtra("grupo");
         String fgSegundaVez = dados.getStringExtra("fgSegundaVez");
-        if("1".equals(fgSegundaVez))
-        {
+//        if("1".equals(fgSegundaVez))
+//        {
             lObj = dados.getStringArrayListExtra("listaCodigosObj");
             lNivel = dados.getStringArrayListExtra("listaCodigosNivel");
             carregarFiltrosSelecionadosAnteriormente();
-        }
+        //}
     }
 
     @Override

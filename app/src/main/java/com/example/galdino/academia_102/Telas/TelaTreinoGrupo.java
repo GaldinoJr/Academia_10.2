@@ -23,6 +23,8 @@ import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
+import com.example.galdino.academia_102.Telas.TelaExercicio.TabPrincipalExercicio;
+import com.example.galdino.academia_102.Telas.TelaTreinoPorGrupo.TabPrincipalTreinoPorGrupo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +93,8 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
                 Object o = listTreinos.getItemAtPosition(position);
                 Intent intent = new Intent();
                 // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-                intent.setClass(TelaTreinoGrupo.this, TelaTreinoExercicio.class);
+                //intent.setClass(TelaTreinoGrupo.this, TelaTreinoExercicio.class);
+                intent.setClass(TelaTreinoGrupo.this, TabPrincipalTreinoPorGrupo.class);
                 intent.putExtra("idTreino", retornarInfoTreino(position, 0));
                 intent.putExtra("nmGrupo", grupoMuscular.getNome());
                 if("1".equals(fgTelaFiltro)) // já foi para a tela de filtro?
@@ -146,11 +149,11 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         //lTreino = treino.converteEntidadeEmClasse(treino.operar(this,true, Controler.DF_CONSULTAR,treino), Treino.class);
         //if(lTreino == null)
         //return;
-        if("1".equals(fgTelaFiltro))
-        {
+//        if("1".equals(fgTelaFiltro))
+//        {
             treino.setListaCodigosObjParaBusca(listaCodigosObj);
             treino.setListaCodigosNivelParaBusca(listaCodigosNivel);
-        }
+//        }
         listEntDom = treino.operar(this,true, Controler.DF_CONSULTAR,treino);
         if(listEntDom == null)
             return null;
@@ -206,12 +209,12 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         {
             Intent intent = new Intent();
             intent.putExtra("grupo",grupo);
-            if("1".equals(fgTelaFiltro)) // já foi para a tela de filtro?
-            {
-                intent.putExtra("fgSegundaVez","1");
+//            if("1".equals(fgTelaFiltro)) // já foi para a tela de filtro?
+//            {
+//                intent.putExtra("fgSegundaVez","1");
                 intent.putStringArrayListExtra("listaCodigosObj", (ArrayList<String>) listaCodigosObj);
                 intent.putStringArrayListExtra("listaCodigosNivel", (ArrayList<String>) listaCodigosNivel);
-            }
+//            }
             intent.setClass(TelaTreinoGrupo.this, TelaFitroDeTreino.class);
             startActivity(intent); // chama a próxima tela(tela anterior)
             finish();
@@ -229,7 +232,7 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
     {
         if(listEntDomTreinos != null) {
             Treino treino = (Treino) listEntDomTreinos.get(linha);
-            treino.operar(this,true, Controler.DF_EXCLUIR,treino);
+            treino.operar(this, true, Controler.DF_EXCLUIR, treino);
         }
     }
     public String retornarInfoTreino(int linha, int coluna)
