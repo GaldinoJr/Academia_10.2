@@ -247,6 +247,8 @@ public class TelaListaExercicios extends AppCompatActivity {
         intent.setClass(TelaListaExercicios.this, TabPrincipalTreinoPorGrupo.class);
         intent.putExtra("nmTelaCorrespondente", telaAnterior);
         intent.putExtra("idTreino", idTreino);
+        intent.putExtra("nmTreino", nmTreino);
+        intent.putExtra("nmGrupo", grupoMuscular.getNome());
 //        intent.putStringArrayListExtra("exe", (ArrayList<String>) vetIDExe);
 //        Bundle b=new Bundle();
 //        b.putStringArray("exe", vetIDExe);

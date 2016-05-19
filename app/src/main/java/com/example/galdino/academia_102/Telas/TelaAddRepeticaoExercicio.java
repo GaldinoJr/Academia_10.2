@@ -27,6 +27,7 @@ import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.Dominio.TreinoExercicio;
 import com.example.galdino.academia_102.Dominio.TreinoExercicioRepeticao;
 import com.example.galdino.academia_102.R;
+import com.example.galdino.academia_102.Telas.TelaTreinoPorGrupo.TabPrincipalTreinoPorGrupo;
 
 import org.w3c.dom.Text;
 
@@ -49,6 +50,8 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
                     idTreino;
     private Session session;
     private TreinoExercicioRepeticao treinoExercicioRepeticao;
+    private ArrayList<String> listaCodigosObj;
+    private ArrayList<String> listaCodigosNivel;
     //private ArrayList<String> results;
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Inflate the menu; this adds items to the action bar if it is present.
@@ -95,6 +98,8 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
         idLinha = dados.getIntExtra("linha", 0);
         idExercicio = dados.getIntExtra("idExercicio", 0);
         txtNomeGrupoExercicio.setText(nmGrupo + "/" + nmExercicio);
+        listaCodigosObj = dados.getStringArrayListExtra("listaCodigosObj");
+        listaCodigosNivel = dados.getStringArrayListExtra("listaCodigosNivel");
         //
         carregarIDTreinoExercicio();
         //
@@ -221,9 +226,13 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
     {
         Intent intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e dpois a próxima tela( a que vai ser chamada)
-        intent.setClass(TelaAddRepeticaoExercicio.this, TelaTreinoExercicio.class);
-        intent.putExtra("nomeTreino", nmTreino);
+        //intent.setClass(TelaAddRepeticaoExercicio.this, TelaTreinoExercicio.class);
+        intent.setClass(TelaAddRepeticaoExercicio.this, TabPrincipalTreinoPorGrupo.class);
+        intent.putExtra("nmTreino", nmTreino);
+        intent.putExtra("nmGrupo", nmGrupo);
         intent.putExtra("idTreino", String.valueOf(idTreino));
+        intent.putStringArrayListExtra("listaCodigosObj", (ArrayList<String>) listaCodigosObj);
+        intent.putStringArrayListExtra("listaCodigosNivel", (ArrayList<String>) listaCodigosNivel);
         startActivity(intent); // chama a próxima tela(tela anterior)
         finish();
     }

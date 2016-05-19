@@ -97,11 +97,12 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
                 intent.setClass(TelaTreinoGrupo.this, TabPrincipalTreinoPorGrupo.class);
                 intent.putExtra("idTreino", retornarInfoTreino(position, 0));
                 intent.putExtra("nmGrupo", grupoMuscular.getNome());
-                if("1".equals(fgTelaFiltro)) // já foi para a tela de filtro?
-                {
+                intent.putExtra("nmTreino", retornarInfoTreino(position, 1));
+//                if("1".equals(fgTelaFiltro)) // já foi para a tela de filtro?
+//                {
                     intent.putStringArrayListExtra("listaCodigosObj", (ArrayList<String>) listaCodigosObj);
                     intent.putStringArrayListExtra("listaCodigosNivel", (ArrayList<String>) listaCodigosNivel);
-                }
+                //}
                 startActivity(intent); // chama a próxima tela
                 finish();
 

@@ -212,21 +212,21 @@ public class TelaTreinoExercicio extends AppCompatActivity {
             }
         }
     }
-    public void BtnAddRepeticaoExercicio(View v)
-    {
-        int linha = (Integer) v.getTag();
-        Intent intent = new Intent();
-        intent.setClass(this, TelaAddRepeticaoExercicio.class);
-        intent.putExtra("linha", linha);
-        intent.putExtra("nomeTreino", treino.getNome());
-        intent.putExtra("nomeExercicio", retornarInfoExercicioNaList.getNome(linha));
-        intent.putExtra("idExercicio",Integer.parseInt(retornarInfoExercicioNaList.getId(linha)));
-        //intent.putExtra("nomeGrupo", descobrirGrupo(retornarInfoExercicioNaList.getIdGrupo(linha)));
-        intent.putExtra("nomeGrupo",grupoMuscular.getNome());
-        intent.putExtra("idTreino", Integer.parseInt(idTreino));
-        startActivity(intent);
-        finish();
-    }
+//    public void BtnAddRepeticaoExercicio(View v)
+//    {
+//        int linha = (Integer) v.getTag();
+//        Intent intent = new Intent();
+//        intent.setClass(this, TelaAddRepeticaoExercicio.class);
+//        intent.putExtra("linha", linha);
+//        intent.putExtra("nomeTreino", treino.getNome());
+//        intent.putExtra("nomeExercicio", retornarInfoExercicioNaList.getNome(linha));
+//        intent.putExtra("idExercicio",Integer.parseInt(retornarInfoExercicioNaList.getId(linha)));
+//        //intent.putExtra("nomeGrupo", descobrirGrupo(retornarInfoExercicioNaList.getIdGrupo(linha)));
+//        intent.putExtra("nomeGrupo",grupoMuscular.getNome());
+//        intent.putExtra("idTreino", Integer.parseInt(idTreino));
+//        startActivity(intent);
+//        finish();
+//    }
     private int carregarTreino()
     {
         List<EntidadeDominio> listEntDom;
