@@ -15,7 +15,7 @@ import com.example.galdino.academia_102.R;
 public class FragTab1Descricao extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.tab_1, container, false);
+        View v = inflater.inflate(R.layout.tab2treino_descricao, container, false);
         return v;
     }
 }
