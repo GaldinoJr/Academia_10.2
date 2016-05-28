@@ -10,7 +10,8 @@
         android:id="@+id/scrolDescricaoTreino"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+    >
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
@@ -19,59 +20,117 @@
             android:background="@color/corActionBarPretoEscuro"
         >
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/imageView2"
-                android:src="@drawable/foto_arnold"
-                android:scaleType="centerCrop"
-             />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/llObjetivo"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
+            android:id="@+id/llFoto"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@color/corActionBarPretoEscuro"
             >
-            <ImageView
+            <!--a conta dos cantos é feita, metade aqui metade no strock do fundo_image_view_cantos_arrendondados-->
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_obj_2"
+                android:layout_height="250dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="6dp"
+                    android:src="@drawable/foto_arnold"
+                    android:scaleType="centerCrop"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="-1dp"
             />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Objetivo"
-                    android:textColor="@color/corTextoBranco"
-                    android:textSize="15dp"
-                    android:layout_marginLeft="10dp"
-                />
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Força"
-                android:textColor="@color/corTextoBranco"
-                android:textSize="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                />
+
+            <ImageView
+                android:src="@drawable/fundo_image_view_cantos_arrendondados"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+        </LinearLayout>
+        <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="250dp"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:id="@+id/imageView2"-->
+                <!--android:src="@drawable/foto_arnold"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--/>-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/llObjetivo"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:background="@drawable/fundo_canto_arredondado_cinza"
+            >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_obj_2"
+                        android:id="@+id/icObj"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                    />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Objetivo"
+                        android:textColor="@color/corTextoBranco"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/icObj"
+                    />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Força"
+                        android:textColor="@color/corTextoBranco"
+                        android:textSize="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="40dp"
+                        android:layout_centerVertical="true"
+                    />
+
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:id="@+id/llNivel"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal"
+                android:background="@drawable/fundo_canto_arredondado_cinza"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
                 >
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_level_1"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/ic_nivel"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -79,49 +138,71 @@
                     android:text="Nível"
                     android:textColor="@color/corTextoBranco"
                     android:textSize="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/ic_nivel"
                     android:layout_marginLeft="10dp"
                     />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Avançado"
+                        android:textColor="@color/corTextoBranco"
+                        android:textSize="15dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="40dp"
+                        />
+                </RelativeLayout>
             </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Avançado"
-                android:textColor="@color/corTextoBranco"
-                android:textSize="15dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-            />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/llDescricao"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
+                android:background="@drawable/fundo_canto_arredondado_cinza"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
                 >
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_descricao_2"
-                    />
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/ic_descricao"
+                    android:layout_alignParentLeft="true"
+                />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Descriçao"
                     android:textColor="@color/corTextoBranco"
                     android:textSize="15dp"
+                    android:layout_toRightOf="@+id/ic_descricao"
                     android:layout_marginLeft="10dp"
-                    />
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Esse treino de peito foi publicado na Revista Flex por Arnold Schwarzenegger como um dos programas de treino que ele fez na preparação do Mister Olímpia. Como o volume de treino e muito alto, essa série de peito só deve ser feito uma vez por semana."
-                android:textColor="@color/corTextoBranco"
-                android:textSize="15dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
+                    android:layout_marginTop="10dp"
                 />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Esse treino de peito foi publicado na Revista Flex por Arnold Schwarzenegger como um dos programas de treino que ele fez na preparação do Mister Olímpia. Como o volume de treino e muito alto, essa série de peito só deve ser feito uma vez por semana."
+                    android:textColor="@color/corTextoBranco"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_below="@id/ic_descricao"
+                    />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
