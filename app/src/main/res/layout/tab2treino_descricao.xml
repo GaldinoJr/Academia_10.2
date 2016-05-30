@@ -39,22 +39,23 @@
                 android:layout_height="250dp">
 
                 <ImageView
+                    android:id="@+id/imgTreino"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="6dp"
-                    android:src="@drawable/foto_arnold"
+                    android:src="@drawable/img_no_picture"
                     android:scaleType="centerCrop"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
                     android:layout_marginBottom="-1dp"
-            />
+                 />
 
-            <ImageView
-                android:src="@drawable/fundo_image_view_cantos_arrendondados"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </FrameLayout>
+                <ImageView
+                    android:src="@drawable/fundo_image_view_cantos_arrendondados"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                />
+            </FrameLayout>
         </LinearLayout>
         <!--<ImageView-->
                 <!--android:layout_width="match_parent"-->
@@ -98,9 +99,10 @@
                         android:layout_toRightOf="@+id/icObj"
                     />
                     <TextView
+                        android:id="@+id/txtObjTreino"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Força"
+                        android:text="Sem informação"
                         android:textColor="@color/corTextoBranco"
                         android:textSize="15dp"
                         android:layout_alignParentRight="true"
@@ -144,9 +146,10 @@
                     />
 
                     <TextView
+                        android:id="@+id/txtNivelTreino"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Avançado"
+                        android:text="Sem informação"
                         android:textColor="@color/corTextoBranco"
                         android:textSize="15dp"
                         android:layout_centerVertical="true"
@@ -190,9 +193,10 @@
                     android:layout_marginTop="10dp"
                 />
                 <TextView
+                    android:id="@+id/txtDescricaoTreino"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Esse treino de peito foi publicado na Revista Flex por Arnold Schwarzenegger como um dos programas de treino que ele fez na preparação do Mister Olímpia. Como o volume de treino e muito alto, essa série de peito só deve ser feito uma vez por semana."
+                    android:text="Sem informação"
                     android:textColor="@color/corTextoBranco"
                     android:textSize="15dp"
                     android:layout_marginLeft="10dp"

@@ -32,8 +32,9 @@ public class SQLtreino extends AbsSQL{
 	// Intermediario - 1
 	// Avançado 	 - 2
 	private static final String Col_ind_nivel = "ind_nivel";
-	private static final String[] colunas = {Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel};
-	private static final String[] colunasBusca = {Col_cd_treino,Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel};
+	private static final String Col_ds_nome_foto = "ds_nome_foto";
+	private static final String[] colunas = {Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel,Col_ds_nome_foto};
+	private static final String[] colunasBusca = {Col_cd_treino,Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel,Col_ds_nome_foto};
 	private SQL db;
 	private Context context;
 	private Treino treino;
@@ -49,7 +50,8 @@ public class SQLtreino extends AbsSQL{
 				Col_fg_carga + " INTEGER, " +
 				Col_cd_grupo + " INTEGER, " +
 				Col_ind_tipo_treino + " INTEGER, " +
-				Col_ind_nivel + " INTEGER )";
+				Col_ind_nivel + " INTEGER, " +
+				Col_ds_nome_foto + " TEXT )";
 	}
 	
 	public SQLtreino(Context context){
@@ -73,6 +75,7 @@ public class SQLtreino extends AbsSQL{
 			mapSql.put(Col_cd_grupo, String.valueOf(treino.getIdGrupo()));
 			mapSql.put(Col_ind_tipo_treino, String.valueOf(treino.getIndTipoTreino()));
 			mapSql.put(Col_ind_nivel, String.valueOf(treino.getIndNivel()));
+			mapSql.put(Col_ds_nome_foto, String.valueOf(treino.getDsNomeFoto()));
 
 			long id = db.addRegistro(mapSql);
 			//db.close();
@@ -136,6 +139,7 @@ public class SQLtreino extends AbsSQL{
 					t.setIndTipoTreino(Integer.parseInt(listMapSql.get(i).get(colunasBusca[5])));
 				if(listMapSql.get(i).get(colunasBusca[6]) != null && !listMapSql.get(i).get(colunasBusca[6]).equals("null"))
 					t.setIndNivel(Integer.parseInt(listMapSql.get(i).get(colunasBusca[6])));
+				t.setDsNomeFoto(listMapSql.get(i).get(colunasBusca[7]));
 				listSql.add(t);
 			}
 			if(listSql.size() > 0)
@@ -170,6 +174,9 @@ public class SQLtreino extends AbsSQL{
 		String codigosIndNivel = montarClausulaComList(t.getListaCodigosNivelParaBusca());
 		if (codigosIndNivel != null)
 			clausula += " AND " + Col_ind_nivel + " IN (" +codigosIndNivel + ")";
+
+		if (t.getDsNomeFoto() != null)
+			clausula += " AND " + Col_ds_nome_foto + "= '" + t.getDsNomeFoto() + "'";
 
 		return clausula;
 	}

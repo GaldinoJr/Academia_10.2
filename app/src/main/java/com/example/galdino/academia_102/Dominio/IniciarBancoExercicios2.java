@@ -126,6 +126,11 @@ public class IniciarBancoExercicios2 {
                     // Exercícios
                     String exercicios = treinoCarga[4];
                     String[] exerciciosSeparados = exercicios.split("@");
+                    // Caminho da foto
+                    String nmFoto = null;
+                    nmFoto = "foto_" + g.getNome() + "_" + nomeTreino;
+                    nmFoto = nmFoto.toLowerCase();
+                    treino.setDsNomeFoto(nmFoto);
 
                     treino.setIdGrupo(Integer.parseInt(g.getID()));
                     treino.setFgCarga(1); // Indica que o treino veio através de carga.
