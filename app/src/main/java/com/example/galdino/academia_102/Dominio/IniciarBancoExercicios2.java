@@ -99,7 +99,7 @@ public class IniciarBancoExercicios2 {
             //*******************************************************************************************************
             GrupoMuscular g = (GrupoMuscular)entDom;
             String nomeGrupo = g.getNome();
-            for(int i = 0; i < 4; i++)
+            for(int i = 0; i < 5; i++)
             {
                 int indice = i+1;
                 String doc = "Treino" + indice;
@@ -130,6 +130,7 @@ public class IniciarBancoExercicios2 {
                     String nmFoto = null;
                     nmFoto = "foto_" + g.getNome() + "_" + nomeTreino;
                     nmFoto = nmFoto.toLowerCase();
+                    nmFoto = nmFoto.replace(" ", "_");
                     treino.setDsNomeFoto(nmFoto);
 
                     treino.setIdGrupo(Integer.parseInt(g.getID()));
