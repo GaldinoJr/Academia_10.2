@@ -10,9 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.galdino.academia_102.Controler.Controler;
+import com.example.galdino.academia_102.Dominio.Abas.ClsTabTreinoPorGrupo;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
-import com.example.galdino.academia_102.Dominio.GrupoMuscular;
-import com.example.galdino.academia_102.Dominio.RetornarInfoExercicioNaList;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.SlidingTab.SlidingTabLayout;
@@ -24,18 +23,18 @@ import java.util.List;
 
 public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
     // Variáveis do slide tab
-    Toolbar toolbar;
-    ViewPager pager;
-    ViewPagerAdapterPadrao adapter;
-    SlidingTabLayout tabs;
-    CharSequence Titles[] = {"Descrição", "Exercícios"};
+    private Toolbar toolbar;
+    private ViewPager pager;
+    private ViewPagerAdapterPadrao adapter;
+    private SlidingTabLayout tabs;
+    private CharSequence Titles[] = {"Descrição", "Exercícios"};
     private int[] icones = {
             -1,
             -1
     };
     private int nrAbas = 2;
-    FragTab1Descricao aba1 = new FragTab1Descricao();
-    FragTab2Exercicios aba2 = new FragTab2Exercicios();
+    private FragTab1Descricao aba1 = new FragTab1Descricao();
+    private FragTab2Exercicios aba2 = new FragTab2Exercicios();
 
     private android.support.v4.app.Fragment[] abas = {
             aba1,
@@ -44,10 +43,10 @@ public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
     //
     private ArrayList<String> listaCodigosObj;
     private ArrayList<String> listaCodigosNivel;
-    private android.support.v4.app.Fragment teste;
     private String nomeTreino,
                     nomeGrupo,
                     idTreino;
+    private Treino treino;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +55,6 @@ public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         TextView txtTituloToolbarPadrao = (TextView) findViewById(R.id.txtTituloToolbarPadrao);
-
         Intent dados = getIntent();
         // Recebe os dados da tela anterior
         listaCodigosObj = dados.getStringArrayListExtra("listaCodigosObj");
@@ -66,8 +64,13 @@ public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
         idTreino = dados.getStringExtra("idTreino");
         txtTituloToolbarPadrao.setText(nomeTreino);
         //
+        if(carregarTreino() == -1)
+        {
+            Toast.makeText(this, "ERRO: Treino não encontrado.", Toast.LENGTH_LONG).show();
+            return;
+        }
+        //
         adapter = new ViewPagerAdapterPadrao(this, getSupportFragmentManager(), Titles, nrAbas, icones, abas);
-
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
@@ -76,7 +79,6 @@ public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
         tabs.setCustomTabView(R.layout.custom_tab_view, R.id.tabText);
-        //tabs.setCustomTabView(R.layout.custom_tab_view, 0);
         // Setting Custom Color for the Scroll bar indicator of the Tab View
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
@@ -112,6 +114,24 @@ public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
         }
 
     }
+
+    private int carregarTreino()
+    {
+        List<EntidadeDominio> listEntDom;
+        treino = new Treino();
+        treino.setID(idTreino);
+        listEntDom = treino.operar(this, true, Controler.DF_CONSULTAR, treino);
+        if(listEntDom != null)
+        {
+            ClsTabTreinoPorGrupo tabTreinoPorGrupo = ClsTabTreinoPorGrupo.getInstance();
+            treino = (Treino)listEntDom.get(0);
+            tabTreinoPorGrupo.setTreino(treino);
+            return 0;
+        }
+        else
+            return -1;
+    }
+
     public void onBackPressed() // voltar?
     {
         Intent intent = new Intent();

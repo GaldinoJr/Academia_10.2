@@ -110,21 +110,21 @@ public class IniciarBancoExercicios2 {
                     Treino treino = new Treino();
                     String[] treinoCarga = exerciciosJuntos.split("&");
                     // Primeiro pega o nome
-                    String nomeTreino = treinoCarga[0];
+                    String nomeTreino = treinoCarga[1];
                     treino.setNome(nomeTreino);
                     // Tipo
-                    String tipoTreino = treinoCarga[1];
+                    String tipoTreino = treinoCarga[2];
                     if(tipoTreino != null || tipoTreino != "")
                         treino.setIndTipoTreino(Integer.parseInt(tipoTreino));
                     // Nível
-                    String nivelTreino = treinoCarga[2];
+                    String nivelTreino = treinoCarga[3];
                     if(nivelTreino != null || nivelTreino != "")
                         treino.setIndNivel(Integer.parseInt(nivelTreino));
                     // Descrição
-                    String descricao = treinoCarga[3];
+                    String descricao = treinoCarga[4];
                     treino.setDescricao(descricao);
                     // Exercícios
-                    String exercicios = treinoCarga[4];
+                    String exercicios = treinoCarga[5];
                     String[] exerciciosSeparados = exercicios.split("@");
                     // Caminho da foto
                     String nmFoto = null;

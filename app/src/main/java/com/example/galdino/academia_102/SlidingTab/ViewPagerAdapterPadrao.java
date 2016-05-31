@@ -17,7 +17,7 @@ public class ViewPagerAdapterPadrao extends FragmentStatePagerAdapter {
     private int nrAbas; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
     private Context mContext;
     private int[] icones;
-    Fragment[] fragments;
+    private Fragment[] fragments;
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
     public ViewPagerAdapterPadrao(Context mContext, FragmentManager fm, CharSequence titulos[], int nrAbas, int[] icones, Fragment[] fragments)

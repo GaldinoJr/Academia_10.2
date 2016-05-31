@@ -10,14 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.galdino.academia_102.BaseAdapter.ExercicioBaseAdapter;
 import com.example.galdino.academia_102.Controler.Controler;
+import com.example.galdino.academia_102.Dominio.Abas.ClsTabTreinoPorGrupo;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Exercicio;
 import com.example.galdino.academia_102.Dominio.GrupoMuscular;
@@ -52,12 +50,11 @@ public class FragTab2Exercicios extends Fragment
     private GrupoMuscular grupoMuscular;
     private ArrayList<String> listaCodigosObj;
     private ArrayList<String> listaCodigosNivel;
-
+    private ClsTabTreinoPorGrupo tabTreinoPorGrupo = ClsTabTreinoPorGrupo.getInstance();
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.content_tela_treino_exercicio,container,false);
         // associa os objetos da tela
-        //lblNmTreino = (TextView)v.findViewById(R.id.lblNmTreino);
         lvTreinoExercicio = (ListView)v.findViewById(R.id.lvTreinoExercicio);
         fBtnAddEx = (FloatingActionButton)v.findViewById(R.id.fBtnAddExercicio
                 // FLOAT BUTTON
@@ -74,11 +71,7 @@ public class FragTab2Exercicios extends Fragment
         idTreino = dados.getStringExtra("idTreino");
         listaCodigosObj = dados.getStringArrayListExtra("listaCodigosObj");
         listaCodigosNivel = dados.getStringArrayListExtra("listaCodigosNivel");
-        if(carregarTreino() == -1)
-        {
-            Toast.makeText(getContext(), "ERRO: Treino não encontrado.", Toast.LENGTH_LONG).show();
-            //return;
-        }
+        treino = tabTreinoPorGrupo.getTreino();
         if(carregarGrupoMuscular() == -1)
         {
             Toast.makeText(getContext(),"ERRO: Grupo muscular não encontrado.",Toast.LENGTH_LONG).show();
@@ -86,8 +79,6 @@ public class FragTab2Exercicios extends Fragment
         }
         if(treino.getFgCarga() == 1)
             fBtnAddEx.setVisibility(View.INVISIBLE);
-        //
-        //lblNmTreino.setText(treino.getNome());
         // Carregar a lista de exercício com os exercícios do treino correspondente
         atualizarListExercicio();
         // monta a lista
@@ -192,20 +183,7 @@ public class FragTab2Exercicios extends Fragment
             retornarInfoExercicioNaList = new RetornarInfoExercicioNaList(listEntDomExercicio);
         }
     }
-    private int carregarTreino()
-    {
-        List<EntidadeDominio> listEntDom;
-        treino = new Treino();
-        treino.setID(idTreino);
-        listEntDom = treino.operar(getContext(),true,Controler.DF_CONSULTAR,treino);
-        if(listEntDom != null)
-        {
-            treino = (Treino)listEntDom.get(0);
-            return 0;
-        }
-        else
-            return -1;
-    }
+
     private int carregarGrupoMuscular()
     {
         List<EntidadeDominio> listEntDom;
@@ -237,7 +215,7 @@ public class FragTab2Exercicios extends Fragment
     }
     public void BtnExcluirExercicioTreino_fragment(View v)
     {
-        String teste = idTreino;
+//        String teste = idTreino;
 //        switch (v.getId())
 //        {
 //            case R.id.telaTreinoExercicio:
