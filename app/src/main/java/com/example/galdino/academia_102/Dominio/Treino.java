@@ -14,7 +14,7 @@ public class Treino extends EntidadeDominio
 	public static final String DF_CD_NIVEL_INICIANTE 	= "0";
 	public static final String DF_CD_NIVEL_INTERMEDIARIO= "1";
 	public static final String DF_CD_NIVEL_AVANCADO 	= "2";
-	public static final String getDescricaoNivel(int indNivel)
+	public static final String getDescricaoNivel(Integer indNivel)
 	{
 		String dsNivel = null;
 		switch (String.valueOf(indNivel))
@@ -29,12 +29,12 @@ public class Treino extends EntidadeDominio
 				dsNivel = "Avançado";
 				break;
 			default:
-				dsNivel = "N/A";
+				dsNivel = null;
 				break;
 		}
 		return dsNivel;
 	}
-	public  static final String getDescricaoObjetivo(int indObj)
+	public  static final String getDescricaoObjetivo(Integer indObj)
 	{
 		String dsNivel = null;
 		switch (String.valueOf(indObj))
@@ -52,7 +52,7 @@ public class Treino extends EntidadeDominio
 				dsNivel = "Resistência";
 				break;
 			default:
-				dsNivel = "N/A";
+				dsNivel = null;
 				break;
 		}
 		return dsNivel;

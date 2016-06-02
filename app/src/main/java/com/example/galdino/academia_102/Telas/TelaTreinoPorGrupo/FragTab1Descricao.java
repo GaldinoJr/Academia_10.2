@@ -43,13 +43,18 @@ public class FragTab1Descricao extends Fragment
     private void carregarInformacoesNaTela()
     {
         int indiceFoto = -1;
-        if(treino.getDsNomeFoto() != null)
+        if(treino.getDsNomeFoto() != null && (!treino.getDsNomeFoto().equals("null")))
             indiceFoto = getContext().getResources().getIdentifier(treino.getDsNomeFoto(), "drawable", getContext().getPackageName());
         if(indiceFoto > 0) // debugar quando der merda para ver como fazer o if
             imgTreino.setImageResource(indiceFoto);
+
         String dsObjTreino = Treino.getDescricaoObjetivo(treino.getIndTipoTreino());
+
         String dsNivel = Treino.getDescricaoNivel(treino.getIndNivel());
-        String dsTreino = treino.getDescricao();
+
+        String dsTreino = null;
+        if(!treino.getDescricao().equals("null"))
+            dsTreino = treino.getDescricao();
         //
         if( dsObjTreino != null && (!dsObjTreino.equals("")))
             txtObjTreino.setText(dsObjTreino);
