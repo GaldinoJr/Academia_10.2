@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -43,12 +44,26 @@ public class FragTabExeExercicio extends Fragment
         nmExercicio = dados.getStringExtra("nmExercicio");
         nmGrupo = dados.getStringExtra("nmGrupo");
         // Define o caminho do gif
-        CaminhoGif = "file:///android_asset/" + nmGrupo +"/"+ nmGifExercicio + ".gif";
+        //CaminhoGif = "file:///android_asset/" + nmGrupo +"/"+ nmGifExercicio + ".gif";
+        //wvExercicio.loadUrl(CaminhoGif);
+        CaminhoGif = "file:///android_asset/" + nmGrupo + "/";
+        String nmGif = nmGifExercicio + ".gif";
 
         // Devolve os conteudos
         txtNomeExe.setText(nmExercicio);
-        wvExercicio.loadUrl(CaminhoGif);
-        //
+        // CENTRALIZA A ANIMAÇÃO
+        wvExercicio.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        wvExercicio.loadDataWithBaseURL(CaminhoGif, "<html>\n" +
+                "<body bgcolor=\"white\">\n" +
+                "    <table width=\"100%\" height=\"100%\">\n" +
+                "        <tr>\n" +
+                "            <td align=\"center\" valign=\"center\">\n" +
+                "                <img src=\"" + nmGif + "\">\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "    </table>\n" +
+                "</body>", "text/html", "utf-8", "");
+
         Documento documento = new Documento(getContext());
 
         aux = documento.carregarArquivoTxt(nmGrupo, nmGifExercicio, "Descr");

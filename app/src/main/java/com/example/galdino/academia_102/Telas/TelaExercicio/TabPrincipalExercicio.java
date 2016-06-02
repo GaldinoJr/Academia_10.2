@@ -50,7 +50,8 @@ public class TabPrincipalExercicio  extends ActionBarActivity {
         TextView txtTituloToolbarPadrao = (TextView)findViewById(R.id.txtTituloToolbarPadrao);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar.setTitle("");
-        txtTituloToolbarPadrao.setText(dados.getStringExtra("nmExercicio"));
+        //txtTituloToolbarPadrao.setText(dados.getStringExtra("nmExercicio"));
+        txtTituloToolbarPadrao.setText("How to Train");
         setSupportActionBar(toolbar);
         //
 

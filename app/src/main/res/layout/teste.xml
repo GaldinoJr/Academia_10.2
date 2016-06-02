@@ -36,29 +36,20 @@
                 <!--a conta dos cantos é feita, metade aqui metade no strock do fundo_image_view_cantos_arrendondados-->
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:background="@color/corActionBarPretoEscuro"
-                    >
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#FFFFFF"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_marginBottom="4dp">
+                    android:layout_height="250dp">
+
                     <WebView
                         android:id="@+id/wvExercicio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
+                        android:layout_below="@+id/Divisor1"
                         android:padding="6dp"
                         android:layout_marginLeft="3dp"
                         android:layout_marginRight="3dp"
                         android:layout_marginBottom="-1dp"
                         />
-                    </RelativeLayout>
+
 
                     <ImageView
                         android:src="@drawable/fundo_image_view_cantos_arrendondados"
