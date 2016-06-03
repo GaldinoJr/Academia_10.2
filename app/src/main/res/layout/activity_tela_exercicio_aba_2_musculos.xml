@@ -1,61 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/musculos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/Musculos"
-    />
-
-    <TextView
-        android:id="@+id/primario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/musculos"
-        android:layout_marginTop="2dp"
-        android:layout_below="@+id/musculos"
-        android:text="@string/primario"
-        android:textStyle="italic"
-    />
-
-    <TextView
-        android:id="@+id/txtPrimario2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/primario"
-        android:layout_alignLeft="@+id/musculos"
-        android:text="@string/noInfo" />
-
-    <TextView
-        android:id="@+id/secundario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPrimario2"
-        android:layout_alignLeft="@+id/musculos"
-        android:text="@string/secundario"
-        android:textStyle="italic"
-        />
-
-
+    android:layout_height="match_parent"
+    android:background="@color/corActionBarPretoEscuro"
+    >
     <ScrollView
-        android:id="@+id/scrollMusSec"
+        android:id="@+id/scrolDescricaoTreino"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/secundario"
-        android:layout_alignLeft="@+id/musculos"
-        android:layout_weight="1" >
-        <TextView
-            android:id="@+id/txtSecundario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/noInfo" />
-    </ScrollView>
+        android:layout_weight="1"
+        >
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/corActionBarPretoEscuro"
+            >
 
-</RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/llFoto"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@color/corActionBarPretoEscuro"
+                >
+                <!--a conta dos cantos é feita, metade aqui metade no strock do fundo_image_view_cantos_arrendondados-->
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp">
+
+                    <ImageView
+                        android:id="@+id/imgTreino"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="6dp"
+                        android:src="@drawable/musculo_teste"
+                        android:scaleType="centerCrop"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginBottom="-1dp"
+                        />
+
+                    <ImageView
+                        android:src="@drawable/fundo_image_view_cantos_arrendondados"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+                </FrameLayout>
+            </LinearLayout>
+            <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="250dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:id="@+id/imageView2"-->
+            <!--android:src="@drawable/foto_arnold"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--/>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/llObjetivo"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:background="@drawable/fundo_canto_arredondado_cinza"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txtDescriExe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:text="Músculos"
+                        android:textSize="@dimen/tamanho20"
+                        android:textColor="@color/corTextoBranco"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sem informação"
+                        android:textColor="@color/corTextoBranco"
+                        android:textSize="15dp"
+                        android:visibility="invisible"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="40dp"
+                        android:layout_centerVertical="true"
+                        />
+
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/llPrimario"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:background="@drawable/fundo_canto_arredondado_cinza"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_descricao_2"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/ic_descricao_primario"
+                        android:layout_alignParentLeft="true"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Primário"
+                        android:textColor="@color/corTextoBranco"
+                        android:textSize="15dp"
+                        android:layout_toRightOf="@+id/ic_descricao_primario"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        />
+                    <TextView
+                        android:id="@+id/txtPrimario2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sem informação"
+                        android:textColor="@color/corTextoBranco"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@id/ic_descricao_primario"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/llSecundario"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:background="@drawable/fundo_canto_arredondado_cinza"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_descricao_2"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/ic_descricao"
+                        android:layout_alignParentLeft="true"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Secundário"
+                        android:textColor="@color/corTextoBranco"
+                        android:textSize="15dp"
+                        android:layout_toRightOf="@+id/ic_descricao"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        />
+                    <TextView
+                        android:id="@+id/txtSecundario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sem informação"
+                        android:textColor="@color/corTextoBranco"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@id/ic_descricao"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
