@@ -36,6 +36,7 @@ public class ViewAnimator<T extends Resourceble> {
 
 
     public ViewAnimator(Activity activity, List<T> items,ScreenShotable screenShotable, final DrawerLayout drawerLayout, ViewAnimatorListener animatorListener){
+    //public ViewAnimator(Activity activity, List<T> items, final DrawerLayout drawerLayout, ViewAnimatorListener animatorListener){
         this.activity = activity;
         this.list = items;
         this.screenShotable = screenShotable;
@@ -91,7 +92,7 @@ public class ViewAnimator<T extends Resourceble> {
                         animateView((int) position);
                     }
                     if (position == viewList.size() - 1) {
-                        screenShotable.takeScreenShot();
+                        //screenShotable.takeScreenShot();
                         setViewsClickable(true);
                     }                }
             }, (long) delay);
@@ -213,6 +214,7 @@ public class ViewAnimator<T extends Resourceble> {
     }
 
     private void switchItem(Resourceble slideMenuItem, int topPosition) {
+        //this.screenShotable = animatorListener.onSwitch(slideMenuItem, screenShotable, topPosition);
         this.screenShotable = animatorListener.onSwitch(slideMenuItem, screenShotable, topPosition);
         hideMenuContent();
     }
