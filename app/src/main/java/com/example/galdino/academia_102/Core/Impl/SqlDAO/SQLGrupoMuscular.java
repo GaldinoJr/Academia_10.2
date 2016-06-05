@@ -17,9 +17,9 @@ import java.util.Map;
 public class SQLGrupoMuscular extends AbsSQL{
 	private static final String Col_cd_grupo = "cd_grupo";
 	private static final String Col_ds_grupo = "ds_grupo";
-	private static final String[] colunas = {Col_ds_grupo};
+	//private static final String[] colunas = {Col_ds_grupo};
 	private static final String[] colunasBusca = {Col_cd_grupo,Col_ds_grupo};
-	private SQL db;
+	//private SQL db;
 	
 	//private Map<String, String> mapGrupo;
 	private String sId;
@@ -34,29 +34,20 @@ public class SQLGrupoMuscular extends AbsSQL{
 				Col_ds_grupo + " TEXT )";
 	}
 
+	@Override
+	public void criarColunas()
+	{
+		colunas = new LinkedList<String>();
+		colunas.add(Col_ds_grupo);
+	}
+
 	public SQLGrupoMuscular(Context context){
 		iniciar();
 		//db  = new SQL(context, DATABASE_NAME, nm_tabela,colunas, sqlCriarTabela ); // GANHO DE PERFORMANCE NO CÓDIGO ORIGINAL
 		db  = SQL.getInstance(context, DATABASE_NAME );
+		criarColunas();
 		db.popularInfo(nomeTabela, colunas, sqlCriarTabela);
 	}
-
-	
-//	public GrupoMuscular pesquisarGrupo(int id)
-//	{
-//		String[] colunasBusca = {Col_cd_grupo, Col_ds_grupo};
-//		sId = String.valueOf(id);
-//		Map<String, String> mapDados = new HashMap<String, String>();
-//		mapDados = db.buscarRegistro(Col_cd_grupo,sId, colunasBusca);
-//		GrupoMuscular grupoMuscular = new GrupoMuscular();
-//		if(mapDados == null) // não encontrou o grupo?
-//			return grupoMuscular = null; // retorna indicando que o grupo não foi encontrado
-//
-//		grupoMuscular.setID(mapDados.get(Col_cd_grupo));
-//		grupoMuscular.setNome(mapDados.get(Col_ds_grupo));
-//	    return grupoMuscular;
-//
-//	}
 
 	@Override
 	public EntidadeDominio salvar(EntidadeDominio entidade) {
@@ -65,6 +56,7 @@ public class SQLGrupoMuscular extends AbsSQL{
 			mapSql = new HashMap<String, String>();
 			
 			mapSql.put(Col_ds_grupo, grupoMuscular.getNome());
+			removeCamposVazios();
 			long id = db.addRegistro(mapSql);
 			//db.close();
 			grupoMuscular.setID(String.valueOf(id));

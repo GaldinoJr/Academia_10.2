@@ -52,9 +52,7 @@ public class FragTab1Descricao extends Fragment
 
         String dsNivel = Treino.getDescricaoNivel(treino.getIndNivel());
 
-        String dsTreino = null;
-        if(!treino.getDescricao().equals("null"))
-            dsTreino = treino.getDescricao();
+        String dsTreino = treino.getDescricao();
         //
         if( dsObjTreino != null && (!dsObjTreino.equals("")))
             txtObjTreino.setText(dsObjTreino);

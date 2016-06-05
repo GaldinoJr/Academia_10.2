@@ -33,9 +33,10 @@ public class SQLtreino extends AbsSQL{
 	// Avançado 	 - 2
 	private static final String Col_ind_nivel = "ind_nivel";
 	private static final String Col_ds_nome_foto = "ds_nome_foto";
-	private static final String[] colunas = {Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel,Col_ds_nome_foto};
+	//private static final String[] colunas = {Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel,Col_ds_nome_foto};
+	//private static final List<String> colunas1 = new {Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel,Col_ds_nome_foto};
 	private static final String[] colunasBusca = {Col_cd_treino,Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel,Col_ds_nome_foto};
-	private SQL db;
+
 	private Context context;
 	private Treino treino;
 
@@ -53,12 +54,26 @@ public class SQLtreino extends AbsSQL{
 				Col_ind_nivel + " INTEGER, " +
 				Col_ds_nome_foto + " TEXT )";
 	}
-	
+
+	@Override
+	public void criarColunas()
+	{
+		colunas = new LinkedList<String>();
+		colunas = new LinkedList<String>();
+		colunas.add(Col_ds_nome);
+		colunas.add(Col_ds_treino);
+		colunas.add(Col_fg_carga);
+		colunas.add(Col_cd_grupo);
+		colunas.add(Col_ind_tipo_treino);
+		colunas.add(Col_ind_nivel);
+		colunas.add(Col_ds_nome_foto);
+	}
 	public SQLtreino(Context context){
 		iniciar();
 		this.context = context;
 		//db  = new SQL(context, DATABASE_NAME, nomeTabela, colunas, sqlCriarTabela ); // GANHO DE PERFORMANCE NO CÓDIGO ORIGINAL
 		db  = SQL.getInstance(context, DATABASE_NAME );
+		criarColunas();
 		db.popularInfo(nomeTabela, colunas, sqlCriarTabela);
 	}
 
@@ -76,7 +91,7 @@ public class SQLtreino extends AbsSQL{
 			mapSql.put(Col_ind_tipo_treino, String.valueOf(treino.getIndTipoTreino()));
 			mapSql.put(Col_ind_nivel, String.valueOf(treino.getIndNivel()));
 			mapSql.put(Col_ds_nome_foto, String.valueOf(treino.getDsNomeFoto()));
-
+			removeCamposVazios();
 			long id = db.addRegistro(mapSql);
 			//db.close();
 			treino.setID(String.valueOf(id));
@@ -131,13 +146,13 @@ public class SQLtreino extends AbsSQL{
 				t.setID(listMapSql.get(i).get(colunasBusca[0]));
 				t.setNome(listMapSql.get(i).get(colunasBusca[1]));
 				t.setDescricao(listMapSql.get(i).get(colunasBusca[2]));
-				if(listMapSql.get(i).get(colunasBusca[3]) != null && !listMapSql.get(i).get(colunasBusca[3]).equals("null"))
+				if(listMapSql.get(i).get(colunasBusca[3]) != null)
 					t.setFgCarga(Integer.parseInt(listMapSql.get(i).get(colunasBusca[3])));
-				if(listMapSql.get(i).get(colunasBusca[4]) != null && !listMapSql.get(i).get(colunasBusca[4]).equals("null"))
+				if(listMapSql.get(i).get(colunasBusca[4]) != null)
 					t.setIdGrupo(Integer.parseInt(listMapSql.get(i).get(colunasBusca[4])));
-				if(listMapSql.get(i).get(colunasBusca[5]) != null && !listMapSql.get(i).get(colunasBusca[5]).equals("null"))
+				if(listMapSql.get(i).get(colunasBusca[5]) != null)
 					t.setIndTipoTreino(Integer.parseInt(listMapSql.get(i).get(colunasBusca[5])));
-				if(listMapSql.get(i).get(colunasBusca[6]) != null && !listMapSql.get(i).get(colunasBusca[6]).equals("null"))
+				if(listMapSql.get(i).get(colunasBusca[6]) != null)
 					t.setIndNivel(Integer.parseInt(listMapSql.get(i).get(colunasBusca[6])));
 				t.setDsNomeFoto(listMapSql.get(i).get(colunasBusca[7]));
 				listSql.add(t);

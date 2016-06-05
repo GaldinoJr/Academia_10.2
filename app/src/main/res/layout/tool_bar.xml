@@ -13,7 +13,7 @@
         android:layout_marginRight="10dp"
         android:background="@null"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/icone_how_to_train_black_45_2"/>
+        android:src="@drawable/icone_how_to_train_black_45_3"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

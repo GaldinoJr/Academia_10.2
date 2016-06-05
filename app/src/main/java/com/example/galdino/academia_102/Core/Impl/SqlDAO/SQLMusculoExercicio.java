@@ -21,9 +21,9 @@ public class SQLMusculoExercicio  extends AbsSQL {
     private static final String Col_cd_musculo = "f_cd_musculo";
     private static final String Col_cd_exercicio = "f_cd_exercicio";
     private static final String Col_ind_primario_secundario = "ind_primario_secundario";
-    private static final String[] colunas = {Col_cd_musculo,Col_cd_exercicio,Col_ind_primario_secundario};
+    //private static final String[] colunas = {Col_cd_musculo,Col_cd_exercicio,Col_ind_primario_secundario};
     private static final String[] colunasBusca = {Col_cd_musculo_exercicio,Col_cd_musculo,Col_cd_exercicio,Col_ind_primario_secundario};
-    private SQL db;
+    //private SQL db;
 
     private MusculoExercicio musculoExercicio;
     @Override
@@ -41,7 +41,17 @@ public class SQLMusculoExercicio  extends AbsSQL {
     {
         iniciar();
         db  = SQL.getInstance(context, DATABASE_NAME );
+        criarColunas();
         db.popularInfo(nomeTabela, colunas, sqlCriarTabela);
+    }
+
+    @Override
+    public void criarColunas()
+    {
+        colunas = new LinkedList<String>();
+        colunas.add(Col_cd_musculo);
+        colunas.add(Col_cd_exercicio);
+        colunas.add(Col_ind_primario_secundario);
     }
 
     @Override
@@ -53,6 +63,7 @@ public class SQLMusculoExercicio  extends AbsSQL {
             mapSql.put(Col_cd_musculo, String.valueOf(musculoExercicio.getIdMusculo()));
             mapSql.put(Col_cd_exercicio, String.valueOf(musculoExercicio.getIdExercicio()));
             mapSql.put(Col_ind_primario_secundario, String.valueOf(musculoExercicio.getIndPrimarioSecundario()));
+            removeCamposVazios();
             long id = db.addRegistro(mapSql);
             //db.close();
             musculoExercicio.setID(String.valueOf(id));

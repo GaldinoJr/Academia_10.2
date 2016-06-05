@@ -17,7 +17,13 @@ public class SQL extends SQLiteOpenHelper {
 
     private int i;
     private String sqlCriarTabela;
-    private String[] colunas;
+    //private String[] colunas;
+    private List<String> colunas;
+    //
+    public void setColunas(List<String> colunas)
+    {
+        this.colunas = colunas;
+    }
     //
     private String nomeTabela;
     // Database Version
@@ -49,10 +55,11 @@ public class SQL extends SQLiteOpenHelper {
         }
         return sInstance;
     }
-    public void popularInfo(String nomeTabela, String[] colunas, String sqlCriarTabela)
+    //public void popularInfo(String nomeTabela, String[] colunas, String sqlCriarTabela)
+    public void popularInfo(String nomeTabela, List<String> colunas, String sqlCriarTabela)
     {
         this.nomeTabela = nomeTabela;
-        this.colunas = new String[colunas.length];
+        //this.colunas = new String[colunas.length];
         this.colunas = colunas;
         this.sqlCriarTabela = sqlCriarTabela;
         try {
@@ -96,7 +103,8 @@ public class SQL extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         for(i = 0; i <map.size();i++) //roda todo o mapa
         {
-            values.put(colunas[i], (String) map.get(colunas[i])); // pega os conteudos
+            //values.put(colunas[i], (String) map.get(colunas[i])); // pega os conteudos
+            values.put(colunas.get(i), (String) map.get(colunas.get(i))); // pega os conteudos
         }
 
 
@@ -175,7 +183,8 @@ public class SQL extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         for(i = 0; i <map.size();i++) //roda todo o mapa
         {
-            values.put(colunas[i], (String) map.get(colunas[i])); // pega os conteudos
+            //values.put(colunas[i], (String) map.get(colunas[i])); // pega os conteudos
+            values.put(colunas.get(i), (String) map.get(colunas.get(i))); // pega os conteudos
         }
 
 

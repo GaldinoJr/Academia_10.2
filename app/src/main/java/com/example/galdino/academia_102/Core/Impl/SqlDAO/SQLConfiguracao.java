@@ -19,9 +19,9 @@ import java.util.Map;
 public class SQLConfiguracao extends AbsSQL {
     private static final String Col_cd_configuracao = "cd_configuracao";
     private static final String Col_fg_banco_criado = "fg_banco_criado";
-    private static final String[] colunas = {Col_fg_banco_criado};
+    //private static final String[] colunas = {Col_fg_banco_criado};
     private static final String[] colunasBusca = {Col_cd_configuracao,Col_fg_banco_criado};
-    private SQL db;
+    //private SQL db;
 
     private Configuracao configuracao;
     @Override
@@ -37,7 +37,15 @@ public class SQLConfiguracao extends AbsSQL {
     {
         iniciar();
         db  = SQL.getInstance(context, DATABASE_NAME );
+        criarColunas();
         db.popularInfo(nomeTabela, colunas, sqlCriarTabela);
+    }
+
+    @Override
+    public void criarColunas()
+    {
+        colunas = new LinkedList<String>();
+        colunas.add(Col_fg_banco_criado);
     }
 
     @Override
@@ -47,6 +55,7 @@ public class SQLConfiguracao extends AbsSQL {
             mapSql = new HashMap<String, String>();
 
             mapSql.put(Col_fg_banco_criado, String.valueOf(configuracao.getFgBancoCriado()));
+            removeCamposVazios();
             long id = db.addRegistro(mapSql);
             configuracao.setID(String.valueOf(id));
             //db.close();

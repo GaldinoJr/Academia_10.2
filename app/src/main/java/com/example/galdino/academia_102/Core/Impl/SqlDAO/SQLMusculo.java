@@ -19,9 +19,9 @@ import java.util.Map;
 public class SQLMusculo  extends AbsSQL {
     private static final String Col_cd_musculo = "cd_musculo";
     private static final String Col_ds_musculo = "ds_musculo";
-    private static final String[] colunas = {Col_ds_musculo};
+    //private static final String[] colunas = {Col_ds_musculo};
     private static final String[] colunasBusca = {Col_cd_musculo,Col_ds_musculo};
-    private SQL db;
+    //private SQL db;
 
     private Musculo musculo;
     @Override
@@ -37,7 +37,15 @@ public class SQLMusculo  extends AbsSQL {
     {
         iniciar();
         db  = SQL.getInstance(context, DATABASE_NAME );
+        criarColunas();
         db.popularInfo(nomeTabela, colunas, sqlCriarTabela);
+    }
+
+    @Override
+    public void criarColunas()
+    {
+        colunas = new LinkedList<String>();
+        colunas.add(Col_ds_musculo);
     }
 
     @Override
@@ -47,6 +55,7 @@ public class SQLMusculo  extends AbsSQL {
             mapSql = new HashMap<String, String>();
 
             mapSql.put(Col_ds_musculo, musculo.getNome());
+            removeCamposVazios();
             long id = db.addRegistro(mapSql);
             //db.close();
             musculo.setID(String.valueOf(id));

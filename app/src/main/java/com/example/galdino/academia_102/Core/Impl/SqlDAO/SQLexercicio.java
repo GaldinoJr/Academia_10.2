@@ -21,9 +21,9 @@ public class SQLexercicio extends AbsSQL{
 	private static final String Col_ds_nome_logico_foto_exercicio = "ds_nome_logico_foto_exercicio";
 	private static final String Col_ds_exercicio = "ds_exercicio";
 	private static final String Col_cd_grupo = "f_cd_grupo";
-	private static final String[] colunas = {Col_ds_nome_exercicio, Col_ds_nome_logico_gif_exercicio,Col_ds_nome_logico_foto_exercicio, Col_ds_exercicio,Col_cd_grupo};
+	//private static final String[] colunas = {Col_ds_nome_exercicio, Col_ds_nome_logico_gif_exercicio,Col_ds_nome_logico_foto_exercicio, Col_ds_exercicio,Col_cd_grupo};
 	private static final String[] colunasBusca = {Col_cd_exercicio, Col_ds_nome_exercicio, Col_ds_nome_logico_gif_exercicio,Col_ds_nome_logico_foto_exercicio, Col_ds_exercicio,Col_cd_grupo};
-	private SQL db;
+	//private SQL db;
 	
 	private Map<String, String> mapExercicio;
 	private String sId;
@@ -45,7 +45,19 @@ public class SQLexercicio extends AbsSQL{
 		iniciar();
 		//db  = new SQL(context, DATABASE_NAME, nm_tabela,colunas, sqlCriarTabela ); // GANHO DE PERFORMANCE NO CÓDIGO ORIGINAL
 		db  = SQL.getInstance(context, DATABASE_NAME );
+		criarColunas();
 		db.popularInfo( nomeTabela, colunas, sqlCriarTabela);
+	}
+
+	@Override
+	public void criarColunas()
+	{
+		colunas = new LinkedList<String>();
+		colunas.add(Col_ds_nome_exercicio);
+		colunas.add(Col_ds_nome_logico_gif_exercicio);
+		colunas.add(Col_ds_nome_logico_foto_exercicio);
+		colunas.add(Col_ds_exercicio);
+		colunas.add(Col_cd_grupo);
 	}
 
 	@Override
@@ -59,6 +71,7 @@ public class SQLexercicio extends AbsSQL{
 			mapSql.put(Col_ds_nome_logico_foto_exercicio, exercicio.getNomeLogicoFoto());
 			mapSql.put(Col_ds_exercicio, exercicio.getDescricao());
 			mapSql.put(Col_cd_grupo, String.valueOf(exercicio.getIdGrupo()));
+			removeCamposVazios();
 			long id = db.addRegistro(mapSql);
 			exercicio.setID(String.valueOf(id));
 			//db.close();

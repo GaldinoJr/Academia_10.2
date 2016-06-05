@@ -14,4 +14,5 @@ public interface IDAO {
     public void alterar(EntidadeDominio entidade);
     public void excluir(EntidadeDominio entidade);
     public List<EntidadeDominio> consultar(EntidadeDominio entidade);
+    public void criarColunas();
 }

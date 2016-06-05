@@ -24,9 +24,9 @@ public class SQLTreinoExercicio extends AbsSQL {
     private static final String Col_cd_treino = "f_cd_treino";
     private static final String Col_cd_exercicio = "f_cd_exercicio";
 
-    private static final String[] colunas = {Col_cd_treino,Col_cd_exercicio};
+    //private static final String[] colunas = {Col_cd_treino,Col_cd_exercicio};
     private static final String[] colunasBusca = {Col_cd_treino_exercicio,Col_cd_treino,Col_cd_exercicio};
-    private SQL db;
+    //private SQL db;
     private Context context;
     private TreinoExercicio treinoExercicio;
     @Override
@@ -44,7 +44,16 @@ public class SQLTreinoExercicio extends AbsSQL {
         this.context = context;
         iniciar();
         db  = SQL.getInstance(context, DATABASE_NAME );
+        criarColunas();
         db.popularInfo(nomeTabela, colunas, sqlCriarTabela);
+    }
+
+    @Override
+    public void criarColunas()
+    {
+        colunas = new LinkedList<String>();
+        colunas.add(Col_cd_treino);
+        colunas.add(Col_cd_exercicio);
     }
 
     @Override
@@ -55,6 +64,7 @@ public class SQLTreinoExercicio extends AbsSQL {
 
             mapSql.put(Col_cd_treino, String.valueOf(treinoExercicio.getIdTreino()));
             mapSql.put(Col_cd_exercicio, String.valueOf(treinoExercicio.getIdExercicio()));
+            removeCamposVazios();
             long id = db.addRegistro(mapSql);
             //db.close();
             treinoExercicio.setID(String.valueOf(id));
