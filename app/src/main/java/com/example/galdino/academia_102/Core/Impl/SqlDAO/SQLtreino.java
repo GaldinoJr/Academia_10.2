@@ -59,7 +59,6 @@ public class SQLtreino extends AbsSQL{
 	public void criarColunas()
 	{
 		colunas = new LinkedList<String>();
-		colunas = new LinkedList<String>();
 		colunas.add(Col_ds_nome);
 		colunas.add(Col_ds_treino);
 		colunas.add(Col_fg_carga);

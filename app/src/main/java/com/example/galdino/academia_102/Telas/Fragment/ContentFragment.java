@@ -2,7 +2,6 @@ package com.example.galdino.academia_102.Telas.Fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,7 +22,6 @@ import com.example.galdino.academia_102.R;
 
 import com.example.galdino.academia_102.SideMenu.ScreenShotable;
 import com.example.galdino.academia_102.Telas.TelaExercicio.TabPrincipalExercicio;
-import com.example.galdino.academia_102.Telas.TelaExercicioAntiga.TelaExercicio;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +79,7 @@ public class ContentFragment extends Fragment implements ScreenShotable {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+        View rootView = inflater.inflate(R.layout.content_fragment, container, false);
        // mImageView = (ImageView) rootView.findViewById(R.id.image_content);
         //mImageView.setClickable(true);
         //mImageView.setFocusable(true);

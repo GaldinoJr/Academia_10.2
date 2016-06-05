@@ -25,7 +25,7 @@ public class FragTabMusculoExercicio extends Fragment
             grupo;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.activity_tela_exercicio_aba_2_musculos,container,false);
+        View v =inflater.inflate(R.layout.tab_exercicio_2_musculos,container,false);
         //
         txtPrimario =(TextView)v.findViewById(R.id.txtPrimario2);
         txtSecundario = (TextView)v.findViewById(R.id.txtSecundario);

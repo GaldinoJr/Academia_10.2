@@ -15,7 +15,7 @@ import com.example.galdino.academia_102.R;
 public class FragTabVideoExercicio extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.tab_1,container,false);
+        View v =inflater.inflate(R.layout.tab_exercicio_3_video,container,false);
         return v;
     }
 }

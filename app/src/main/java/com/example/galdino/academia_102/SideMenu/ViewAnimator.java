@@ -61,7 +61,7 @@ public class ViewAnimator<T extends Resourceble> {
             vetItemPressionado[1] = true;
         for (i = 0; i < size; i++)
         {
-            View viewMenu = activity.getLayoutInflater().inflate(R.layout.menu_list_item, null);
+            View viewMenu = activity.getLayoutInflater().inflate(R.layout.xml_side_menu_list_item, null);
             final int finalI = i;
             viewMenu.setOnClickListener(new View.OnClickListener() {
                 @Override

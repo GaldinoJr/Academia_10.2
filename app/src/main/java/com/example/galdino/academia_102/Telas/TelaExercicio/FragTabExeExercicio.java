@@ -31,7 +31,7 @@ public class FragTabExeExercicio extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.activity_tela_exercicio,container,false);
+        View v =inflater.inflate(R.layout.tab_exercicio_1_exercicio,container,false);
         // Associa os objetos
         txtNomeExe = (TextView)v.findViewById(R.id.txtDescriExe);
         txtDescricao =(TextView)v.findViewById(R.id.txtDescricao);

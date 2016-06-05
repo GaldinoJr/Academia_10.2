@@ -23,7 +23,6 @@ import com.example.galdino.academia_102.Dominio.TreinoExercicio;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
 import com.example.galdino.academia_102.Telas.TelaExercicio.TabPrincipalExercicio;
-import com.example.galdino.academia_102.Telas.TelaExercicioAntiga.TelaExercicio;
 import com.example.galdino.academia_102.Telas.TelaTreinoPorGrupo.FragTab2Exercicios;
 import com.example.galdino.academia_102.Telas.TelaTreinoPorGrupo.TabPrincipalTreinoPorGrupo;
 

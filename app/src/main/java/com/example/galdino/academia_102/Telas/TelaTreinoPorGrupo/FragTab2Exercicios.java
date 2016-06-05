@@ -53,7 +53,7 @@ public class FragTab2Exercicios extends Fragment
     private ClsTabTreinoPorGrupo tabTreinoPorGrupo = ClsTabTreinoPorGrupo.getInstance();
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.content_tela_treino_exercicio,container,false);
+        View v =inflater.inflate(R.layout.tab_treino_2_exercicios,container,false);
         // associa os objetos da tela
         lvTreinoExercicio = (ListView)v.findViewById(R.id.lvTreinoExercicio);
         fBtnAddEx = (FloatingActionButton)v.findViewById(R.id.fBtnAddExercicio

@@ -42,7 +42,7 @@ public class TabPrincipalExercicio  extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_principal_exercicio);
+        setContentView(R.layout.slide_tab_padrao);
         Intent dados = getIntent();
         // para mandar na aba 1
 

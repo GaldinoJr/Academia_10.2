@@ -15,18 +15,8 @@
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustPan" >
         <activity
-            android:name=".Telas.TelaPrincipalExercicio"
-            android:label="@string/title_activity_tela_principal"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
             android:name=".Telas.TelaListaExercicios"
             android:label="@string/title_activity_tela_lista_exercicios"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
-            android:name=".Telas.TelaExercicioAntiga.TelaExercicio"
-            android:label="@string/title_activity_tela_exercicio"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
@@ -57,26 +47,6 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
-            android:name=".Telas.TelaExercicioAntiga.TelaExercicioAba1"
-            android:label="Aba 1"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
-            android:name=".Telas.TelaExercicioAntiga.TelaExercicioAba2"
-            android:label="Aba 2"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
-            android:name=".Telas.TelaExercicioAntiga.TelaExercicioAba3"
-            android:label="Aba 3"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
-            android:name=".Telas.Testes.TelaListExercicioNova"
-            android:label="@string/title_activity_tela_list_exercicio_nova"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
             android:name=".Telas.TelaSideMenu"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
@@ -91,18 +61,8 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".Telas.Testes.TelaFloatActionMenu"
-            android:label="@string/title_activity_tela_float_action_menu"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
             android:name=".Telas.TelaFitroDeTreino"
             android:label="@string/title_activity_tela_fitro_de_treino"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
-            android:name=".Telas.Testes.slideTab.MainActivity"
-            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
