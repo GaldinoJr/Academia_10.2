@@ -39,7 +39,7 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
             btnMenosRepeticao;
     private FloatingActionButton fBtnConfirmarAddRepeticaoExercicio;
     private EditText edtSerie;
-    private TextView txtNomeGrupoExercicio;
+    //private TextView txtNomeGrupoExercicio;
     private ListView lvRepeticoes;
     private String nmTreino,
                    nmGrupo,
@@ -73,7 +73,12 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
         fBtnConfirmarAddRepeticaoExercicio = (FloatingActionButton)findViewById(R.id.fBtnConfirmarAddRepeticaoExercicio);
         lvRepeticoes = (ListView)findViewById(R.id.lvRepeticoes);
         edtSerie = (EditText)findViewById(R.id.edtSerie);
-        txtNomeGrupoExercicio = (TextView)findViewById(R.id.txtNomeGrupoExercicio);
+        //txtNomeGrupoExercicio = (TextView)findViewById(R.id.txtNomeGrupoExercicio);
+        //
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        TextView txtTituloToolbarPadrao = (TextView) findViewById(R.id.txtTituloToolbarPadrao);
         //
         btnMaisRepeticao.setOnClickListener(this);
         btnMenosRepeticao.setOnClickListener(this);
@@ -97,7 +102,7 @@ public class TelaAddRepeticaoExercicio extends AppCompatActivity implements View
         idTreino = dados.getIntExtra("idTreino", 0);
         idLinha = dados.getIntExtra("linha", 0);
         idExercicio = dados.getIntExtra("idExercicio", 0);
-        txtNomeGrupoExercicio.setText(nmGrupo + "/" + nmExercicio);
+        txtTituloToolbarPadrao.setText(nmGrupo + "/" + nmExercicio);
         listaCodigosObj = dados.getStringArrayListExtra("listaCodigosObj");
         listaCodigosNivel = dados.getStringArrayListExtra("listaCodigosNivel");
         //
