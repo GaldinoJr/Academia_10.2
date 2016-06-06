@@ -6,29 +6,12 @@
     android:layout_height="match_parent" android:fitsSystemWindows="true"
     tools:context="com.example.galdino.academia_102.Telas.TelaCorpoTreino">
 
-    <android.support.design.widget.AppBarLayout
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/corDetalhesAmarelos"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/txtTituloToolbarTelaCorpoTreino"
-                android:text="@string/nomeApp"
-                android:textColor="@color/corActionBarPretoEscuro"
-                android:textSize="@dimen/Titulotamanho25"
-                android:textStyle="bold"
-                />
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+        />
 
     <LinearLayout
         android:layout_width="match_parent"

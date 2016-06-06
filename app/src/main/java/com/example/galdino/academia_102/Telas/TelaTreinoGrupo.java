@@ -50,12 +50,12 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_treino_grupo);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //funciona
         Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_menu_options_preto2);
-        toolbar.setOverflowIcon(drawable);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
+        //toolbar.setOverflowIcon(drawable);
+        //toolbar.setTitle("");
+        //setSupportActionBar(toolbar);
         //
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED); // Para não iniciar o teclado quando abrir a tela
         // Vincula os dados da tela
