@@ -35,11 +35,11 @@
         />
 
     <CheckBox
-        android:button="@drawable/cb_selector"
+        android:button="@drawable/selector_chk_padrao"
         android:id="@+id/chkExercicioSelecionado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imgExercicioo"
+        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:visibility="invisible"

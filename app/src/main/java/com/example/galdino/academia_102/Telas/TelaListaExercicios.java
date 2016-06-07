@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,11 +32,12 @@ import java.util.List;
 
 public class TelaListaExercicios extends AppCompatActivity {
 
-    private TextView txtNomeGrupo;
+    private TextView txtQtdSelecionada;
+    int qtdExerciciosSelecionados = 0;
     //private String[] vetExe;
     private ArrayList<String> vetIDExe;
     private String grupo;
-    private ImageView imgCorGrupo;
+    //private ImageView imgCorGrupo;
     private Intent dados;
     private String telaAnterior,
                     nmTreino,
@@ -50,6 +52,11 @@ public class TelaListaExercicios extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_lista_exercicios);
+        //
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        TextView txtTituloToolbarPadrao = (TextView) findViewById(R.id.txtTituloToolbarPadrao);
         // FLOAT BUTTON
         fBtnConfirmarExercicio = (FloatingActionButton) findViewById(R.id.fBtnConfirmarExercicio);
         fBtnConfirmarExercicio.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +71,8 @@ public class TelaListaExercicios extends AppCompatActivity {
             }
         });
         // associa os objetos
-        txtNomeGrupo = (TextView)findViewById(id.txtNomeGrup);
-        imgCorGrupo = (ImageView)findViewById(id.imgPrincipal);
+        //imgCorGrupo = (ImageView)findViewById(id.imgPrincipal);
+        txtQtdSelecionada = (TextView)findViewById(id.txtQtdSelecionada);
         // recebe os dados da tela 1
         dados = getIntent();
         int indTela = 1;
@@ -105,11 +112,11 @@ public class TelaListaExercicios extends AppCompatActivity {
         }
 
         //arredonda a imagem
-        RoundAdapter ra = new RoundAdapter();
-        imgCorGrupo.setImageDrawable(ra.RoundImageGrupo(grupo,this));
+//        RoundAdapter ra = new RoundAdapter();
+//        imgCorGrupo.setImageDrawable(ra.RoundImageGrupo(grupo,this));
 
         // Devolve os conteudos
-        txtNomeGrupo.setText(grupo);
+        txtTituloToolbarPadrao.setText(grupo);
 
         ArrayList<Exercicio> image_details2 = GetSearchResults();
 
@@ -141,6 +148,8 @@ public class TelaListaExercicios extends AppCompatActivity {
                 //finish(); // Não faz para não perder as info nem precisar carregar de novo.
             }
         });
+        if(FragTab2Exercicios.class.toString().equals(telaAnterior))
+            atualizarQtdExerciciosSelecionados("=");
     }
 
     @Override
@@ -200,14 +209,27 @@ public class TelaListaExercicios extends AppCompatActivity {
     {
         CheckBox chk = (CheckBox) v.findViewById(R.id.chkExercicioSelecionado);
         int linha = (Integer) v.getTag();
-        if (chk.isChecked()) {
+        if (chk.isChecked())
+        {
             itemChecked[linha] = true;
-            Toast.makeText(getApplicationContext(), "Checbox do exercício " + retornarInfoExercicioNaList2(linha, 1) + " marcado!", Toast.LENGTH_SHORT).show();
+            atualizarQtdExerciciosSelecionados("+");
         }
-        else {
-            Toast.makeText(getApplicationContext(), "Checbox do exercício " + retornarInfoExercicioNaList2(linha, 1) + " desmarcado!", Toast.LENGTH_SHORT).show();
+        else
+        {
+            atualizarQtdExerciciosSelecionados("-");
             itemChecked[linha] = false;
         }
+    }
+    private void atualizarQtdExerciciosSelecionados(String operacao)
+    {
+        if(operacao.equals("="))
+            qtdExerciciosSelecionados = vetIDExe.size();
+        else if(operacao.equals("-"))
+            qtdExerciciosSelecionados --;
+        else if(operacao.equals("+"))
+            qtdExerciciosSelecionados ++;
+
+        txtQtdSelecionada.setText(String.valueOf(qtdExerciciosSelecionados) + " Selecionado(s)");
     }
     private int salvarExercíciosTreino()
     {

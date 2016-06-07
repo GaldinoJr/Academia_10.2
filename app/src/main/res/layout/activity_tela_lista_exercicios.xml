@@ -6,16 +6,17 @@
     android:layout_height="match_parent" android:fitsSystemWindows="true"
     tools:context="com.example.galdino.academia_102.Telas.TelaTreinoExercicio">
 
-    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
-        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        />
 
-
-
-    </android.support.design.widget.AppBarLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:layout_marginTop="?attr/actionBarSize">
         <include layout="@layout/content_tela_lista_exercicios" />
     </LinearLayout>
 
@@ -24,8 +25,9 @@
         android:id="@+id/fBtnConfirmarExercicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|right"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="7.5dp"
+        android:layout_marginRight="7.5dp"
         android:tint="@color/corActionBarPretoEscuro"
         android:backgroundTint="@color/corDetalhesAmarelos"
         app:borderWidth="0dp"
