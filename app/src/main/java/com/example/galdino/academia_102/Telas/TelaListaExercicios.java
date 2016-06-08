@@ -186,14 +186,37 @@ public class TelaListaExercicios extends AppCompatActivity {
         qtdRegistro = listEntDomExercicio.size();
         itemChecked = new boolean[qtdRegistro];
 
+        TreinoExercicio treinoExercicio = new TreinoExercicio();
+        treinoExercicio.setIdTreino(Integer.parseInt(idTreino));
+        List<EntidadeDominio> listAux = treinoExercicio.operar(this, true, Controler.DF_CONSULTAR, treinoExercicio);
+
         for(i = 0; i < qtdRegistro; i++)
         {
             Exercicio e = (Exercicio)listEntDomExercicio.get(i);
-            e.setIdImage(i+1);
+            e.setIdImage(i + 1);
             results.add(e);
+
+            if(listAux != null) {
+                for(EntidadeDominio ent : listAux)
+                {
+                    // Verifica os exercícios do treino corrente e os carrega.
+                    TreinoExercicio te = (TreinoExercicio)ent;
+                    if(te.getIdExercicio().toString().equals(e.getID()))
+                        itemChecked[i] = true;
+                }
+            }
         }// for
         return results;
     }
+
+    private void caregarExercicios()
+    {
+        TreinoExercicio treinoExercicio = new TreinoExercicio();
+        treinoExercicio.setIdTreino(Integer.parseInt(idTreino));
+        List<EntidadeDominio> listAux = treinoExercicio.operar(this, true, Controler.DF_CONSULTAR, treinoExercicio);
+
+    }
+
     private String retornarInfoExercicioNaList2(int linha, int coluna)
     {
         if(listEntDomExercicio != null) {
@@ -235,13 +258,15 @@ public class TelaListaExercicios extends AppCompatActivity {
     {
         try {
             int i, qtdRegistro = listEntDomExercicio.size();
-
+            TreinoExercicio treinoExercicio = new TreinoExercicio();
+            treinoExercicio.setIdTreino(Integer.parseInt(idTreino));
+            treinoExercicio.operar(this, true, Controler.DF_EXCLUIR, treinoExercicio);
             for(i = 0; i < qtdRegistro; i++)
             {
                 if(itemChecked[i]) {
                     List<EntidadeDominio> listAux;
                     Exercicio ex = (Exercicio) listEntDomExercicio.get(i);
-                    TreinoExercicio treinoExercicio = new TreinoExercicio();
+                    treinoExercicio = new TreinoExercicio();
                     treinoExercicio.setIdTreino(Integer.parseInt(idTreino));
                     treinoExercicio.setIdExercicio(Integer.parseInt(ex.getID()));
                     listAux = treinoExercicio.operar(this, true, Controler.DF_CONSULTAR, treinoExercicio);
