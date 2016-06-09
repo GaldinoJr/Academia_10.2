@@ -133,7 +133,7 @@ public class ContentFragment extends Fragment implements ScreenShotable {
 
         final ListView lvExercicio2 = (ListView)rootView.findViewById(R.id.lvExercicios2);
 
-        lvExercicio2.setAdapter(new ExercicioBaseAdapter(getActivity(), image_details2, itemChecked, indTela, vetIDExe, null, null));
+        lvExercicio2.setAdapter(new ExercicioBaseAdapter(getActivity(), image_details2, itemChecked, indTela, vetIDExe, null, null, null));
 
         lvExercicio2.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {

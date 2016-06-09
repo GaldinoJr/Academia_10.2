@@ -23,9 +23,10 @@ public class SQLTreinoExercicio extends AbsSQL {
     private static final String Col_cd_treino_exercicio = "cd_treino_exercicio";
     private static final String Col_cd_treino = "f_cd_treino";
     private static final String Col_cd_exercicio = "f_cd_exercicio";
+    private static final String Col_nr_ordem = "nr_ordem";
 
     //private static final String[] colunas = {Col_cd_treino,Col_cd_exercicio};
-    private static final String[] colunasBusca = {Col_cd_treino_exercicio,Col_cd_treino,Col_cd_exercicio};
+    private static final String[] colunasBusca = {Col_cd_treino_exercicio,Col_cd_treino,Col_cd_exercicio,Col_nr_ordem};
     //private SQL db;
     private Context context;
     private TreinoExercicio treinoExercicio;
@@ -36,7 +37,8 @@ public class SQLTreinoExercicio extends AbsSQL {
         sqlCriarTabela = "CREATE TABLE IF NOT EXISTS " + nomeTabela + " ( " +
                 Col_cd_treino_exercicio + " INTEGER PRIMARY KEY, " +
                 Col_cd_treino + " INTEGER, "+ //FOREIGN KEY
-                Col_cd_exercicio + " INTEGER )";
+                Col_cd_exercicio + " INTEGER, "+
+                Col_nr_ordem + " INTEGER )";
     }
 
     public SQLTreinoExercicio(Context context)
@@ -54,6 +56,7 @@ public class SQLTreinoExercicio extends AbsSQL {
         colunas = new LinkedList<String>();
         colunas.add(Col_cd_treino);
         colunas.add(Col_cd_exercicio);
+        colunas.add(Col_nr_ordem);
     }
 
     @Override
@@ -64,6 +67,7 @@ public class SQLTreinoExercicio extends AbsSQL {
 
             mapSql.put(Col_cd_treino, String.valueOf(treinoExercicio.getIdTreino()));
             mapSql.put(Col_cd_exercicio, String.valueOf(treinoExercicio.getIdExercicio()));
+            mapSql.put(Col_nr_ordem, String.valueOf(treinoExercicio.getNrOrdem()));
             removeCamposVazios();
             long id = db.addRegistro(mapSql);
             //db.close();
@@ -139,8 +143,11 @@ public class SQLTreinoExercicio extends AbsSQL {
                 query += " AND " + Col_cd_treino + " = " + treinoExercicio.getIdTreino();
             if (treinoExercicio.getIdExercicio() != null)
                 query += " AND " + Col_cd_exercicio + " = " + treinoExercicio.getIdExercicio();
+            if (treinoExercicio.getNrOrdem() != null)
+                query += " AND " + Col_nr_ordem + " = " + treinoExercicio.getNrOrdem();
+            query += " ORDER BY " + Col_nr_ordem;
 
-            listSql = new ArrayList<EntidadeDominio>();
+                    listSql = new ArrayList<EntidadeDominio>();
             listMapSql = new LinkedList<Map<String, String>>(); // talvez seja redundante, testar e tirar se for*****
             listMapSql = db.pesquisarComSelect(query, colunasBusca);
             //db.close();
@@ -152,7 +159,8 @@ public class SQLTreinoExercicio extends AbsSQL {
                 te.setID(listMapSql.get(i).get(colunasBusca[0]));
                 te.setIdTreino(Integer.parseInt(listMapSql.get(i).get(colunasBusca[1])));
                 te.setIdExercicio(Integer.parseInt(listMapSql.get(i).get(colunasBusca[2])));
-
+                if(listMapSql.get(i).get(colunasBusca[3]) != null)
+                    te.setNrOrdem(Integer.parseInt(listMapSql.get(i).get(colunasBusca[3])));
                 listSql.add(te);
             }
             if(listSql.size() > 0)

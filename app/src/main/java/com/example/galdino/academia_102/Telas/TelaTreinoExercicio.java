@@ -260,7 +260,7 @@ public class TelaTreinoExercicio extends AppCompatActivity {
         if(listEntDomExercicio != null)
         {
             int indTela = 3; //TelaTreino
-            lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(this, results, null, indTela, vetIDExe,vetRepeticoesExe, treino.getFgCarga()));
+            lvTreinoExercicio.setAdapter(new ExercicioBaseAdapter(this, results, null, indTela, vetIDExe,vetRepeticoesExe, treino.getFgCarga(), null));
         }
         else
         {

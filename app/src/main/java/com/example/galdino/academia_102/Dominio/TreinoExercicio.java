@@ -5,7 +5,8 @@ package com.example.galdino.academia_102.Dominio;
  */
 public class TreinoExercicio extends EntidadeDominio{
     private Integer idTreino,
-                idExercicio;
+                idExercicio,
+                nrOrdem;
 
     // sets
     public void setIdTreino(Integer idTreino) {
@@ -14,6 +15,9 @@ public class TreinoExercicio extends EntidadeDominio{
     public void setIdExercicio(Integer idExercicio) {
         this.idExercicio = idExercicio;
     }
+    public void setNrOrdem(Integer nrOrdem) {
+        this.nrOrdem = nrOrdem;
+    }
 
     // gets
     public Integer getIdTreino() {
@@ -21,5 +25,8 @@ public class TreinoExercicio extends EntidadeDominio{
     }
     public Integer getIdExercicio() {
         return idExercicio;
+    }
+    public Integer getNrOrdem() {
+        return nrOrdem;
     }
 }

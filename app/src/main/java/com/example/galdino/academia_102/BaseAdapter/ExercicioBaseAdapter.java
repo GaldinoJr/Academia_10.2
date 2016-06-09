@@ -30,13 +30,15 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 	//private String[] vetIDExe;
 	private	ArrayList<String> vetIDExe;
 	private ArrayList<String> vetRepeticaoExercicio;
+	private Integer[] vetOrdemExercicio;
+
 	// Construtor 2
 	public ExercicioBaseAdapter()
 	{
 
 	}
 	// Construtor 1
-	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, boolean[] selecionados, Integer indTela, ArrayList<String> vetIDExe, ArrayList<String> vetRepeticaoExercicio, Integer fgCarga)
+	public ExercicioBaseAdapter(Context context, ArrayList<Exercicio> results, boolean[] selecionados, Integer indTela, ArrayList<String> vetIDExe, ArrayList<String> vetRepeticaoExercicio, Integer fgCarga, Integer[] vetOrdemExercicio)
 	{
 		ExercicioArrayList = results;
 		this.selecionados = selecionados;
@@ -46,6 +48,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		this.vetIDExe = vetIDExe;
 		this.vetRepeticaoExercicio = vetRepeticaoExercicio;
 		this.fgCarga = fgCarga;
+		this.vetOrdemExercicio = vetOrdemExercicio;
 	}
 
 	// Conta quantos registros tem no array
@@ -72,6 +75,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 	 	ImageView itemImage;
 		CheckBox chkExercicioSelecionado;
 		TextView txtSerie;
+		TextView txtNrOrdem;
 		ImageView imgExcluirExercicioTreino;
 		ImageView imgAddRepeticaoExercicio;
 	 }
@@ -92,6 +96,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 			holder.txt_itemName = (TextView)convertView.findViewById(id.txtNomeExercicio);
 			holder.txtSerie = (TextView) convertView.findViewById(id.txtSerie);
 			holder.chkExercicioSelecionado = (CheckBox)convertView.findViewById(id.chkExercicioSelecionado);
+			holder.txtNrOrdem = (TextView)convertView.findViewById(id.txtNrOrdem);
 			//holder.chkExercicioSelecionado.setChecked(false);
 			convertView.setTag(holder); // devolve os conteudos
 		}
@@ -101,14 +106,20 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		}
 		if(indTela == 2) // Tela para add exercício no treino
 		{
+			holder.txtNrOrdem.setVisibility(View.VISIBLE);
 			holder.chkExercicioSelecionado.setVisibility(View.VISIBLE);
 			holder.chkExercicioSelecionado.setChecked(false);
+			// Carrega os exercícios que estavam gravados
 			if(vetIDExe != null)
-				if( vetIDExe.contains(ExercicioArrayList.get(position).getID()))
+				if (vetIDExe.contains(ExercicioArrayList.get(position).getID()))
 					selecionados[position] = true;
 
-			if (selecionados[position])
+			holder.txtNrOrdem.setText("");
+			if (selecionados[position]) {
 				holder.chkExercicioSelecionado.setChecked(true);
+				if (vetOrdemExercicio[position] != null)
+					holder.txtNrOrdem.setText(String.valueOf(vetOrdemExercicio[position]));
+			}
 			else
 				holder.chkExercicioSelecionado.setChecked(false);
 		}

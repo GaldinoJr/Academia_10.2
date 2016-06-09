@@ -205,7 +205,7 @@ public class FragTab2Exercicios extends Fragment
         if(listEntDomExercicio != null)
         {
             int indTela = 3; //TelaTreino
-            ExercicioBaseAdapter teste = new ExercicioBaseAdapter(getContext(), results, null, indTela, vetIDExe,vetRepeticoesExe, treino.getFgCarga());
+            ExercicioBaseAdapter teste = new ExercicioBaseAdapter(getContext(), results, null, indTela, vetIDExe,vetRepeticoesExe, treino.getFgCarga(), null);
             lvTreinoExercicio.setAdapter(teste);
         }
         else
