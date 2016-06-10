@@ -42,8 +42,7 @@
         android:layout_marginRight="23dp"
         android:layout_marginTop="5dp"
         android:layout_alignTop="@+id/imgExercicioo"
-        android:text=""
-        android:textSize="19dp"
+        android:textSize="16dp"
         android:textColor="#C0C0C0"
         android:visibility="invisible"
         />
@@ -56,6 +55,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignBottom="@+id/imgExercicioo"
         android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
         android:visibility="invisible"
         android:focusable="false"
         android:focusableInTouchMode="false"

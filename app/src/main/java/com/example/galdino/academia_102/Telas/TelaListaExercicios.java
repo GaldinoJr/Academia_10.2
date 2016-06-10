@@ -50,7 +50,7 @@ public class TelaListaExercicios extends AppCompatActivity {
     private static Integer[] vetOrdemExercicio;
     private FloatingActionButton fBtnConfirmarExercicio;
     private int indTela;
-    private static ArrayList<Exercicio> alExercicio;
+    private ExercicioBaseAdapter exercicioBaseAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,12 +120,34 @@ public class TelaListaExercicios extends AppCompatActivity {
 
         // Devolve os conteudos
         txtTituloToolbarPadrao.setText(grupo);
+        //
+        ArrayList<Exercicio> alExercicio = GetSearchResults();
+        final ListView lvExercicio = (ListView)findViewById(id.lvExercicios);
+        exercicioBaseAdapter = new ExercicioBaseAdapter(this, alExercicio, itemChecked, indTela, vetIDExe, null, null, vetOrdemExercicio);
 
-        alExercicio = new ArrayList<Exercicio>();
+        lvExercicio.setAdapter(exercicioBaseAdapter);
+        lvExercicio.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                String nome = "",
+                        exe = "";
 
-        alExercicio = GetSearchResults();
+                Object o = lvExercicio.getItemAtPosition(position);
 
-        atualizaListaExercicio();
+                Exercicio obj_itemDetails = (Exercicio) o;
+                exe = obj_itemDetails.getNome();
+                nome = encontrarNome(exe);
+                Intent intent = new Intent();
+
+                // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
+                intent.setClass(TelaListaExercicios.this, TabPrincipalExercicio.class);
+                intent.putExtra("nmGrupo", grupo);
+                intent.putExtra("nmGifExercicio", nome);
+                intent.putExtra("nmExercicio", exe);
+                startActivity(intent); // chama a próxima tela
+                //finish(); // Não faz para não perder as info nem precisar carregar de novo.
+            }
+        });
 
         if(FragTab2Exercicios.class.toString().equals(telaAnterior))
             atualizarQtdExerciciosSelecionados("=");
@@ -222,44 +244,9 @@ public class TelaListaExercicios extends AppCompatActivity {
         }
         else
         {
-            atualizarOrdemDosExercicios(linha,"-");
             itemChecked[linha] = false;
+            atualizarOrdemDosExercicios(linha,"-");
         }
-    }
-
-    private void atualizaListaExercicio()
-    {
-       // ArrayList<Exercicio> image_details2 = GetSearchResults();
-
-        final ListView lvExercicio = (ListView)findViewById(id.lvExercicios);
-
-
-        lvExercicio.setAdapter(new ExercicioBaseAdapter(this, alExercicio, itemChecked, indTela, vetIDExe, null, null, vetOrdemExercicio));
-
-        lvExercicio.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id)
-            {
-                String nome = "",
-                        exe = "";
-
-                Object o = lvExercicio.getItemAtPosition(position);
-
-                Exercicio obj_itemDetails = (Exercicio)o;
-                exe = obj_itemDetails.getNome();
-                nome = encontrarNome(exe);
-                Intent intent = new Intent();
-
-                // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-                intent.setClass(TelaListaExercicios.this, TabPrincipalExercicio.class);
-                intent.putExtra("nmGrupo", grupo);
-                intent.putExtra("nmGifExercicio",nome);
-                intent.putExtra("nmExercicio", exe);
-                startActivity(intent); // chama a próxima tela
-                //finish(); // Não faz para não perder as info nem precisar carregar de novo.
-            }
-        });
     }
 
     private void atualizarOrdemDosExercicios(int linha, String operacao)
@@ -267,7 +254,6 @@ public class TelaListaExercicios extends AppCompatActivity {
         atualizarQtdExerciciosSelecionados(operacao);
         int tamanho = vetOrdemExercicio.length;
         Integer nrOrdemCorrente = vetOrdemExercicio[linha];
-        vetOrdemExercicio[linha] = null;
         if(operacao.equals("+"))
         {
             vetOrdemExercicio[linha] = qtdExerciciosSelecionados;
@@ -276,15 +262,33 @@ public class TelaListaExercicios extends AppCompatActivity {
         {
             if(nrOrdemCorrente != null && nrOrdemCorrente != 0)
             {
-                for (int i = linha; i < tamanho; i++)
+                for (int i = 0; i < tamanho; i++)
                 {
-                    if(vetOrdemExercicio[i] != null)
+                    if(vetOrdemExercicio[i] != null && vetOrdemExercicio[i] > vetOrdemExercicio[linha])
+                    {
                         vetOrdemExercicio[i] = vetOrdemExercicio[i] - 1;
+                    }
                 }
             }
-
+            vetOrdemExercicio[linha] = null;
+            String id = retornarInfoExercicioNaList2(linha, 0);
+            if(id != null)
+            {
+                int i = 0;
+                for (String idExe : vetIDExe) {
+                    if (id.equals(idExe)) {
+                        vetIDExe.remove(i);
+                        break;
+                    }
+                    i++;
+                }
+                exercicioBaseAdapter.setVetIDExe(vetIDExe);
+                exercicioBaseAdapter.setSelecionados(itemChecked);
+            }
         }
-        atualizaListaExercicio();
+        //********
+        // Para notificar o base adapter que houve alteração na lista, e assim recarrega-la sem dar reload
+        exercicioBaseAdapter.notifyDataSetChanged();
     }
 
     private void atualizarQtdExerciciosSelecionados(String operacao)

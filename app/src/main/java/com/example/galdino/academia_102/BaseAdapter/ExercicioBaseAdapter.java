@@ -68,7 +68,18 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 	{
 		return position;
 	}
-	
+
+	// Atualiza a lista dos itens clicados
+	public void setSelecionados(boolean[] selecionados)
+	{
+		this.selecionados = selecionados;
+	}
+
+	public void setVetIDExe(ArrayList<String> vetIDExe)
+	{
+		this.vetIDExe = vetIDExe;
+	}
+
 	// Cria os elementos para receber o conteudo da tela
 	static class ViewHolder {
 		TextView txt_itemName;
@@ -109,6 +120,7 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 			holder.txtNrOrdem.setVisibility(View.VISIBLE);
 			holder.chkExercicioSelecionado.setVisibility(View.VISIBLE);
 			holder.chkExercicioSelecionado.setChecked(false);
+			//selecionados[position] = false;
 			// Carrega os exercícios que estavam gravados
 			if(vetIDExe != null)
 				if (vetIDExe.contains(ExercicioArrayList.get(position).getID()))
