@@ -41,8 +41,6 @@ public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
             aba2
     };//
     //
-    private ArrayList<String> listaCodigosObj;
-    private ArrayList<String> listaCodigosNivel;
     private String nomeTreino,
                     nomeGrupo,
                     idTreino;
@@ -57,8 +55,6 @@ public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
         TextView txtTituloToolbarPadrao = (TextView) findViewById(R.id.txtTituloToolbarPadrao);
         Intent dados = getIntent();
         // Recebe os dados da tela anterior
-        listaCodigosObj = dados.getStringArrayListExtra("listaCodigosObj");
-        listaCodigosNivel = dados.getStringArrayListExtra("listaCodigosNivel");
         nomeGrupo = dados.getStringExtra("nmGrupo");
         nomeTreino = dados.getStringExtra("nmTreino");
         idTreino = dados.getStringExtra("idTreino");
@@ -139,8 +135,6 @@ public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
         intent.setClass(TabPrincipalTreinoPorGrupo.this, TelaTreinoGrupo.class);
         intent.putExtra("grupo", nomeGrupo);
         intent.putExtra("idTreino", idTreino);
-        intent.putStringArrayListExtra("listaCodigosObj", (ArrayList<String>) listaCodigosObj);
-        intent.putStringArrayListExtra("listaCodigosNivel", (ArrayList<String>) listaCodigosNivel);
         startActivity(intent); // chama a próxima tela(tela anterior)
         finish();
     }

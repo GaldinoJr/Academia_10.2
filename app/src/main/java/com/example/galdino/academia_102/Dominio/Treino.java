@@ -14,6 +14,7 @@ public class Treino extends EntidadeDominio
 	public static final String DF_CD_NIVEL_INICIANTE 	= "0";
 	public static final String DF_CD_NIVEL_INTERMEDIARIO= "1";
 	public static final String DF_CD_NIVEL_AVANCADO 	= "2";
+
 	public static final String getDescricaoNivel(Integer indNivel)
 	{
 		String dsNivel = null;
@@ -65,7 +66,9 @@ public class Treino extends EntidadeDominio
 	private Integer idGrupo,
 					fgCarga,
 					indTipoTreino,
-					indNivel;
+					indNivel,
+					indSexo;
+
 	// Parametros utilizados apenas para consultas
 	private List<String> listaCodigosObjParaBusca,
 						listaCodigosNivelParaBusca;
@@ -88,14 +91,18 @@ public class Treino extends EntidadeDominio
 	public Integer getIndNivel() {
 		return indNivel;
 	}
+	public String getDsNomeFoto() {
+		return dsNomeFoto;
+	}
+	public Integer getIndSexo() {
+		return indSexo;
+	}
+	//
 	public List<String> getListaCodigosObjParaBusca() {
 		return listaCodigosObjParaBusca;
 	}
 	public List<String> getListaCodigosNivelParaBusca() {
 		return listaCodigosNivelParaBusca;
-	}
-	public String getDsNomeFoto() {
-		return dsNomeFoto;
 	}
 
 	// Sets
@@ -117,13 +124,17 @@ public class Treino extends EntidadeDominio
 	public void setIndNivel(Integer indNivel) {
 		this.indNivel = indNivel;
 	}
+	public void setDsNomeFoto(String dsCaminhoFoto) {
+		this.dsNomeFoto = dsCaminhoFoto;
+	}
+	public void setIndSexo(Integer indSexo) {
+		this.indSexo = indSexo;
+	}
+	//
 	public void setListaCodigosObjParaBusca(List<String> listaCodigosObjParaBusca) {
 		this.listaCodigosObjParaBusca = listaCodigosObjParaBusca;
 	}
 	public void setListaCodigosNivelParaBusca(List<String> listaCodigosNivelParaBusca) {
 		this.listaCodigosNivelParaBusca = listaCodigosNivelParaBusca;
-	}
-	public void setDsNomeFoto(String dsCaminhoFoto) {
-		this.dsNomeFoto = dsCaminhoFoto;
 	}
 }

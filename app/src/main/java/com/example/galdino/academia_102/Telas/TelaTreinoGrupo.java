@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.galdino.academia_102.BaseAdapter.ListaTreinosBaseAdapter;
 import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
+import com.example.galdino.academia_102.Dominio.Filtro.clsFiltroTreino;
 import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
@@ -42,9 +43,10 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
     private List<EntidadeDominio> listEntDom;
     private String grupo;
     // Dados da tela de filtro
-    private String fgTelaFiltro;
-    private ArrayList<String> listaCodigosObj;
-    private ArrayList<String> listaCodigosNivel;
+    private Integer sexo;
+    private List<String> listaCodigosObj;
+    private List<String> listaCodigosNivel;
+    private clsFiltroTreino filtroTreino;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -52,11 +54,7 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_tela_treino_grupo);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //funciona
-        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_menu_options_preto2);
-        //toolbar.setOverflowIcon(drawable);
-        //toolbar.setTitle("");
-        //setSupportActionBar(toolbar);
-        //
+        //Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_menu_options_preto2);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED); // Para não iniciar o teclado quando abrir a tela
         // Vincula os dados da tela
         btnAddTreino = (Button)findViewById(R.id.btnAddTreino);
@@ -69,9 +67,14 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         // pega os dados da tela anterior
         Intent dados = getIntent();
         grupo = dados.getStringExtra("grupo");
-        fgTelaFiltro = dados.getStringExtra("fgTelaFiltro");
-        listaCodigosObj = dados.getStringArrayListExtra("listaCodigosObj");
-        listaCodigosNivel = dados.getStringArrayListExtra("listaCodigosNivel");
+        filtroTreino = clsFiltroTreino.getInstance();
+        if(filtroTreino.isFgFiltrado())
+            btnFiltroTreino.setText("Filtros *");
+        else
+            btnFiltroTreino.setText("Filtros");
+        listaCodigosObj = filtroTreino.getTreino().getListaCodigosObjParaBusca();
+        listaCodigosNivel = filtroTreino.getTreino().getListaCodigosNivelParaBusca();
+        sexo = filtroTreino.getTreino().getIndSexo();
         //
         grupoMuscular = new GrupoMuscular();
         grupoMuscular.setNome(grupo);
@@ -98,11 +101,6 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
                 intent.putExtra("idTreino", retornarInfoTreino(position, 0));
                 intent.putExtra("nmGrupo", grupoMuscular.getNome());
                 intent.putExtra("nmTreino", retornarInfoTreino(position, 1));
-//                if("1".equals(fgTelaFiltro)) // já foi para a tela de filtro?
-//                {
-                    intent.putStringArrayListExtra("listaCodigosObj", (ArrayList<String>) listaCodigosObj);
-                    intent.putStringArrayListExtra("listaCodigosNivel", (ArrayList<String>) listaCodigosNivel);
-                //}
                 startActivity(intent); // chama a próxima tela
                 finish();
 
@@ -148,13 +146,9 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         treino.setIdGrupo(Integer.parseInt(grupoMuscular.getID()));
         //List<Treino> lTreino = new LinkedList<Treino>();
         //lTreino = treino.converteEntidadeEmClasse(treino.operar(this,true, Controler.DF_CONSULTAR,treino), Treino.class);
-        //if(lTreino == null)
-        //return;
-//        if("1".equals(fgTelaFiltro))
-//        {
-            treino.setListaCodigosObjParaBusca(listaCodigosObj);
-            treino.setListaCodigosNivelParaBusca(listaCodigosNivel);
-//        }
+        treino.setListaCodigosObjParaBusca(listaCodigosObj);
+        treino.setListaCodigosNivelParaBusca(listaCodigosNivel);
+        treino.setIndSexo(sexo);
         listEntDom = treino.operar(this,true, Controler.DF_CONSULTAR,treino);
         if(listEntDom == null)
             return null;
@@ -210,12 +204,6 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         {
             Intent intent = new Intent();
             intent.putExtra("grupo",grupo);
-//            if("1".equals(fgTelaFiltro)) // já foi para a tela de filtro?
-//            {
-//                intent.putExtra("fgSegundaVez","1");
-                intent.putStringArrayListExtra("listaCodigosObj", (ArrayList<String>) listaCodigosObj);
-                intent.putStringArrayListExtra("listaCodigosNivel", (ArrayList<String>) listaCodigosNivel);
-//            }
             intent.setClass(TelaTreinoGrupo.this, TelaFitroDeTreino.class);
             startActivity(intent); // chama a próxima tela(tela anterior)
             finish();

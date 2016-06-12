@@ -123,8 +123,13 @@ public class IniciarBancoExercicios2 {
                     // Descrição
                     String descricao = treinoCarga[4];
                     treino.setDescricao(descricao);
+                    // Sexo
+                    String sexo = treinoCarga[5];
+                    if(sexo != null || sexo != "")
+                        treino.setIndSexo(
+                                Integer.parseInt(sexo));
                     // Exercícios
-                    String exercicios = treinoCarga[5];
+                    String exercicios = treinoCarga[6];
                     String[] exerciciosSeparados = exercicios.split("@");
                     // Caminho da foto
                     String nmFoto = null;

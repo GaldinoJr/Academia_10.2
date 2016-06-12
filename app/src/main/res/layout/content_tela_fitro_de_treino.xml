@@ -12,7 +12,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/corListaPretoClaro"
-        android:id="@+id/llObjetivo">
+        android:id="@+id/llSexo">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/corTextoBranco"
+            android:layout_marginLeft="10dp"
+            android:text="Sexo"/>
+    </LinearLayout>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Feminino"
+        android:id="@+id/chkFeminino"
+        android:layout_below="@+id/llSexo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/corTextoBranco"
+        android:button="@drawable/selector_chk_padrao"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Masculino"
+        android:id="@+id/chkMasculino"
+        android:layout_below="@+id/chkFeminino"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/corTextoBranco"
+        android:button="@drawable/selector_chk_padrao"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/corListaPretoClaro"
+        android:id="@+id/llObjetivo"
+        android:layout_below="@+id/chkMasculino"
+        android:layout_marginTop="5dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
