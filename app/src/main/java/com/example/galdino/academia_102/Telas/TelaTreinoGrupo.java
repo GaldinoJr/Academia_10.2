@@ -1,13 +1,8 @@
 package com.example.galdino.academia_102.Telas;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -19,12 +14,11 @@ import android.widget.Toast;
 
 import com.example.galdino.academia_102.BaseAdapter.ListaTreinosBaseAdapter;
 import com.example.galdino.academia_102.Controler.Controler;
+import com.example.galdino.academia_102.Core.Impl.Controle.Session;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
-import com.example.galdino.academia_102.Dominio.Filtro.clsFiltroTreino;
 import com.example.galdino.academia_102.Dominio.GrupoMuscular;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
-import com.example.galdino.academia_102.Telas.TelaExercicio.TabPrincipalExercicio;
 import com.example.galdino.academia_102.Telas.TelaTreinoPorGrupo.TabPrincipalTreinoPorGrupo;
 
 import java.util.ArrayList;
@@ -43,10 +37,11 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
     private List<EntidadeDominio> listEntDom;
     private String grupo;
     // Dados da tela de filtro
+    private int origemTreino;
     private Integer sexo;
     private List<String> listaCodigosObj;
     private List<String> listaCodigosNivel;
-    private clsFiltroTreino filtroTreino;
+    private Session session;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -67,14 +62,15 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         // pega os dados da tela anterior
         Intent dados = getIntent();
         grupo = dados.getStringExtra("grupo");
-        filtroTreino = clsFiltroTreino.getInstance();
-        if(filtroTreino.isFgFiltrado())
+        session = Session.getInstance();
+        if(session.isFgFiltrado())
             btnFiltroTreino.setText("Filtros *");
         else
             btnFiltroTreino.setText("Filtros");
-        listaCodigosObj = filtroTreino.getTreino().getListaCodigosObjParaBusca();
-        listaCodigosNivel = filtroTreino.getTreino().getListaCodigosNivelParaBusca();
-        sexo = filtroTreino.getTreino().getIndSexo();
+        listaCodigosObj = session.getTreino().getListaCodigosObjParaBusca();
+        listaCodigosNivel = session.getTreino().getListaCodigosNivelParaBusca();
+        sexo = session.getTreino().getIndSexo();
+        origemTreino = session.getTreino().getFgCarga();
         //
         grupoMuscular = new GrupoMuscular();
         grupoMuscular.setNome(grupo);
@@ -149,6 +145,7 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         treino.setListaCodigosObjParaBusca(listaCodigosObj);
         treino.setListaCodigosNivelParaBusca(listaCodigosNivel);
         treino.setIndSexo(sexo);
+        treino.setFgCarga(origemTreino);
         listEntDom = treino.operar(this,true, Controler.DF_CONSULTAR,treino);
         if(listEntDom == null)
             return null;

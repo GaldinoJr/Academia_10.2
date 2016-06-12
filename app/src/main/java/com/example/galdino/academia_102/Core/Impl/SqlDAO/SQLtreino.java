@@ -183,7 +183,8 @@ public class SQLtreino extends AbsSQL{
 		if (t.getIdGrupo() != null)
 			clausula += " AND " + Col_cd_grupo + "= '" + t.getIdGrupo() + "'";
 		if (t.getFgCarga() != null)
-			clausula += " AND " + Col_fg_carga + "= '" + t.getFgCarga() + "'";
+			if(t.getFgCarga() != 3)
+				clausula += " AND " + Col_fg_carga + "= '" + t.getFgCarga() + "'";
 		if (t.getIndTipoTreino() != null)
 			clausula += " AND " + Col_ind_tipo_treino + "= '" + t.getIndTipoTreino() + "'";
 		if (t.getIndNivel() != null)

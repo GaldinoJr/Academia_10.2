@@ -12,7 +12,6 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 
 import com.example.galdino.academia_102.Core.Impl.Controle.Session;
-import com.example.galdino.academia_102.Dominio.Filtro.clsFiltroTreino;
 import com.example.galdino.academia_102.Dominio.Treino;
 import com.example.galdino.academia_102.R;
 
@@ -32,11 +31,14 @@ public class TelaFitroDeTreino extends AppCompatActivity implements View.OnClick
                     chkObjResistencia,
                     chkNivelIniciante,
                     chkNivelIntermediario,
-                    chkNivelAvancado;
+                    chkNivelAvancado,
+                    chkMeusTreinos,
+                    chkTreinosApp;
     private List<String> lObj;
     private List<String> lNivel;
     private int sexo;
-    private clsFiltroTreino filtroTreino;
+    private int origemTreino;
+    private Session session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,8 @@ public class TelaFitroDeTreino extends AppCompatActivity implements View.OnClick
         chkNivelIniciante = (CheckBox)findViewById(R.id.chkNivelIniciante);
         chkNivelIntermediario = (CheckBox)findViewById(R.id.chkNivelIntermediario);
         chkNivelAvancado = (CheckBox)findViewById(R.id.chkNivelAvancado);
+        chkMeusTreinos = (CheckBox)findViewById(R.id.chkMeusTreinos);
+        chkTreinosApp = (CheckBox)findViewById(R.id.chkTreinosApp);
 
         btnBuscarTreinoComFiltro.setOnClickListener(this);
         btnToolbarLimpar.setOnClickListener(this);
@@ -88,12 +92,12 @@ public class TelaFitroDeTreino extends AppCompatActivity implements View.OnClick
     {
         Intent intent = new Intent();
         intent.putExtra("grupo", grupo);
-        intent.putExtra("fgTelaFiltro", "1");
         if(fgBuscar)
         {
             lObj = new ArrayList<>();
             lNivel = new ArrayList<>();
             sexo = 3;
+            origemTreino = 3;
             // Sexo
             if (chkFeminino.isChecked())
                 sexo = 0;
@@ -120,15 +124,26 @@ public class TelaFitroDeTreino extends AppCompatActivity implements View.OnClick
                 lNivel.add(Treino.DF_CD_NIVEL_INTERMEDIARIO);
             if (chkNivelAvancado.isChecked())
                 lNivel.add(Treino.DF_CD_NIVEL_AVANCADO);
+            // origemTreino
+            if (chkMeusTreinos.isChecked())
+                origemTreino = 0;
+            if (chkTreinosApp.isChecked())
+            {
+                if(origemTreino == 0)
+                    origemTreino = 3;
+                else
+                    origemTreino = 1;
+            }
             //
-            if(lObj.size() > 0 || lNivel.size() > 0 || sexo != 3)
-                filtroTreino.setFgFiltrado(true);
+            if(lObj.size() > 0 || lNivel.size() > 0 || sexo != 3 || origemTreino != 3)
+                session.setFgFiltrado(true);
             else
-                filtroTreino.setFgFiltrado(false);
+                session.setFgFiltrado(false);
         }
-        filtroTreino.getTreino().setListaCodigosObjParaBusca(lObj);
-        filtroTreino.getTreino().setListaCodigosNivelParaBusca(lNivel);
-        filtroTreino.getTreino().setIndSexo(sexo);
+        session.getTreino().setListaCodigosObjParaBusca(lObj);
+        session.getTreino().setListaCodigosNivelParaBusca(lNivel);
+        session.getTreino().setIndSexo(sexo);
+        session.getTreino().setFgCarga(origemTreino);
         //
         intent.setClass(TelaFitroDeTreino.this, TelaTreinoGrupo.class);
         startActivity(intent); // chama a próxima tela(tela anterior)
@@ -140,11 +155,11 @@ public class TelaFitroDeTreino extends AppCompatActivity implements View.OnClick
     // retorno - void
     private void carregarFiltrosSelecionadosAnteriormente()
     {
-        filtroTreino = clsFiltroTreino.getInstance();
-        sexo = filtroTreino.getTreino().getIndSexo();
-        lObj = filtroTreino.getTreino().getListaCodigosObjParaBusca();
-        lNivel = filtroTreino.getTreino().getListaCodigosNivelParaBusca();
-
+        session = Session.getInstance();
+        sexo = session.getTreino().getIndSexo();
+        lObj = session.getTreino().getListaCodigosObjParaBusca();
+        lNivel = session.getTreino().getListaCodigosNivelParaBusca();
+        origemTreino = session.getTreino().getFgCarga();
         // Carrega o sexo
         if(sexo == 0 || sexo == 3)
             chkFeminino.setChecked(true);
@@ -178,6 +193,11 @@ public class TelaFitroDeTreino extends AppCompatActivity implements View.OnClick
                     chkNivelAvancado.setChecked(true);
             }
         }
+        // Carrega a origem do treino
+        if(origemTreino == 0 || origemTreino == 3)
+            chkMeusTreinos.setChecked(true);
+        if(origemTreino == 1 || origemTreino == 3)
+            chkTreinosApp.setChecked(true);
     }// end
 
     // Nome - limparFiltros
@@ -194,6 +214,8 @@ public class TelaFitroDeTreino extends AppCompatActivity implements View.OnClick
         chkNivelIniciante.setChecked(false);
         chkNivelIntermediario.setChecked(false);
         chkNivelAvancado.setChecked(false);
+        chkMeusTreinos.setChecked(true);
+        chkTreinosApp.setChecked(true);
     }
     public void onBackPressed() // voltar?
     {
