@@ -6,16 +6,33 @@
     android:layout_height="fill_parent"
     android:layout_weight="1"
     >
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/corListaPretoClaro"
- >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/corListaPretoClaro"
+        >
+
+    <View
+        android:id="@+id/Divisor1"
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:layout_above="@+id/imgExercicioo"
+        android:layout_marginBottom="7dp"
+        android:background="@color/corTextoBranco" />
+
+    <View
+        android:id="@+id/Divisor3"
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:layout_below="@+id/imgExercicioo"
+        android:layout_marginTop="7dp"
+        android:background="@color/corTextoBranco" />
+
 
     <ImageView
         android:id="@+id/imgExercicioo"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
         android:src="@drawable/abdomen_com_giro"
         android:layout_centerVertical="true"
      />
@@ -100,6 +117,7 @@
         android:onClick="BtnExcluirExercicioTreino"
         />
 </RelativeLayout>
+
     <ImageView
         android:id="@+id/imgDesfocar"
         android:layout_width="match_parent"

@@ -12,7 +12,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/corListaPretoClaro"
-        android:id="@+id/llSexo">
+        android:id="@+id/llOrigemTreino">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/corTextoBranco"
+            android:layout_marginLeft="10dp"
+            android:text="Origem"/>
+    </LinearLayout>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Meus treinos"
+        android:id="@+id/chkMeusTreinos"
+        android:layout_below="@+id/llOrigemTreino"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/corTextoBranco"
+        android:button="@drawable/selector_chk_padrao"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Treinos do App"
+        android:id="@+id/chkTreinosApp"
+        android:layout_below="@+id/chkMeusTreinos"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/corTextoBranco"
+        android:button="@drawable/selector_chk_padrao"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/corListaPretoClaro"
+        android:id="@+id/llSexo"
+        android:layout_below="@+id/chkTreinosApp"
+        android:layout_marginTop="5dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -181,47 +224,5 @@
         android:background="@color/corDetalhesAmarelos"
         android:textColor="@color/corActionBarPretoEscuro"
         android:text="Buscar"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/corListaPretoClaro"
-        android:id="@+id/llOrigemTreino"
-        android:layout_below="@+id/chkNivelAvancado"
-        android:layout_marginTop="5dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/corTextoBranco"
-            android:layout_marginLeft="10dp"
-            android:text="Origem"/>
-    </LinearLayout>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="  Meus treinos"
-        android:id="@+id/chkMeusTreinos"
-        android:layout_below="@+id/llOrigemTreino"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/corTextoBranco"
-        android:button="@drawable/selector_chk_padrao"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="  Treinos do App"
-        android:id="@+id/chkTreinosApp"
-        android:layout_below="@+id/chkMeusTreinos"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/corTextoBranco"
-        android:button="@drawable/selector_chk_padrao"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
         />
 </RelativeLayout>

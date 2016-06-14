@@ -1,6 +1,8 @@
 package com.example.galdino.academia_102.BaseAdapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.galdino.academia_102.AndroidItens.RoundImage;
 import com.example.galdino.academia_102.Dominio.Exercicio;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.R.id;
@@ -150,7 +153,11 @@ public class ExercicioBaseAdapter  extends BaseAdapter {
 		// 
 		holder.txt_itemName.setText(ExercicioArrayList.get(position).getNome());
 		int indiceFoto = context.getResources().getIdentifier(ExercicioArrayList.get(position).getNomeLogicoFoto(), "drawable", context.getPackageName());
-		holder.itemImage.setImageResource(indiceFoto);
+		//holder.itemImage.setImageResource(indiceFoto);
+
+		Bitmap bm = BitmapFactory.decodeResource(context.getResources(), indiceFoto);
+		RoundImage roundedImage = new RoundImage(bm);
+		holder.itemImage.setImageDrawable(roundedImage);
 		//holder.itemImage.setImageResource(imgId[ExercicioArrayList.get(position).getIdImage() - 1]); // ** SO FUNCIONA ENQUANTO A IMAGEM ESTIVER SENDO COLOCADA EM ORDEM ALFABETICA NA CLASSE
 		holder.chkExercicioSelecionado.setTag(position);
 		return convertView;
