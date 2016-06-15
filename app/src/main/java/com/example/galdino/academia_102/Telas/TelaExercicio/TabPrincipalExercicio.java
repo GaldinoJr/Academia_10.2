@@ -22,12 +22,17 @@ public class TabPrincipalExercicio  extends ActionBarActivity {
     ViewPager pager;
     ViewPagerAdapterPadrao adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Exercício","Músculo", "Exercício"};
+    CharSequence Titles[]={"Exercício","Músculo", "Vídeo"};
     private int[] icones = {
-            R.drawable.ic_halter_aba_sm,
-            R.drawable.ic_aba_musculo_sm,
-            R.drawable.ic_aba_video_sm
+            -1,
+            -1
     };
+    // Colocar ícones nas tabs
+//    private int[] icones = {
+//            R.drawable.ic_halter_aba_sm,
+//            R.drawable.ic_aba_musculo_sm,
+//            R.drawable.ic_aba_video_sm
+//    };
     private int nrAbas =3;
     FragTabExeExercicio aba1 = new FragTabExeExercicio();
     FragTabMusculoExercicio aba2 = new FragTabMusculoExercicio();

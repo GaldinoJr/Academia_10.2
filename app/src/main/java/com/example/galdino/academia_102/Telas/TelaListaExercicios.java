@@ -50,6 +50,7 @@ public class TelaListaExercicios extends AppCompatActivity {
     private static Integer[] vetOrdemExercicio;
     private FloatingActionButton fBtnConfirmarExercicio;
     private int indTela;
+    private String fgFocusTabExercicio = "0";
     private ExercicioBaseAdapter exercicioBaseAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class TelaListaExercicios extends AppCompatActivity {
         dados = getIntent();
         indTela = 1;
         // Recebe os dados da tela anterior
+        fgFocusTabExercicio = dados.getStringExtra("fgFocusTabExercicio");
         grupo = dados.getStringExtra("grupo");
         telaAnterior = dados.getStringExtra("nmTelaCorrespondente");
         if(FragTab2Exercicios.class.toString().equals(telaAnterior)) {
@@ -338,12 +340,12 @@ public class TelaListaExercicios extends AppCompatActivity {
         Intent intent;
         intent = new Intent();
         // Para chamar a próxima tela tem que dizer qual e a tela atual, e depois a próxima tela( a que vai ser chamada)
-        //intent.setClass(TelaListaExercicios.this, TelaPrincipalExercicio.class);
         intent.setClass(TelaListaExercicios.this, TabPrincipalTreinoPorGrupo.class);
         intent.putExtra("nmTelaCorrespondente", telaAnterior);
         intent.putExtra("idTreino", idTreino);
         intent.putExtra("nmTreino", nmTreino);
         intent.putExtra("nmGrupo", grupoMuscular.getNome());
+        intent.putExtra("fgFocusTabExercicio", fgFocusTabExercicio);
 //        intent.putStringArrayListExtra("exe", (ArrayList<String>) vetIDExe);
 //        Bundle b=new Bundle();
 //        b.putStringArray("exe", vetIDExe);

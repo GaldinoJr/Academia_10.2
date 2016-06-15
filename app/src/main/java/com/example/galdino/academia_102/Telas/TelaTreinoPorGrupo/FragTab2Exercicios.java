@@ -126,9 +126,9 @@ public class FragTab2Exercicios extends Fragment
         intent.setClass(getActivity(), TelaListaExercicios.class);
         intent.putExtra("grupo", grupo);
         intent.putExtra("nmTelaCorrespondente", FragTab2Exercicios.class.toString());
-        //if(TelaTreinoExercicio.class.toString().equals(telaAnterior)) {
         intent.putExtra("idTreino", idTreino);
         intent.putExtra("nmTreino", treino.getNome());
+        intent.putExtra("fgFocusTabExercicio", "1");
         intent.putStringArrayListExtra("exe", (ArrayList<String>) vetIDExe);
 //            Bundle b=new Bundle();
 //            b.putStringArray("exe", vetIDExe);

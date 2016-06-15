@@ -23,7 +23,6 @@ import java.util.List;
 
 public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
     // Variáveis do slide tab
-    private Toolbar toolbar;
     private ViewPager pager;
     private ViewPagerAdapterPadrao adapter;
     private SlidingTabLayout tabs;
@@ -35,7 +34,6 @@ public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
     private int nrAbas = 2;
     private FragTab1Descricao aba1 = new FragTab1Descricao();
     private FragTab2Exercicios aba2 = new FragTab2Exercicios();
-
     private android.support.v4.app.Fragment[] abas = {
             aba1,
             aba2
@@ -43,7 +41,8 @@ public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
     //
     private String nomeTreino,
                     nomeGrupo,
-                    idTreino;
+                    idTreino,
+                    fgFocusTabExercicio;
     private Treino treino;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +54,7 @@ public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
         TextView txtTituloToolbarPadrao = (TextView) findViewById(R.id.txtTituloToolbarPadrao);
         Intent dados = getIntent();
         // Recebe os dados da tela anterior
+        fgFocusTabExercicio = dados.getStringExtra("fgFocusTabExercicio");
         nomeGrupo = dados.getStringExtra("nmGrupo");
         nomeTreino = dados.getStringExtra("nmTreino");
         idTreino = dados.getStringExtra("idTreino");
@@ -84,6 +84,9 @@ public class TabPrincipalTreinoPorGrupo extends AppCompatActivity {
         });
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
+        if(fgFocusTabExercicio != null)
+            if(fgFocusTabExercicio.equals("1"))
+                pager.setCurrentItem(2);
         //teste = adapter.getItem(1); pega o segundo fragment enviado
     }
 
