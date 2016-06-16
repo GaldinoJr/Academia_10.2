@@ -67,7 +67,8 @@ public class Treino extends EntidadeDominio
 					fgCarga,
 					indTipoTreino,
 					indNivel,
-					indSexo;
+					indSexo,
+					fgTreinando;
 
 	// Parametros utilizados apenas para consultas
 	private List<String> listaCodigosObjParaBusca,
@@ -97,6 +98,10 @@ public class Treino extends EntidadeDominio
 	public Integer getIndSexo() {
 		return indSexo;
 	}
+	public Integer getFgTreinando() {
+		return fgTreinando;
+	}
+
 	//
 	public List<String> getListaCodigosObjParaBusca() {
 		return listaCodigosObjParaBusca;
@@ -130,6 +135,10 @@ public class Treino extends EntidadeDominio
 	public void setIndSexo(Integer indSexo) {
 		this.indSexo = indSexo;
 	}
+	public void setFgTreinando(Integer fgTreinando) {
+		this.fgTreinando = fgTreinando;
+	}
+
 	//
 	public void setListaCodigosObjParaBusca(List<String> listaCodigosObjParaBusca) {
 		this.listaCodigosObjParaBusca = listaCodigosObjParaBusca;

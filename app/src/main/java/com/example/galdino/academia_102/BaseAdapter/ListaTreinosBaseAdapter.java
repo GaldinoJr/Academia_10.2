@@ -25,9 +25,9 @@ public class ListaTreinosBaseAdapter extends BaseAdapter {
     private List<EntidadeDominio> listEntDomTreinos;
     private Context context;
     // Construtor 1
-    public ListaTreinosBaseAdapter(Context context, ArrayList<Treino> results, List<EntidadeDominio> listEntDomTreinos)
+    public ListaTreinosBaseAdapter(Context context, ArrayList<Treino> alTreinos, List<EntidadeDominio> listEntDomTreinos)
     {
-        ALlistaTreino = results;
+        ALlistaTreino = alTreinos;
         l_Inflater = LayoutInflater.from(context);
         this.listEntDomTreinos = listEntDomTreinos;
         this.context = context;
@@ -60,7 +60,7 @@ public class ListaTreinosBaseAdapter extends BaseAdapter {
     static class ViewHolder {
         TextView txt_itemName;
         ImageView itemImage;
-
+        ImageView imgMarkTreino;
     }
 
     // Vai converter um view para aparecer dentro de outro
@@ -76,12 +76,16 @@ public class ListaTreinosBaseAdapter extends BaseAdapter {
             // recebe o conteudo do xml que será um item da listView, associando os objtos da tela com os daqui
             holder.itemImage = (ImageView)convertView.findViewById(R.id.imgExcluirTreino);
             holder.txt_itemName = (TextView)convertView.findViewById(R.id.txtNomeTreino);
+            holder.imgMarkTreino = (ImageView)convertView.findViewById(R.id.imgMarkTreino);
             convertView.setTag(holder); // devolve os conteudos
         }
         else // se já foi criada
         {
             holder = (ViewHolder) convertView.getTag(); // Pega o conteudo que já foi enviado
         }
+        if(ALlistaTreino.get(position).getFgTreinando() != null)
+            if(ALlistaTreino.get(position).getFgTreinando() == 1)
+                holder.imgMarkTreino.setVisibility(View.VISIBLE);
         //
         holder.txt_itemName.setText(ALlistaTreino.get(position).getNome());
         holder.itemImage.setTag(position);

@@ -21,6 +21,7 @@ public class SQLtreino extends AbsSQL{
 	private static final String Col_ds_treino = "ds_treino";
 	private static final String Col_cd_grupo = "f_cd_grupo";
 	private static final String Col_fg_carga = "fg_carga";
+	private static final String Col_fg_treinando = "fg_treinando";
 	// Tipo Treino - indice
 	// Definição   - 0
 	// Força	   - 1
@@ -38,7 +39,7 @@ public class SQLtreino extends AbsSQL{
 	private static final String Col_ind_sexo = "ind_sexo";
 	//private static final String[] colunas = {Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel,Col_ds_nome_foto};
 	//private static final List<String> colunas1 = new {Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel,Col_ds_nome_foto};
-	private static final String[] colunasBusca = {Col_cd_treino,Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel,Col_ds_nome_foto, Col_ind_sexo};
+	private static final String[] colunasBusca = {Col_cd_treino,Col_ds_nome,Col_ds_treino, Col_fg_carga, Col_cd_grupo,Col_ind_tipo_treino,Col_ind_nivel,Col_ds_nome_foto, Col_ind_sexo,Col_fg_treinando};
 
 	private Context context;
 	private Treino treino;
@@ -56,7 +57,8 @@ public class SQLtreino extends AbsSQL{
 				Col_ind_tipo_treino + " INTEGER, " +
 				Col_ind_nivel + " INTEGER, " +
 				Col_ds_nome_foto + " TEXT, " +
-				Col_ind_sexo + " INTEGER )";
+				Col_ind_sexo + " INTEGER, "  +
+				Col_fg_treinando + " INTEGER )";
 	}
 
 	@Override
@@ -71,6 +73,7 @@ public class SQLtreino extends AbsSQL{
 		colunas.add(Col_ind_nivel);
 		colunas.add(Col_ds_nome_foto);
 		colunas.add(Col_ind_sexo);
+		colunas.add(Col_fg_treinando);
 	}
 	public SQLtreino(Context context){
 		iniciar();
@@ -96,6 +99,7 @@ public class SQLtreino extends AbsSQL{
 			mapSql.put(Col_ind_nivel, String.valueOf(treino.getIndNivel()));
 			mapSql.put(Col_ds_nome_foto, String.valueOf(treino.getDsNomeFoto()));
 			mapSql.put(Col_ind_sexo, String.valueOf(treino.getIndSexo()));
+			mapSql.put(Col_fg_treinando, String.valueOf(treino.getFgTreinando()));
 			removeCamposVazios();
 			long id = db.addRegistro(mapSql);
 			//db.close();
@@ -110,8 +114,31 @@ public class SQLtreino extends AbsSQL{
 	}
 
 	@Override
-	public void alterar(EntidadeDominio entidade) {
-
+	public void alterar(EntidadeDominio entidade)
+	{
+		try
+		{
+			treino =  (Treino)entidade;
+			mapSql = new HashMap<String, String>();
+			// Atualiza para 0 onde for 1
+			colunas = new LinkedList<String>();
+			colunas.add(Col_fg_treinando);
+			db.setColunas(colunas);
+			mapSql.put(Col_fg_treinando, "0");
+			long id = db.alterarRegistro(mapSql,Col_fg_treinando, "1");
+			mapSql.remove(Col_fg_treinando);
+			// Atualiza o treino atual para 1
+			mapSql.put(Col_fg_treinando, String.valueOf(treino.getFgTreinando()));
+			//removeCamposVazios();
+			id = db.alterarRegistro(mapSql,Col_cd_treino, treino.getID());
+			//treino.setID(String.valueOf(id));
+			//return treino;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			//return null;
+		}
 	}
 
 	@Override
@@ -162,6 +189,9 @@ public class SQLtreino extends AbsSQL{
 				t.setDsNomeFoto(listMapSql.get(i).get(colunasBusca[7]));
 				if(listMapSql.get(i).get(colunasBusca[8]) != null)
 					t.setIndSexo(Integer.parseInt(listMapSql.get(i).get(colunasBusca[8])));
+				if(listMapSql.get(i).get(colunasBusca[9]) != null)
+					t.setFgTreinando(Integer.parseInt(listMapSql.get(i).get(colunasBusca[9])));
+
 				listSql.add(t);
 			}
 			if(listSql.size() > 0)
@@ -176,35 +206,43 @@ public class SQLtreino extends AbsSQL{
 	private String montarClausulaWhere(Treino t)
 	{
 		String clausula = " WHERE 1 = 1";
+		//Col_cd_treino
 		if (!TextUtils.isEmpty(t.getID()))
 			clausula += " AND " + Col_cd_treino + "= '" + t.getID() + "'";
+		//Col_ds_nome
 		if (!TextUtils.isEmpty(t.getNome()))
 			clausula += " AND " + Col_ds_nome + "= '" + t.getNome() + "'";
+		//Col_cd_grupo
 		if (t.getIdGrupo() != null)
 			clausula += " AND " + Col_cd_grupo + "= '" + t.getIdGrupo() + "'";
+		//Col_fg_carga
 		if (t.getFgCarga() != null)
 			if(t.getFgCarga() != 3)
 				clausula += " AND " + Col_fg_carga + "= '" + t.getFgCarga() + "'";
+		//Col_ind_tipo_treino
 		if (t.getIndTipoTreino() != null)
 			clausula += " AND " + Col_ind_tipo_treino + "= '" + t.getIndTipoTreino() + "'";
+		//Col_ind_nivel
 		if (t.getIndNivel() != null)
 			clausula += " AND " + Col_ind_nivel + "= '" + t.getIndNivel() + "'";
-
+		//Col_ind_tipo_treino
 		String codigosIndTipoTreino = montarClausulaComList(t.getListaCodigosObjParaBusca());
 		if (codigosIndTipoTreino != null)
 			clausula += " AND " + Col_ind_tipo_treino + " IN (" + codigosIndTipoTreino + ")";
-
+		//Col_ind_nivel
 		String codigosIndNivel = montarClausulaComList(t.getListaCodigosNivelParaBusca());
 		if (codigosIndNivel != null)
 			clausula += " AND " + Col_ind_nivel + " IN (" +codigosIndNivel + ")";
-
+		//Col_ds_nome_foto
 		if (t.getDsNomeFoto() != null)
 			clausula += " AND " + Col_ds_nome_foto + "= '" + t.getDsNomeFoto() + "'";
-
+		//Col_ind_sexo
 		if (t.getIndSexo() != null)
 			if(t.getIndSexo() != 3)
 			clausula += " AND " + Col_ind_sexo + "= '" + t.getIndSexo() + "'";
-
+		//Col_fg_treinando
+		if (t.getFgTreinando() != null)
+				clausula += " AND " + Col_fg_treinando + "= '" + t.getFgTreinando() + "'";
 		return clausula;
 	}
 	private String montarClausulaComList(List<String> lista)
