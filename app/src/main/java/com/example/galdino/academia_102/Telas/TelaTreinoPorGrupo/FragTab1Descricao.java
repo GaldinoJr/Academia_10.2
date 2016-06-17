@@ -77,8 +77,22 @@ public class FragTab1Descricao extends Fragment implements View.OnClickListener 
     {
         if(view == btnUtilizarTreino)
         {
-            treino.setFgTreinando(1);
-            treino.operar(getContext(),true, Controler.DF_ALTERAR,treino);
+            Treino t = new Treino();
+            Treino where = new Treino();
+            // Atualiza para 0 onde for 1
+            t.setFgTreinando(0);
+
+            where.setFgTreinando(1);
+            where.setIdGrupo(treino.getIdGrupo());
+            t.setWhere(where);
+            t.operar(getContext(), true, Controler.DF_ALTERAR, t);
+            // Atualiza pra 1 o treino corrente
+            t.setFgTreinando(1);
+
+            where.setFgTreinando(null);
+            where.setID(treino.getID());
+            t.setWhere(where);
+            t.operar(getContext(), true, Controler.DF_ALTERAR, t);
             onBackPressed();
         }
     }

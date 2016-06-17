@@ -63,8 +63,9 @@ public class SQLMusculoExercicio  extends AbsSQL {
             mapSql.put(Col_cd_musculo, String.valueOf(musculoExercicio.getIdMusculo()));
             mapSql.put(Col_cd_exercicio, String.valueOf(musculoExercicio.getIdExercicio()));
             mapSql.put(Col_ind_primario_secundario, String.valueOf(musculoExercicio.getIndPrimarioSecundario()));
-            removeCamposVazios();
-            long id = db.addRegistro(mapSql);
+//            removeCamposVazios();
+//            long id = db.addRegistro(mapSql);
+            long id = Incluir();
             //db.close();
             musculoExercicio.setID(String.valueOf(id));
             return musculoExercicio;

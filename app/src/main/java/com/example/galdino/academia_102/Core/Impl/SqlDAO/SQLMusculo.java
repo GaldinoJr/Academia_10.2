@@ -55,8 +55,9 @@ public class SQLMusculo  extends AbsSQL {
             mapSql = new HashMap<String, String>();
 
             mapSql.put(Col_ds_musculo, musculo.getNome());
-            removeCamposVazios();
-            long id = db.addRegistro(mapSql);
+//            removeCamposVazios();
+//            long id = db.addRegistro(mapSql);
+            long id = Incluir();
             //db.close();
             musculo.setID(String.valueOf(id));
             return musculo;

@@ -279,28 +279,28 @@ public class SQL extends SQLiteOpenHelper {
         db.close();
     }
 // Falta terminar
-//    public int alterarComClausula(Map<String, String> map, String ColunaID, String sId) {
-//
-//        // 1. get reference to writable DB
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        // 2. create ContentValues to add key "column"/value
-//        ContentValues values = new ContentValues();
-//        for(i = 0; i <map.size();i++) //roda todo o mapa
-//        {
-//            values.put(colunas.get(i), (String) map.get(colunas.get(i))); // pega os conteudos
-//        }
-//
-//
-//        // 3. updating row
-//        int retorno = db.update(nomeTabela, //table
-//                values, // column/value
-//                ColunaID + " = ?", // selections
-//                new String[]{sId}); //selection args
-//
-//        // 4. close
-//        db.close();
-//
-//        return retorno;
-//    }
+    public int alterarComClausula(Map<String, String> map, String clausula, String[] args) {
+
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // 2. create ContentValues to add key "column"/value
+        ContentValues values = new ContentValues();
+        for(i = 0; i <map.size();i++) //roda todo o mapa
+        {
+            values.put(colunas.get(i), (String) map.get(colunas.get(i))); // pega os conteudos
+        }
+
+
+        // 3. updating row
+        int retorno = db.update(nomeTabela, //table
+                values, // column/value
+                clausula, // selections
+                args); //selection args
+
+        // 4. close
+        db.close();
+
+        return retorno;
+    }
 }

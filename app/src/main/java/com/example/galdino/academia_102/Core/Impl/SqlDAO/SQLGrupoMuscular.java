@@ -56,8 +56,9 @@ public class SQLGrupoMuscular extends AbsSQL{
 			mapSql = new HashMap<String, String>();
 			
 			mapSql.put(Col_ds_grupo, grupoMuscular.getNome());
-			removeCamposVazios();
-			long id = db.addRegistro(mapSql);
+//			removeCamposVazios();
+//			long id = db.addRegistro(mapSql);
+			long id = Incluir();
 			//db.close();
 			grupoMuscular.setID(String.valueOf(id));
 			return grupoMuscular;

@@ -55,8 +55,9 @@ public class SQLConfiguracao extends AbsSQL {
             mapSql = new HashMap<String, String>();
 
             mapSql.put(Col_fg_banco_criado, String.valueOf(configuracao.getFgBancoCriado()));
-            removeCamposVazios();
-            long id = db.addRegistro(mapSql);
+//            removeCamposVazios();
+//            long id = db.addRegistro(mapSql);
+            long id = Incluir();
             configuracao.setID(String.valueOf(id));
             //db.close();
             return configuracao;

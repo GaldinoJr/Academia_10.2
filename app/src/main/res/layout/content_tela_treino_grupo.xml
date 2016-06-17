@@ -51,7 +51,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/Divisor1"
-        android:layout_below="@+id/btnFiltroTreino">
+        android:layout_below="@+id/btnFiltroTreino"
+        >
     </ListView>
 
     <Button
@@ -62,6 +63,5 @@
         android:background="@color/corActionBarPretoEscuro"
         android:textColor="@color/corDetalhesAmarelos"
         android:text="Filtros"
-        android:layout_marginBottom="9dp"
     />
 </RelativeLayout>

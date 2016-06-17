@@ -22,7 +22,35 @@ public abstract class AbsSQL implements IDAO {
 	protected List<EntidadeDominio> listSql;
 	protected List<Map<String, String>> listMapSql;
 
-	protected void removeCamposVazios()
+	protected long Incluir()
+	{
+		removeCamposVazios();
+		long id = db.addRegistro(mapSql);
+		return id;
+	}
+
+	protected long Alterar(String where, String[] valoresWhere)
+	{
+		removeCamposVazios();
+		where = removeAndComeco(where);
+		long id = db.alterarComClausula(mapSql, where, valoresWhere);
+		return id;
+	}
+	private String removeAndComeco(String where)
+	{
+		String retorno = "";
+		int tamanho =  where.length();
+		if(where != null && tamanho > 2)
+		{
+			String aux = where.substring(1, 4);
+			if (aux.toUpperCase().equals("AND"))
+				retorno = where.substring(5,tamanho);
+			else
+				retorno = where;
+		}
+		return retorno;
+	}
+	private void removeCamposVazios()
 	{
 		for(int i = 0; i < colunas.size(); i++)
 		{

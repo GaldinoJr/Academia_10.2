@@ -71,8 +71,9 @@ public class SQLexercicio extends AbsSQL{
 			mapSql.put(Col_ds_nome_logico_foto_exercicio, exercicio.getNomeLogicoFoto());
 			mapSql.put(Col_ds_exercicio, exercicio.getDescricao());
 			mapSql.put(Col_cd_grupo, String.valueOf(exercicio.getIdGrupo()));
-			removeCamposVazios();
-			long id = db.addRegistro(mapSql);
+//			removeCamposVazios();
+//			long id = db.addRegistro(mapSql);
+			long id = Incluir();
 			exercicio.setID(String.valueOf(id));
 			//db.close();
 			return exercicio;

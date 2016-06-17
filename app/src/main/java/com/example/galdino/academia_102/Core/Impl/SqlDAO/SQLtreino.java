@@ -89,19 +89,10 @@ public class SQLtreino extends AbsSQL{
 		try
 		{
 			treino =  (Treino)entidade;
-			mapSql = new HashMap<String, String>();
-
-			mapSql.put(Col_ds_nome, String.valueOf(treino.getNome()));
-			mapSql.put(Col_ds_treino, String.valueOf(treino.getDescricao()));
-			mapSql.put(Col_fg_carga, String.valueOf(treino.getFgCarga()));
-			mapSql.put(Col_cd_grupo, String.valueOf(treino.getIdGrupo()));
-			mapSql.put(Col_ind_tipo_treino, String.valueOf(treino.getIndTipoTreino()));
-			mapSql.put(Col_ind_nivel, String.valueOf(treino.getIndNivel()));
-			mapSql.put(Col_ds_nome_foto, String.valueOf(treino.getDsNomeFoto()));
-			mapSql.put(Col_ind_sexo, String.valueOf(treino.getIndSexo()));
-			mapSql.put(Col_fg_treinando, String.valueOf(treino.getFgTreinando()));
-			removeCamposVazios();
-			long id = db.addRegistro(mapSql);
+			popularMap();
+//			removeCamposVazios();
+//			long id = db.addRegistro(mapSql);
+			long id = Incluir();
 			//db.close();
 			treino.setID(String.valueOf(id));
 			return treino;
@@ -120,17 +111,30 @@ public class SQLtreino extends AbsSQL{
 		{
 			treino =  (Treino)entidade;
 			mapSql = new HashMap<String, String>();
-			// Atualiza para 0 onde for 1
-			colunas = new LinkedList<String>();
-			colunas.add(Col_fg_treinando);
-			db.setColunas(colunas);
-			mapSql.put(Col_fg_treinando, "0");
-			long id = db.alterarRegistro(mapSql,Col_fg_treinando, "1");
-			mapSql.remove(Col_fg_treinando);
-			// Atualiza o treino atual para 1
-			mapSql.put(Col_fg_treinando, String.valueOf(treino.getFgTreinando()));
-			//removeCamposVazios();
-			id = db.alterarRegistro(mapSql,Col_cd_treino, treino.getID());
+			String[] colunas;
+			String query = "";
+			ArrayList<String> arrayColunas = new ArrayList<>();
+			popularMap();
+
+			if(treino.getWhere().getID() != null)
+			{
+				query += Col_cd_treino + " = ?";
+				arrayColunas.add(String.valueOf(treino.getWhere().getID()));
+			}
+			if(treino.getWhere().getFgTreinando() != null)
+			{
+				query += " AND " + Col_fg_treinando + " = ?";
+				arrayColunas.add(String.valueOf(treino.getWhere().getFgTreinando()));
+			}
+			if(treino.getWhere().getIdGrupo() != null)
+			{
+				query += " AND " + Col_cd_grupo + " = ?";
+				arrayColunas.add(String.valueOf(treino.getWhere().getIdGrupo()));
+			}
+			colunas = new String[arrayColunas.size()];
+			for (int i = 0; i < arrayColunas.size(); i++)
+				colunas[i] = arrayColunas.get(i);
+			long qtdItensAlterados = Alterar(query,colunas);
 			//treino.setID(String.valueOf(id));
 			//return treino;
 		}
@@ -151,6 +155,21 @@ public class SQLtreino extends AbsSQL{
 			treinoExercicio.setIdTreino(Integer.parseInt(treino.getID()));
 			treinoExercicio.operar(context,true, Controler.DF_EXCLUIR,treinoExercicio);
 		}
+	}
+
+	private void popularMap()
+	{
+		mapSql = new HashMap<String, String>();
+
+		mapSql.put(Col_ds_nome, String.valueOf(treino.getNome()));
+		mapSql.put(Col_ds_treino, String.valueOf(treino.getDescricao()));
+		mapSql.put(Col_fg_carga, String.valueOf(treino.getFgCarga()));
+		mapSql.put(Col_cd_grupo, String.valueOf(treino.getIdGrupo()));
+		mapSql.put(Col_ind_tipo_treino, String.valueOf(treino.getIndTipoTreino()));
+		mapSql.put(Col_ind_nivel, String.valueOf(treino.getIndNivel()));
+		mapSql.put(Col_ds_nome_foto, String.valueOf(treino.getDsNomeFoto()));
+		mapSql.put(Col_ind_sexo, String.valueOf(treino.getIndSexo()));
+		mapSql.put(Col_fg_treinando, String.valueOf(treino.getFgTreinando()));
 	}
 
 	@Override

@@ -69,6 +69,7 @@ public class Treino extends EntidadeDominio
 					indNivel,
 					indSexo,
 					fgTreinando;
+	private Treino where;
 
 	// Parametros utilizados apenas para consultas
 	private List<String> listaCodigosObjParaBusca,
@@ -100,6 +101,9 @@ public class Treino extends EntidadeDominio
 	}
 	public Integer getFgTreinando() {
 		return fgTreinando;
+	}
+	public Treino getWhere() {
+		return where;
 	}
 
 	//
@@ -137,6 +141,9 @@ public class Treino extends EntidadeDominio
 	}
 	public void setFgTreinando(Integer fgTreinando) {
 		this.fgTreinando = fgTreinando;
+	}
+	public void setWhere(Treino where) {
+		this.where = where;
 	}
 
 	//

@@ -58,8 +58,9 @@ public class SQLTreinoExercicioRepeticao extends AbsSQL {
 
             mapSql.put(Col_cd_treino_exercicio, String.valueOf(treinoExercicioRepeticao.getID()));
             mapSql.put(Col_nr_repeticoes, String.valueOf(treinoExercicioRepeticao.getNrRepeticoes()));
-            removeCamposVazios();
-            long id = db.addRegistro(mapSql);
+//            removeCamposVazios();
+//            long id = db.addRegistro(mapSql);
+            long id = Incluir();
             //db.close();
             treinoExercicioRepeticao.setID(String.valueOf(id));
             return treinoExercicioRepeticao;

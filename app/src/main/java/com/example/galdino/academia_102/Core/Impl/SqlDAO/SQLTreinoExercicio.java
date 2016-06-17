@@ -68,8 +68,9 @@ public class SQLTreinoExercicio extends AbsSQL {
             mapSql.put(Col_cd_treino, String.valueOf(treinoExercicio.getIdTreino()));
             mapSql.put(Col_cd_exercicio, String.valueOf(treinoExercicio.getIdExercicio()));
             mapSql.put(Col_nr_ordem, String.valueOf(treinoExercicio.getNrOrdem()));
-            removeCamposVazios();
-            long id = db.addRegistro(mapSql);
+//            removeCamposVazios();
+//            long id = db.addRegistro(mapSql);
+            long id = Incluir();
             //db.close();
             treinoExercicio.setID(String.valueOf(id));
             return treinoExercicio;
@@ -97,6 +98,7 @@ public class SQLTreinoExercicio extends AbsSQL {
                 String[] colunas;
                 String query = "";
                 ArrayList<String> arrayColunas = new ArrayList<>();
+
                 if (treinoExercicio.getIdTreino() != null) {
                     query += Col_cd_treino + " = ? ";
                     arrayColunas.add(treinoExercicio.getIdTreino().toString());
