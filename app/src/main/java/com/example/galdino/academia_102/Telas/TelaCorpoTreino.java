@@ -3,6 +3,7 @@ package com.example.galdino.academia_102.Telas;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class TelaCorpoTreino extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener {
     private Button btnVirarFotoPrinc,
             btnVirarFotoPrinc2;
+    private FloatingActionButton fBtnFicha;
     private Intent intent;
     private  String[] vetSgrupos;
     private String[] vetor;
@@ -42,8 +44,10 @@ public class TelaCorpoTreino extends AppCompatActivity implements View.OnTouchLi
         //
         btnVirarFotoPrinc = (Button)findViewById(R.id.btnVirarFotoPrinc);
         btnVirarFotoPrinc2 = (Button)findViewById(R.id.btnVirarFotoPrinc2);
+        fBtnFicha = (FloatingActionButton)findViewById(R.id.fBtnFicha);
         btnVirarFotoPrinc.setOnClickListener(this);
         btnVirarFotoPrinc2.setOnClickListener(this);
+        fBtnFicha.setOnClickListener(this);
 
         iVprincipal = (ImageView)findViewById(R.id.image);
         if (iVprincipal != null) {
@@ -208,6 +212,10 @@ public class TelaCorpoTreino extends AppCompatActivity implements View.OnTouchLi
                 imagemAtual.setImageResource(proximaImagem);
                 imagemAtual.setTag (proximaImagem);
             }
+        }
+        else if(v == fBtnFicha)
+        {
+            chamarTelaCorrespondeteAoGrupo("all");
         }
     }
     private void imageClick(String sGrupo)

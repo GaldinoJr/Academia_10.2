@@ -20,14 +20,19 @@
             android:background="@color/corActionBarPretoEscuro"
         >
 
+        <View
+            android:id="@+id/Divisor1"
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:layout_alignParentBottom="true"
+            android:visibility="invisible"
+            android:layout_marginBottom="2dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/llFoto"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="4dp"
             android:layout_marginRight="4dp"
-            android:layout_marginBottom="4dp"
             android:orientation="vertical"
             android:layout_gravity="center"
             android:gravity="center"
@@ -43,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="6dp"
-                    android:src="@drawable/img_no_picture"
+                    android:src="@drawable/foto_peito_jay_cutler"
                     android:scaleType="centerCrop"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
@@ -74,6 +79,7 @@
                 android:id="@+id/llObjetivo"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal"
                 android:background="@drawable/fundo_canto_arredondado_cinza"
             >
@@ -207,15 +213,15 @@
                     />
                 </RelativeLayout>
             </LinearLayout>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnUtilizarTreino"
-                android:layout_alignParentBottom="true"
-                android:background="@color/corDetalhesAmarelos"
-                android:textColor="@color/corActionBarPretoEscuro"
-                android:text="Utilizar"
-                />
         </LinearLayout>
     </ScrollView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnUtilizarTreino"
+        android:layout_alignParentBottom="true"
+        android:background="@color/corDetalhesAmarelos"
+        android:textColor="@color/corActionBarPretoEscuro"
+        android:text="Utilizar"
+        />
 </LinearLayout>

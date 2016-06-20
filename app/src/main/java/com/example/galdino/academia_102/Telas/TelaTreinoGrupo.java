@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.galdino.academia_102.BaseAdapter.ListaTreinosBaseAdapter;
@@ -42,6 +43,8 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
     private List<String> listaCodigosObj;
     private List<String> listaCodigosNivel;
     private Session session;
+    private RelativeLayout rlAddTreino;
+    private View Divisor1;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -56,6 +59,8 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         btnFiltroTreino = (Button)findViewById(R.id.btnFiltroTreino);
         txtNomeTreino = (EditText)findViewById(R.id.txtNomeTreino);
         listTreinos = (ListView)findViewById(R.id.listTreinos);
+        rlAddTreino = (RelativeLayout)findViewById(R.id.rlAddTreino);
+        Divisor1 = (View)findViewById(R.id.Divisor1);
         // Add o listenner nos botões
         btnAddTreino.setOnClickListener(this);
         btnFiltroTreino.setOnClickListener(this);
@@ -72,15 +77,23 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         sexo = session.getTreino().getIndSexo();
         origemTreino = session.getTreino().getFgCarga();
         //
-        grupoMuscular = new GrupoMuscular();
-        grupoMuscular.setNome(grupo);
-        listEntDom = grupoMuscular.operar(this,true,Controler.DF_CONSULTAR,grupoMuscular);
-        if(listEntDom != null)
-            grupoMuscular = (GrupoMuscular)listEntDom.get(0);
-        else
+        if(grupo == null)
+            grupo = "nada";
+        if (!grupo.equals("all"))
         {
-            Toast.makeText(TelaTreinoGrupo.this, "Grupo Muscular não encontrado.", Toast.LENGTH_SHORT).show();
-            return;
+            grupoMuscular = new GrupoMuscular();
+            grupoMuscular.setNome(grupo);
+            listEntDom = grupoMuscular.operar(this, true, Controler.DF_CONSULTAR, grupoMuscular);
+            if (listEntDom != null)
+                grupoMuscular = (GrupoMuscular) listEntDom.get(0);
+            else {
+                Toast.makeText(TelaTreinoGrupo.this, "Grupo Muscular não encontrado.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        else {
+            rlAddTreino.setVisibility(View.GONE);
+            Divisor1.setVisibility(View.GONE);
         }
         atualizarListTreinos();
         //
@@ -95,7 +108,7 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
                 //intent.setClass(TelaTreinoGrupo.this, TelaTreinoExercicio.class);
                 intent.setClass(TelaTreinoGrupo.this, TabPrincipalTreinoPorGrupo.class);
                 intent.putExtra("idTreino", retornarInfoTreino(position, 0));
-                intent.putExtra("nmGrupo", grupoMuscular.getNome());
+                intent.putExtra("nmGrupo", grupo); //grupoMuscular.getNome()
                 intent.putExtra("nmTreino", retornarInfoTreino(position, 1));
                 startActivity(intent); // chama a próxima tela
                 finish();
@@ -139,7 +152,10 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
     {
         List<EntidadeDominio> listEntDom;
         treino = new Treino();
-        treino.setIdGrupo(Integer.parseInt(grupoMuscular.getID()));
+        if(grupo.equals("all"))
+            treino.setFgTreinando(1);
+        else
+            treino.setIdGrupo(Integer.parseInt(grupoMuscular.getID()));
         //List<Treino> lTreino = new LinkedList<Treino>();
         //lTreino = treino.converteEntidadeEmClasse(treino.operar(this,true, Controler.DF_CONSULTAR,treino), Treino.class);
         treino.setListaCodigosObjParaBusca(listaCodigosObj);

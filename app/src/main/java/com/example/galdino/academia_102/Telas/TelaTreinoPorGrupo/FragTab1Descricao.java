@@ -57,7 +57,8 @@ public class FragTab1Descricao extends Fragment implements View.OnClickListener 
             indiceFoto = getContext().getResources().getIdentifier(treino.getDsNomeFoto(), "drawable", getContext().getPackageName());
         if(indiceFoto > 0) // debugar quando der merda para ver como fazer o if
             imgTreino.setImageResource(indiceFoto);
-
+        else
+            llFoto.setVisibility(View.GONE);
         String dsObjTreino = Treino.getDescricaoObjetivo(treino.getIndTipoTreino());
 
         String dsNivel = Treino.getDescricaoNivel(treino.getIndNivel());

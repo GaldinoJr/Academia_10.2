@@ -34,4 +34,18 @@
         android:src="@drawable/ic_done_black"
         />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fBtnFicha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="@dimen/fab_margin"
+        android:tint="@color/corActionBarPretoEscuro"
+        android:backgroundTint="@color/corDetalhesAmarelos"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        android:src="@drawable/ic_ficha_treino"
+        />
+
 </android.support.design.widget.CoordinatorLayout>
