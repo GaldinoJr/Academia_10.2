@@ -9,11 +9,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.galdino.academia_102.BaseAdapter.ListaTreinosBaseAdapter;
+import com.example.galdino.academia_102.BaseAdapter.ListaTreinosBaseAdapterCLS;
 import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Core.Impl.Controle.Session;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
@@ -27,10 +29,15 @@ import java.util.List;
 
 public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickListener
 {
-    private int i;
+    // Variáveis do layout
     private Button btnAddTreino,
                     btnFiltroTreino;
     private EditText txtNomeTreino;
+    private ImageView imgGrupo;
+    private RelativeLayout rlAddTreino;
+    private View Divisor1;
+    // Variáveis
+    private int i;
     private ListView listTreinos;
     private List<EntidadeDominio> listEntDomTreinos;
     private Treino treino;
@@ -43,8 +50,6 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
     private List<String> listaCodigosObj;
     private List<String> listaCodigosNivel;
     private Session session;
-    private RelativeLayout rlAddTreino;
-    private View Divisor1;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -61,6 +66,7 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         listTreinos = (ListView)findViewById(R.id.listTreinos);
         rlAddTreino = (RelativeLayout)findViewById(R.id.rlAddTreino);
         Divisor1 = (View)findViewById(R.id.Divisor1);
+        imgGrupo = (ImageView)findViewById(R.id.imgGrupo);
         // Add o listenner nos botões
         btnAddTreino.setOnClickListener(this);
         btnFiltroTreino.setOnClickListener(this);
@@ -191,7 +197,13 @@ public class TelaTreinoGrupo extends AppCompatActivity implements View.OnClickLi
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, vetSTreino);
         listTreinos.setAdapter(adapter);
         ArrayList<Treino> image_details2 = results;
-        lvTreinos.setAdapter(new ListaTreinosBaseAdapter(this, image_details2,listEntDom));
+        ListaTreinosBaseAdapterCLS cls = new ListaTreinosBaseAdapterCLS();
+        cls.setContext(this);
+        cls.setAlTreinos(image_details2);
+        cls.setListEntDomTreinos(listEntDom);
+        if(grupo.equals("all"))
+            cls.setFgTelaMeusTreinos(true);
+        lvTreinos.setAdapter(new ListaTreinosBaseAdapter(cls));
     }
     @Override
     public void onClick(View view) {

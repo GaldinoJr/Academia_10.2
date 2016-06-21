@@ -12,31 +12,16 @@
     android:background="@color/corListaPretoClaro"
     >
 
-    <!--<View-->
-        <!--android:id="@+id/Divisor1"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="2dip"-->
-        <!--android:layout_above="@+id/Divisor2"-->
-        <!--android:layout_marginBottom="40dp"-->
-        <!--android:background="@color/corTextoBranco"-->
-        <!--android:visibility="invisible" />-->
-
-    <!--<View-->
-        <!--android:id="@+id/Divisor2"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="2dip"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:background="@color/corTextoBranco"-->
-        <!--android:visibility="invisible"/>-->
-
-    <!--<View-->
-        <!--android:id="@+id/Divisor3"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="2dip"-->
-        <!--android:layout_below="@+id/Divisor2"-->
-        <!--android:layout_marginTop="40dp"-->
-        <!--android:background="@color/corTextoBranco"-->
-        <!--android:visibility="invisible"/>-->
+    <ImageView
+        android:id="@+id/imgGrupo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_peito_lista_sm"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/txtNomeTreino"
@@ -47,7 +32,56 @@
         android:textColor="@color/corTextoBranco"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/imgGrupo"
+        />
+
+    <ImageView
+        android:id="@+id/icObj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_obj_2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@+id/imgGrupo"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/txtObj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textColor="@color/corTextoBranco"
+        android:layout_alignTop="@+id/icObj"
+        android:layout_toRightOf="@+id/icObj"
+        android:layout_marginLeft="10dp"
+        />
+
+    <ImageView
+        android:id="@+id/ic_nivel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_level_1"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/txtObj"
+        android:layout_alignTop="@+id/txtObj"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/txtNivel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textColor="@color/corTextoBranco"
+        android:layout_alignTop="@+id/ic_nivel"
+        android:layout_toRightOf="@+id/ic_nivel"
+        android:layout_marginLeft="10dp"
+        />
 
     <ImageView
         android:id="@+id/imgMarkTreino"

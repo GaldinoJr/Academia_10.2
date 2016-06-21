@@ -260,8 +260,13 @@ public class SQLtreino extends AbsSQL{
 			if(t.getIndSexo() != 3)
 			clausula += " AND " + Col_ind_sexo + "= '" + t.getIndSexo() + "'";
 		//Col_fg_treinando
-		if (t.getFgTreinando() != null)
-				clausula += " AND " + Col_fg_treinando + "= '" + t.getFgTreinando() + "'";
+		if (t.getFgTreinando() != null) {
+			clausula += " AND " + Col_fg_treinando + "= '" + t.getFgTreinando() + "'";
+			// ORDER BY
+			if(t.getFgTreinando() == 1)
+				clausula += " ORDER BY " + Col_cd_grupo;
+		}
+
 		return clausula;
 	}
 	private String montarClausulaComList(List<String> lista)

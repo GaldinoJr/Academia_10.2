@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.galdino.academia_102.BaseAdapter.ListaTreinosBaseAdapter;
+import com.example.galdino.academia_102.BaseAdapter.ListaTreinosBaseAdapterCLS;
 import com.example.galdino.academia_102.Controler.Controler;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Treino;
@@ -115,7 +116,11 @@ public class TelaPrincipalTreino extends AppCompatActivity implements View.OnCli
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, vetSTreino);
         listTreinos.setAdapter(adapter);
         ArrayList<Treino> image_details2 = results;
-        lvTreinos.setAdapter(new ListaTreinosBaseAdapter(this, image_details2,listEntDom));
+        ListaTreinosBaseAdapterCLS cls = new ListaTreinosBaseAdapterCLS();
+        cls.setContext(this);
+        cls.setAlTreinos(image_details2);
+        cls.setListEntDomTreinos(listEntDom);
+        lvTreinos.setAdapter(new ListaTreinosBaseAdapter(cls));
     }
     @Override
     public void onClick(View view) {
