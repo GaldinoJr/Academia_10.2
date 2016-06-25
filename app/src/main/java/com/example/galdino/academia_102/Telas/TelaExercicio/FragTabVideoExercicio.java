@@ -1,5 +1,7 @@
 package com.example.galdino.academia_102.Telas.TelaExercicio;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,88 +13,106 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
+import com.example.galdino.academia_102.Dominio.Documento;
 import com.example.galdino.academia_102.R;
 
 /**
  * Created by Galdino on 14/05/2016.
  */
-public class FragTabVideoExercicio extends Fragment implements View.OnClickListener {
+public class FragTabVideoExercicio extends Fragment {
+    // Tela
     private WebView wvVideoExercicio;
-    private FloatingActionButton fBtnPlayPause;
-    private static boolean fgPlay;
-
+    private TextView txtNomeExe,
+            txtDescricao;
+    // Variáveis
+    private String
+            nmExercicio,
+            descricao;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.tab_exercicio_3_video,container,false);
         wvVideoExercicio = (WebView)v.findViewById(R.id.wvVideoExercicio);
-        fBtnPlayPause = (FloatingActionButton)v.findViewById(R.id.fBtnPlayPause);
-        fBtnPlayPause.setOnClickListener(this);
+        txtNomeExe = (TextView)v.findViewById(R.id.txtDescriExe);
+        txtDescricao =(TextView)v.findViewById(R.id.txtDescricao);
+        //
+        carregarDados();
 
-        wvVideoExercicio.setWebViewClient(new WebViewClient());
-        wvVideoExercicio.getSettings().setJavaScriptEnabled(true);
-        wvVideoExercicio.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        wvVideoExercicio.getSettings().setPluginState(WebSettings.PluginState.ON);
-        wvVideoExercicio.setWebChromeClient(new WebChromeClient());
-        wvVideoExercicio.loadUrl("https://www.youtube.com/watch?v=6qSwM1xM5xc");
-        fgPlay = true;
-        // CENTRALIZA A ANIMAÇÃO
-        //wvVideoExercicio.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
-//        <iframe width=\"640\" height=\"360\"
-//          src=\"https://www.youtube.com/embed/4m72jsC_5Ro\" frameborder=\"0\" allowfullscreen>
-//         </iframe>
-//        wvVideoExercicio.loadDataWithBaseURL("",
-//                "<iframe width=\"640\" height=\"360\"\n" +
-//                        "src=\"https://www.youtube.com/watch?v=4m72jsC_5Ro\n" +
-//                        "</iframe>", "text/html", "utf-8", "");
-        return v;
+        //
+// Video no youtube
+//        wvVideoExercicio.setWebViewClient(new WebViewClient());
+//        wvVideoExercicio.getSettings().setJavaScriptEnabled(true);
+//        wvVideoExercicio.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+//        wvVideoExercicio.getSettings().setPluginState(WebSettings.PluginState.ON);
+//        wvVideoExercicio.setWebChromeClient(new WebChromeClient());
+//        wvVideoExercicio.loadUrl("https://www.youtube.com/watch?v=6qSwM1xM5xc");
+       //
+// Minha tentativa
+//        String frameVideo = "<html>\n"+
+//                "<body>\n" +
+//                    "<table width=\"100%\" height=\"100%\">\n"+
+//                    "   <tr>\n" +
+//                    "            <td align=\"center\" valign=\"center\">\n" +
+//                    "               <iframe src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+//                    "            </td>\n" +
+//                    "        </tr>\n" +
+//                    "</table>\n" +
+//                "</body>\n" +
+//                "</html>\n";
+        // Tentativa do Lucas
+//        String frameVideo =
+//                "<html>" +
+//                    "<body>" +
+//                        "<div style=\"width:100%; height: 40%; margin-top:20%;\">"+
+//                            "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>" +
+//                        "</div>" +
+//                    "</body>" +
+//                "</html>";
+
+//
+        String frameVideo =
+                "<html>" +
+                        "<body>" +
+                        "<iframe width=\"320\" height=\"220\" src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>" +
+                        "</body>" +
+                        "</html>";
+        wvVideoExercicio.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return false;
+            }
+        });
+        WebSettings webSettings = wvVideoExercicio.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setPluginState(WebSettings.PluginState.ON);
+        wvVideoExercicio.setWebChromeClient(new WebChromeClient() {});
+        wvVideoExercicio.loadData(frameVideo, "text/html", "utf-8");
+//        wvVideoExercicio.loadUrl("javascript:testEcho('Hello World!')");
+
+            return v;
     }
-
-    @Override
-    public void onResume()
+    private void carregarDados()
     {
-        super.onResume();
-        wvVideoExercicio.onResume();
-    }
+        String aux, nmGrupo, nmGifExercicio;
+        Intent dados = getActivity().getIntent();
+        // Recebe os dados
+        nmExercicio = dados.getStringExtra("nmExercicio");
+        nmGrupo = dados.getStringExtra("nmGrupo");
+        nmGifExercicio = dados.getStringExtra("nmGifExercicio");
+        //
+        txtNomeExe.setText(nmExercicio);
+        //
 
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-        wvVideoExercicio.onPause();
-    }
+        Documento documento = new Documento(getContext());
 
-    private void controleVideo()
-    {
-        int indiceFoto;
-        String nmFoto ;
-        //holder.itemImage.setImageResource(indiceFoto);
-        if(!fgPlay)
-        {
-            nmFoto = "ic_pause_video_preto";
-            onResume();
-            //wvVideoExercicio.setPluginState(WebSettings.PluginState.ON);
-            wvVideoExercicio.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-            wvVideoExercicio.getSettings().setJavaScriptEnabled(true);
-            onResume();
-        }
+        aux = documento.carregarArquivoTxt(nmGrupo, nmGifExercicio, "Descr");
+        descricao = txtDescricao.getText().toString() + " ";
+        if(aux != null)
+            descricao += aux;
         else
-        {
-            nmFoto = "ic_play_video_google";
-            onPause();
-        }
-
-        indiceFoto = getContext().getResources().getIdentifier(nmFoto, "drawable", getContext().getPackageName());
-        fBtnPlayPause.setImageResource(indiceFoto);
-        fgPlay = !fgPlay;
-    }
-
-    @Override
-    public void onClick(View view)
-    {
-        if(view == fBtnPlayPause)
-        {
-            controleVideo();
-        }
+            descricao += "Sem informações";
+        //
+        txtDescricao.setText(descricao);
     }
 }
