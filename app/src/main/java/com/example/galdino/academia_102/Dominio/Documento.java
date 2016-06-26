@@ -25,10 +25,10 @@ public class Documento {
 		return texto;
 	}
 
-	public String carregarArquivoTxt(String nomeSubPasta, String nmArquivo, String nomePasta, String iniciar)
+	public String carregarArquivoTxt(String caminho, String nmArquivo)
 	{
 		String nomeArquivo, texto;
-		nomeArquivo = "DocumentosTxt/" + nomePasta + "/" + nomeSubPasta + "/txt" + nmArquivo + ".txt";
+		nomeArquivo = "DocumentosTxt/" + caminho + "/" + nmArquivo;
 		texto = lerArquivo(context, nomeArquivo);
 		return texto;
 	}

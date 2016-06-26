@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.galdino.academia_102.Controler.Controler;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -90,23 +91,31 @@ public class IniciarBancoExercicios2 {
 
     private void gravarTreinos(Context context)
     {
-        GrupoMuscular grupoMuscular = new GrupoMuscular();
-        List<EntidadeDominio> lEntDom = grupoMuscular.operar(context,true,Controler.DF_CONSULTAR,grupoMuscular);
-        for(EntidadeDominio entDom : lEntDom )
-        {
+//        GrupoMuscular grupoMuscular = new GrupoMuscular();
+//        List<EntidadeDominio> lEntDom = grupoMuscular.operar(context,true,Controler.DF_CONSULTAR,grupoMuscular);
+//        for(EntidadeDominio entDom : lEntDom )
+//        {
             //*******************************************************************************************************
             //mudar conforme add treino, sempre colocar o indice do grupo com maior número de execícios
             //*******************************************************************************************************
-            GrupoMuscular g = (GrupoMuscular)entDom;
-            String nomeGrupo = g.getNome();
-            for(int i = 0; i < 5; i++)
+        String[] listaTreino = null;
+        try {
+            listaTreino = context.getResources().getAssets().list("DocumentosTxt/Treinos");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(listaTreino != null)
+        {
+            GrupoMuscular g = new GrupoMuscular();
+            String nomeGrupo = null;
+            for(int i = 0; i < listaTreino.length; i++)
             {
-                int indice = i+1;
-                String doc = "Treino" + indice;
+                //
+                int indice = i + 1;
+                String doc = listaTreino[i];
                 Documento documento = new Documento(context);
-                String exerciciosJuntos = documento.carregarArquivoTxt(nomeGrupo, doc, "Treinos","sim");
-                if (exerciciosJuntos != null)
-                {
+                String exerciciosJuntos = documento.carregarArquivoTxt("Treinos", doc);
+                if (exerciciosJuntos != null) {
                     Treino treino = new Treino();
                     String[] treinoCarga = exerciciosJuntos.split("&");
                     // Primeiro pega o nome
@@ -114,38 +123,51 @@ public class IniciarBancoExercicios2 {
                     treino.setNome(nomeTreino);
                     // Tipo
                     String tipoTreino = treinoCarga[2];
-                    if(tipoTreino != null || tipoTreino != "")
+                    if (tipoTreino != null || tipoTreino != "")
                         treino.setIndTipoTreino(Integer.parseInt(tipoTreino));
                     // Nível
                     String nivelTreino = treinoCarga[3];
-                    if(nivelTreino != null || nivelTreino != "")
+                    if (nivelTreino != null || nivelTreino != "")
                         treino.setIndNivel(Integer.parseInt(nivelTreino));
                     // Descrição
                     String descricao = treinoCarga[4];
                     treino.setDescricao(descricao);
                     // Sexo
                     String sexo = treinoCarga[5];
-                    if(sexo != null || sexo != "")
-                        treino.setIndSexo(
-                                Integer.parseInt(sexo));
+                    if (sexo != null || sexo != "")
+                        treino.setIndSexo(Integer.parseInt(sexo));
+                    // Grupo muscular
+                    String idGrupo = treinoCarga[6];
+                    if(idGrupo != g.getID())
+                    {
+                        g.setID(idGrupo);
+                        List<EntidadeDominio> lEntDom = grupoMuscular.operar(context, true, Controler.DF_CONSULTAR, g);
+                        if(lEntDom != null)
+                        {
+                            g = (GrupoMuscular) lEntDom.get(0);
+                            nomeGrupo = g.getNome();
+                        }
+                    }
+                    treino.setIdGrupo(Integer.parseInt(g.getID()));
+                    // Nome do professor
+                    String nomeProfessor = treinoCarga[7];
+                    // CREF do professor
+                    String crefProfessor = treinoCarga[8];
                     // Exercícios
-                    String exercicios = treinoCarga[6];
-                    String[] exerciciosSeparados = exercicios.split("@");
+                    String exercicios = treinoCarga[9];
                     // Caminho da foto
                     String nmFoto = null;
                     nmFoto = "foto_" + g.getNome() + "_" + nomeTreino;
                     nmFoto = nmFoto.toLowerCase();
                     nmFoto = nmFoto.replace(" ", "_");
                     treino.setDsNomeFoto(nmFoto);
-
-                    treino.setIdGrupo(Integer.parseInt(g.getID()));
                     treino.setFgCarga(1); // Indica que o treino veio através de carga.
-                    List<EntidadeDominio> lauxTreino = treino.operar(context,true,Controler.DF_SALVAR,treino);
-                    treino = (Treino)lauxTreino.get(0);
-                    if(treino.getID()!= null)
+                    List<EntidadeDominio> lauxTreino = treino.operar(context, true, Controler.DF_SALVAR, treino);
+                    treino = (Treino) lauxTreino.get(0);
+                    if (treino.getID() != null)
                     {
-                        for (int j = 0; j < (exerciciosSeparados.length - 1); j++)
-                        {
+                        String[] exerciciosSeparados = exercicios.split("@");
+                        for (int j = 0; j < (exerciciosSeparados.length - 1); j++) {
                             Exercicio exercicio = new Exercicio();
                             String[] repeticoes = exerciciosSeparados[j].split(";");
                             String nomeExe = repeticoes[0];
@@ -158,9 +180,8 @@ public class IniciarBancoExercicios2 {
                                 te.setIdExercicio(Integer.parseInt(exercicio.getID()));
                                 te.setIdTreino(Integer.parseInt(treino.getID()));
                                 laux = te.operar(context, true, Controler.DF_SALVAR, te);
-                                if (laux != null)
-                                {
-                                    te = (TreinoExercicio)laux.get(0);
+                                if (laux != null) {
+                                    te = (TreinoExercicio) laux.get(0);
                                     for (int k = 1; k < repeticoes.length; k++) {
                                         TreinoExercicioRepeticao treinoExercicioRepeticao = new TreinoExercicioRepeticao();
                                         treinoExercicioRepeticao.setNrRepeticoes(Integer.parseInt(repeticoes[k]));
@@ -172,8 +193,10 @@ public class IniciarBancoExercicios2 {
                         }
                     }
                 }
-            } // End for Exercicios
-        } // End For grupos
+            }
+        }
+            //} // End for Exercicios
+        //} // End For grupos
 
 //            primario = txtPrimario.getText().toString();
 //            secundario = documento.carregarArquivoTxt(grupo, nome, "Sec");
