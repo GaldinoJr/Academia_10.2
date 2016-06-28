@@ -1,6 +1,7 @@
 package com.example.galdino.academia_102.Telas.TelaExercicio;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -36,9 +37,9 @@ public class FragTabVideoExercicio extends Fragment {
         wvVideoExercicio = (WebView)v.findViewById(R.id.wvVideoExercicio);
         txtNomeExe = (TextView)v.findViewById(R.id.txtDescriExe);
         txtDescricao =(TextView)v.findViewById(R.id.txtDescricao);
-        //
+        // TRAVAR
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         carregarDados();
-
         //
 // Video no youtube
 //        wvVideoExercicio.setWebViewClient(new WebViewClient());
@@ -49,34 +50,34 @@ public class FragTabVideoExercicio extends Fragment {
 //        wvVideoExercicio.loadUrl("https://www.youtube.com/watch?v=6qSwM1xM5xc");
        //
 // Minha tentativa
-//        String frameVideo = "<html>\n"+
-//                "<body>\n" +
-//                    "<table width=\"100%\" height=\"100%\">\n"+
-//                    "   <tr>\n" +
-//                    "            <td align=\"center\" valign=\"center\">\n" +
-//                    "               <iframe src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>\n" +
-//                    "            </td>\n" +
-//                    "        </tr>\n" +
-//                    "</table>\n" +
-//                "</body>\n" +
-//                "</html>\n";
+        String frameVideo = "<html>\n"+
+                "<body>\n" +
+                    "<table width=\"100%;\" height=\"100%;\">\n"+
+                    "   <tr>\n" +
+                    "            <td align=\"center\" valign=\"center\">\n" +
+                    "               <iframe width=\"100%;\" height=\"125%;\" src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+                    "            </td>\n" +
+                    "        </tr>\n" +
+                    "</table>\n" +
+                "</body>\n" +
+                "</html>\n";
         // Tentativa do Lucas
 //        String frameVideo =
 //                "<html>" +
 //                    "<body>" +
-//                        "<div style=\"width:100%; height: 40%; margin-top:20%;\">"+
-//                            "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>" +
+//                        "<div style=\"width=100%; height=40%; margin-top:20%;\">"+
+//                            "<iframe width=\"100%;\" height=\"100%;\" src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>" +
 //                        "</div>" +
 //                    "</body>" +
 //                "</html>";
 
 //
-        String frameVideo =
-                "<html>" +
-                        "<body>" +
-                        "<iframe width=\"320\" height=\"220\" src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>" +
-                        "</body>" +
-                        "</html>";
+//        String frameVideo =
+//                "<html>" +
+//                        "<body>" +
+//                        "<iframe width=\"320\" height=\"220\" src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>" +
+//                        "</body>" +
+//                        "</html>";
         wvVideoExercicio.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
