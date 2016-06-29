@@ -16,6 +16,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import com.example.galdino.academia_102.Core.Impl.Controle.Session;
 import com.example.galdino.academia_102.Dominio.Documento;
 import com.example.galdino.academia_102.R;
 
@@ -31,15 +32,22 @@ public class FragTabVideoExercicio extends Fragment {
     private String
             nmExercicio,
             descricao;
+    private View v;
+    private boolean fgSegundaVez;
+    private Session session;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.tab_exercicio_3_video,container,false);
-        wvVideoExercicio = (WebView)v.findViewById(R.id.wvVideoExercicio);
-        txtNomeExe = (TextView)v.findViewById(R.id.txtDescriExe);
-        txtDescricao =(TextView)v.findViewById(R.id.txtDescricao);
-        // TRAVAR
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        carregarDados();
+        if(!fgSegundaVez) {
+            v = inflater.inflate(R.layout.tab_exercicio_3_video, container, false);
+            wvVideoExercicio = (WebView) v.findViewById(R.id.wvVideoExercicio);
+            txtNomeExe = (TextView) v.findViewById(R.id.txtDescriExe);
+            txtDescricao = (TextView) v.findViewById(R.id.txtDescricao);
+            // TRAVAR
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            carregarDados();
+            if(this.isVisible())
+                session.setView(v);
+        }
         //
 // Video no youtube
 //        wvVideoExercicio.setWebViewClient(new WebViewClient());
@@ -50,17 +58,6 @@ public class FragTabVideoExercicio extends Fragment {
 //        wvVideoExercicio.loadUrl("https://www.youtube.com/watch?v=6qSwM1xM5xc");
        //
 // Minha tentativa
-        String frameVideo = "<html>\n"+
-                "<body>\n" +
-                    "<table width=\"100%;\" height=\"100%;\">\n"+
-                    "   <tr>\n" +
-                    "            <td align=\"center\" valign=\"center\">\n" +
-                    "               <iframe width=\"100%;\" height=\"125%;\" src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>\n" +
-                    "            </td>\n" +
-                    "        </tr>\n" +
-                    "</table>\n" +
-                "</body>\n" +
-                "</html>\n";
         // Tentativa do Lucas
 //        String frameVideo =
 //                "<html>" +
@@ -78,17 +75,7 @@ public class FragTabVideoExercicio extends Fragment {
 //                        "<iframe width=\"320\" height=\"220\" src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>" +
 //                        "</body>" +
 //                        "</html>";
-        wvVideoExercicio.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return false;
-            }
-        });
-        WebSettings webSettings = wvVideoExercicio.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setPluginState(WebSettings.PluginState.ON);
-        wvVideoExercicio.setWebChromeClient(new WebChromeClient() {});
-        wvVideoExercicio.loadData(frameVideo, "text/html", "utf-8");
+
 //        wvVideoExercicio.loadUrl("javascript:testEcho('Hello World!')");
 
             return v;
@@ -115,5 +102,76 @@ public class FragTabVideoExercicio extends Fragment {
             descricao += "Sem informações";
         //
         txtDescricao.setText(descricao);
+    }
+
+    // PARA PAUSAR O VÍDEO APÓS MUDAR DE TAB
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser)
+    {
+        super.setUserVisibleHint(isVisibleToUser);
+        // Make sure that we are currently visible
+        if (this.isVisible())
+        {
+            // If we are becoming invisible, then...
+            if (!isVisibleToUser)
+            {
+                onPause();
+            }
+            else
+            {
+                session = Session.getInstance();
+                if(session.isFgPlayVideo())
+                {
+                    onResume();
+                    v = session.getView();
+                }
+                else
+                {
+                    session.setFgPlayVideo(true);
+                    abrirVideo();
+                    fgSegundaVez = true;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        wvVideoExercicio.onResume();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        wvVideoExercicio.onPause();
+    }
+
+    private void abrirVideo()
+    {
+        String frameVideo = "<html>\n"+
+                "<body>\n" +
+                "<table width=\"100%;\" height=\"100%;\">\n"+
+                "   <tr>\n" +
+                "            <td align=\"center\" valign=\"center\">\n" +
+                "               <iframe width=\"100%;\" height=\"125%;\" src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "</table>\n" +
+                "</body>\n" +
+                "</html>\n";
+        wvVideoExercicio.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return false;
+            }
+        });
+        WebSettings webSettings = wvVideoExercicio.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setPluginState(WebSettings.PluginState.ON);
+        wvVideoExercicio.setWebChromeClient(new WebChromeClient() {});
+        wvVideoExercicio.loadData(frameVideo, "text/html", "utf-8");
     }
 }

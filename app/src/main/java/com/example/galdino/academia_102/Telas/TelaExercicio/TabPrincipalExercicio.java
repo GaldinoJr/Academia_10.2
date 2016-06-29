@@ -9,11 +9,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import com.example.galdino.academia_102.Core.Impl.Controle.Session;
 import com.example.galdino.academia_102.Dominio.EntidadeDominio;
 import com.example.galdino.academia_102.Dominio.Exercicio;
 import com.example.galdino.academia_102.R;
 import com.example.galdino.academia_102.SlidingTab.SlidingTabLayout;
 import com.example.galdino.academia_102.SlidingTab.ViewPagerAdapterPadrao;
+import com.example.galdino.academia_102.Telas.TelaSideMenu;
 
 public class TabPrincipalExercicio  extends ActionBarActivity {
 
@@ -81,5 +83,14 @@ public class TabPrincipalExercicio  extends ActionBarActivity {
         });
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
+    }
+    public void onBackPressed() // voltar?
+    {
+        Session session = Session.getInstance();
+        session.setFgPlayVideo(false);
+        Intent intent = new Intent();
+        intent.setClass(TabPrincipalExercicio.this, TelaSideMenu.class);
+        startActivity(intent); // chama a próxima tela
+        finish(); // Encerra a tela atual
     }
 }

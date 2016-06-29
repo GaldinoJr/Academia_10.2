@@ -2,6 +2,7 @@ package com.example.galdino.academia_102.Core.Impl.Controle;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 
 import com.example.galdino.academia_102.Dominio.Treino;
 
@@ -12,7 +13,8 @@ import java.util.ArrayList;
  * Created by Galdino on 29/08/2015.
  */
 //http://pt.stackoverflow.com/questions/54588/como-criar-manter-variavel-global-em-java-para-login
-public class Session {
+public class Session
+{
     // padrão design pattern: singleton.
     private static Session session;
     private static Context context; //Para dizer na FACHADA se á uma requisição interna ou externa
@@ -23,6 +25,8 @@ public class Session {
     //
     private static Treino treino;
     private boolean fgFiltrado;
+    private boolean fgPlayVideo;
+    private View view;
 
     // Construtor privado (suprime o construtor público padrão).
     private Session() {}
@@ -60,7 +64,13 @@ public class Session {
         return treino;
 
     }
-//
+    public boolean isFgPlayVideo() {
+        return fgPlayVideo;
+    }
+    public View getView() {
+        return view;
+    }
+    //
 //    public Intent getServico() {
 //        return servico;
 //    }
@@ -86,7 +96,13 @@ public class Session {
     public void setContext(Context context) {
         this.context = context;
     }
-//    public void setServico(Intent servico) {
+    public void setFgPlayVideo(boolean fgPlayVideo) {
+        this.fgPlayVideo = fgPlayVideo;
+    }
+    public void setView(View view) {
+        this.view = view;
+    }
+    //    public void setServico(Intent servico) {
 //        this.servico = servico;
 //    }
 //
