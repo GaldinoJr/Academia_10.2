@@ -49,6 +49,10 @@ public class TelaSideMenu extends ActionBarActivity implements ViewAnimator.View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_side_menu);
+        Intent dados = getIntent();
+        String nmGrupo = dados.getStringExtra("nmGrupo");
+        if(nmGrupo != null)
+            res = nmGrupo;
         contentFragment = ContentFragment.newInstance(res);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, contentFragment)

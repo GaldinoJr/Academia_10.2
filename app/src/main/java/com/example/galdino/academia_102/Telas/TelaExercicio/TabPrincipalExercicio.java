@@ -46,13 +46,13 @@ public class TabPrincipalExercicio  extends ActionBarActivity {
     };
 
     // Variáveis da tela
+    private String nmGrupo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slide_tab_padrao);
         Intent dados = getIntent();
-        // para mandar na aba 1
-
+        nmGrupo = dados.getStringExtra("nmGrupo");
         // Creating The Toolbar and setting it as the Toolbar for the activity
         TextView txtTituloToolbarPadrao = (TextView)findViewById(R.id.txtTituloToolbarPadrao);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -89,6 +89,7 @@ public class TabPrincipalExercicio  extends ActionBarActivity {
         Session session = Session.getInstance();
         session.setFgPlayVideo(false);
         Intent intent = new Intent();
+        intent.putExtra("nmGrupo", nmGrupo);
         intent.setClass(TabPrincipalExercicio.this, TelaSideMenu.class);
         startActivity(intent); // chama a próxima tela
         finish(); // Encerra a tela atual

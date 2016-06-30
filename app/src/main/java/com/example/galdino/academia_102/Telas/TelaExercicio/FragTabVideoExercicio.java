@@ -37,7 +37,9 @@ public class FragTabVideoExercicio extends Fragment {
     private Session session;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(!fgSegundaVez) {
+        session = Session.getInstance();
+        if(!fgSegundaVez)
+        {
             v = inflater.inflate(R.layout.tab_exercicio_3_video, container, false);
             wvVideoExercicio = (WebView) v.findViewById(R.id.wvVideoExercicio);
             txtNomeExe = (TextView) v.findViewById(R.id.txtDescriExe);
@@ -45,8 +47,7 @@ public class FragTabVideoExercicio extends Fragment {
             // TRAVAR
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             carregarDados();
-            if(this.isVisible())
-                session.setView(v);
+            session.setView(v);
         }
         //
 // Video no youtube
@@ -56,29 +57,7 @@ public class FragTabVideoExercicio extends Fragment {
 //        wvVideoExercicio.getSettings().setPluginState(WebSettings.PluginState.ON);
 //        wvVideoExercicio.setWebChromeClient(new WebChromeClient());
 //        wvVideoExercicio.loadUrl("https://www.youtube.com/watch?v=6qSwM1xM5xc");
-       //
-// Minha tentativa
-        // Tentativa do Lucas
-//        String frameVideo =
-//                "<html>" +
-//                    "<body>" +
-//                        "<div style=\"width=100%; height=40%; margin-top:20%;\">"+
-//                            "<iframe width=\"100%;\" height=\"100%;\" src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>" +
-//                        "</div>" +
-//                    "</body>" +
-//                "</html>";
-
-//
-//        String frameVideo =
-//                "<html>" +
-//                        "<body>" +
-//                        "<iframe width=\"320\" height=\"220\" src=\"https://www.youtube.com/embed/6qSwM1xM5xc\" frameborder=\"0\" allowfullscreen></iframe>" +
-//                        "</body>" +
-//                        "</html>";
-
-//        wvVideoExercicio.loadUrl("javascript:testEcho('Hello World!')");
-
-            return v;
+        return  session.getView();
     }
     private void carregarDados()
     {
@@ -119,7 +98,6 @@ public class FragTabVideoExercicio extends Fragment {
             }
             else
             {
-                session = Session.getInstance();
                 if(session.isFgPlayVideo())
                 {
                     onResume();
