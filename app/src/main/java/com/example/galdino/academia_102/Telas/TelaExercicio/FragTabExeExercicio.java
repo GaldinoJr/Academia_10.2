@@ -36,7 +36,7 @@ public class FragTabExeExercicio extends Fragment
         // Era pra ser automatico
         //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         // Trava
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // Associa os objetos
         txtNomeExe = (TextView)v.findViewById(R.id.txtDescriExe);
         txtDescricao =(TextView)v.findViewById(R.id.txtDescricao);

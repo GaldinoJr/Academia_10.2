@@ -44,6 +44,13 @@
                         android:layout_marginTop="4dp"
                         android:layout_marginRight="4dp"
                         android:layout_marginBottom="4dp">
+                        <ProgressBar
+                            android:id="@+id/pgCarregarVideo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:visibility="gone"/>
                         <WebView
                             android:id="@+id/wvVideoExercicio"
                             android:layout_width="wrap_content"
@@ -100,6 +107,7 @@
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/llDescricao"
@@ -146,6 +154,32 @@
                         android:layout_marginBottom="5dp"
                         android:layout_below="@id/ic_descricao"
                         />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:id="@+id/llFull"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:background="@color/corActionBarPretoEscuro"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                >
+                    <ImageButton
+                        android:id="@+id/btnFullScreen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/corActionBarPretoEscuro"
+                        android:src="@drawable/ic_full_screen_teste"
+                    />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

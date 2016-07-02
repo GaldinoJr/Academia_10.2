@@ -28,7 +28,7 @@ public class FragTabMusculoExercicio extends Fragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.tab_exercicio_2_musculos,container,false);
         //
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //
         txtPrimario =(TextView)v.findViewById(R.id.txtPrimario2);
         txtSecundario = (TextView)v.findViewById(R.id.txtSecundario);

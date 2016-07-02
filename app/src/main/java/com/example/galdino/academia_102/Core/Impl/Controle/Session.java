@@ -2,6 +2,7 @@ package com.example.galdino.academia_102.Core.Impl.Controle;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import com.example.galdino.academia_102.Dominio.Treino;
@@ -27,6 +28,7 @@ public class Session
     private boolean fgFiltrado;
     private boolean fgPlayVideo;
     private View view;
+    private Bundle bundleVideo;
 
     // Construtor privado (suprime o construtor público padrão).
     private Session() {}
@@ -70,6 +72,9 @@ public class Session
     public View getView() {
         return view;
     }
+    public Bundle getBundleVideo() {
+        return bundleVideo;
+    }
     //
 //    public Intent getServico() {
 //        return servico;
@@ -101,6 +106,9 @@ public class Session
     }
     public void setView(View view) {
         this.view = view;
+    }
+    public void setBundleVideo(Bundle bundleVideo) {
+        this.bundleVideo = bundleVideo;
     }
     //    public void setServico(Intent servico) {
 //        this.servico = servico;
