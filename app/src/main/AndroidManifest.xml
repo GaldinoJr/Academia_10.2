@@ -76,8 +76,14 @@
             android:label="@string/title_activity_tab_principal_treino_por_grupo"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <activity android:name=".Telas.TelaExercicio.FragTabVideoFullScreen"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".Telas.TelaExercicio.FragTabVideoFullScreen"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".Telas.Teste"
+            android:label="@string/title_activity_teste"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

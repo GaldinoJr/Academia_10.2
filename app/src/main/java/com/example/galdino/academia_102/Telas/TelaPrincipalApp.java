@@ -139,12 +139,12 @@ public class TelaPrincipalApp extends AppCompatActivity implements View.OnClickL
 ////                        (this,android.R.layout.simple_dropdown_item_1line, Arquivos);
 //               // SpnListarArquivos.setAdapter(arrayAdapter);
 //            }
-//            Intent intent = new Intent();
-//            intent.setClass(TelaPrincipalApp.this, MainActivity.class);
-//            //intent.setClass(TelaPrincipalApp.this, TelaPrincipalExercicio.class);
-//            //intent.putExtra("exe", "");
-//            startActivity(intent); // chama a próxima tela
-//            finish(); // Encerra a tela atual
+            Intent intent = new Intent();
+            intent.setClass(TelaPrincipalApp.this, Teste.class);
+            //intent.setClass(TelaPrincipalApp.this, TelaPrincipalExercicio.class);
+            //intent.putExtra("exe", "");
+            startActivity(intent); // chama a próxima tela
+            finish(); // Encerra a tela atual
         }
         if(view == btnTelaFicha)
         { // chama a tela principal de fichas
