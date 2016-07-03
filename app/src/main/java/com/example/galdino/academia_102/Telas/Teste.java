@@ -18,6 +18,7 @@ public class Teste extends YouTubeBaseActivity implements YouTubePlayer.OnInitia
     public static final String API_KEY = "AIzaSyCb_Dk2wvS3BoWYWkr26F4EuUH4r0JEXug";
     //http://youtu.be/<VIDEO_ID>
     public static final String VIDEO_ID = "6qSwM1xM5xc";
+    int teste =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +55,12 @@ public class Teste extends YouTubeBaseActivity implements YouTubePlayer.OnInitia
 
         @Override
         public void onPaused() {
+            teste = 1;
         }
 
         @Override
         public void onPlaying() {
+            teste = 2;
         }
 
         @Override
@@ -66,6 +69,7 @@ public class Teste extends YouTubeBaseActivity implements YouTubePlayer.OnInitia
 
         @Override
         public void onStopped() {
+            teste = 3;
         }
 
     };
@@ -78,6 +82,7 @@ public class Teste extends YouTubeBaseActivity implements YouTubePlayer.OnInitia
 
         @Override
         public void onError(ErrorReason arg0) {
+            teste = 4;
         }
 
         @Override
@@ -90,10 +95,13 @@ public class Teste extends YouTubeBaseActivity implements YouTubePlayer.OnInitia
 
         @Override
         public void onVideoEnded() {
+            teste = 5;
         }
 
         @Override
-        public void onVideoStarted() {
+        public void onVideoStarted()
+        {
+            teste = 6;
         }
     };
 }
