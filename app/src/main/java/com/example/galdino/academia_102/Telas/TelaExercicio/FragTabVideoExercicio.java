@@ -4,64 +4,65 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.galdino.academia_102.Core.Impl.Controle.Session;
 import com.example.galdino.academia_102.Dominio.Documento;
 import com.example.galdino.academia_102.R;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
 /**
  * Created by Galdino on 14/05/2016.
  */
-public class FragTabVideoExercicio extends Fragment implements YouTubePlayer.OnInitializedListener {
+public class FragTabVideoExercicio extends Fragment {
     // Tela
     //private WebView wvVideoExercicio;
     private TextView txtNomeExe,
             txtDescricao;
     //private YouTubePlayerView youTubePlayerView;
-    private YouTubePlayerSupportFragment youTubePlayerView;
+    private YouTubePlayerSupportFragment youTubePlayerFragment;
 
     // Variáveis
     private String
             nmExercicio,
             descricao;
     private View v;
+    private Session session;
     //private Session session;
     public static final String API_KEY = "AIzaSyCb_Dk2wvS3BoWYWkr26F4EuUH4r0JEXug";
 
     //http://youtu.be/<VIDEO_ID>
     public static final String VIDEO_ID = "6qSwM1xM5xc";
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
+        session = Session.getInstance();
+        if(!session.isFgPlayVideo())
+        {
             v = inflater.inflate(R.layout.tab_exercicio_3_video, container, false);
-
+            session.setView(v);
             txtNomeExe = (TextView) v.findViewById(R.id.txtDescriExe);
             txtDescricao = (TextView) v.findViewById(R.id.txtDescricao);
-            //youTubePlayerView = (YouTubePlayerView) v.findViewById(R.id.youtube_player);
-            youTubePlayerView = (YouTubePlayerSupportFragment) getActivity().getSupportFragmentManager()
-                .findFragmentById(R.id.youtube_player);
-            youTubePlayerView.initialize(API_KEY, (YouTubePlayer.OnInitializedListener) getContext());
 
+            youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
+
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.add(R.id.youtube_layout, youTubePlayerFragment).commit();
             // TRAVAR
             //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            carregarDados();
-
-        //
-// Video no youtube
-//        wvVideoExercicio.setWebViewClient(new WebViewClient());
-//        wvVideoExercicio.getSettings().setJavaScriptEnabled(true);
-//        wvVideoExercicio.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-//        wvVideoExercicio.getSettings().setPluginState(WebSettings.PluginState.ON);
-//        wvVideoExercicio.setWebChromeClient(new WebChromeClient());
-//        wvVideoExercicio.loadUrl("https://www.youtube.com/watch?v=6qSwM1xM5xc");
-        //return  session.getView();
-        return v;
+            //if(this.isVisible())
+                carregarDados();
+        }
+        return session.getView();
     }
     private void carregarDados()
     {
@@ -88,52 +89,85 @@ public class FragTabVideoExercicio extends Fragment implements YouTubePlayer.OnI
     }
 
     // PARA PAUSAR O VÍDEO APÓS MUDAR DE TAB
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser)
-//    {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        // Make sure that we are currently visible
-//        if (this.isVisible())
-//        {
-//            // If we are becoming invisible, then...
-//            if (!isVisibleToUser)
-//            {
-//                onPause();
-//            }
-//            else
-//            {
-//                if(session.isFgPlayVideo())
-//                {
-//                    onResume();
-//                }
-//                else
-//                {
-//                    abrirVideo();x    
-//                }
-//            }
-//        }
-//    }
-//    private void abrirVideo()
-//    {
-//        session.setFgPlayVideo(true);
-//    }
-
     @Override
-    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult result) {
-        Toast.makeText(getContext(), "Failured to Initialize!", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
-        /** add listeners to YouTubePlayer instance **/
-        player.setPlayerStateChangeListener(playerStateChangeListener);
-        player.setPlaybackEventListener(playbackEventListener);
-
-        /** Start buffering **/
-        if (!wasRestored) {
-            player.cueVideo(VIDEO_ID);
+    public void setUserVisibleHint(boolean isVisibleToUser)
+    {
+        super.setUserVisibleHint(isVisibleToUser);
+        // Make sure that we are currently visible
+        if (this.isVisible())
+        {
+            // If we are becoming invisible, then...
+            if (!isVisibleToUser)
+            {
+                onPause();
+            }
+            else
+            {
+                if(session.isFgPlayVideo())
+                {
+                    onResume();
+                }
+                else
+                {
+                    abrirVideo();
+                }
+            }
         }
     }
+    private void abrirVideo()
+    {
+        session.setFgPlayVideo(true);
+        youTubePlayerFragment.initialize(API_KEY, new YouTubePlayer.OnInitializedListener() {
+
+            @Override
+            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
+                if (!wasRestored) {
+                    player.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
+                    player.loadVideo(VIDEO_ID);
+                    player.play();
+                }
+            }
+
+            // YouTubeプレーヤーの初期化失敗
+            @Override
+            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult error) {
+                // YouTube error
+                String errorMessage = error.toString();
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_LONG).show();
+                Log.d("errorMessage:", errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void onResume()
+    {
+        v = session.getView();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+    }
+
+//    @Override
+//    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult result) {
+//        Toast.makeText(getContext(), "Failured to Initialize!", Toast.LENGTH_LONG).show();
+//    }
+
+//    @Override
+//    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
+//        /** add listeners to YouTubePlayer instance **/
+//        player.setPlayerStateChangeListener(playerStateChangeListener);
+//        player.setPlaybackEventListener(playbackEventListener);
+//
+//        /** Start buffering **/
+//        if (!wasRestored) {
+//            player.cueVideo(VIDEO_ID);
+//        }
+//    }
 
     private YouTubePlayer.PlaybackEventListener playbackEventListener = new YouTubePlayer.PlaybackEventListener() {
 
